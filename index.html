@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BH Recuperadora | Início - Soluções em Peças e Serviços</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Meu CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- SEO Meta Tags -->
+<meta name="description" content="BH Recuperadora - Especialistas em recuperação de peças, serviços de torno, solda, venda de parafusos em Sinop - MT">
+<meta name="keywords" content="Serviços de Torno, solda elétrica, solda alumínio, recuperação de máquinas pesadas, venda de parafusos, Sinop MT">
+<meta name="author" content="BH Recuperadora">
+<meta name="robots" content="index, follow">
+
+<!-- Carregar sistema de tags -->
+<script src="tags-seo.js"></script>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo-area">
+            <div class="logo-simbolo">
+                <img src="imagens/icones-bh-05.png" alt="Logo" onerror="this.style.display='none'">
+            </div>
+            <div class="logo-texto">
+                <h1>BH RECUPERADORA</h1>
+                <p>SOLUÇÕES RAPIDAS EM PEÇAS E SERVIÇOS</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="#" class="btn-contato" id="orcamentoNavBtn">Orçamento</a>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- CARROSSEL DE SERVIÇOS EM DESTAQUE -->
+<section class="section-carrossel-servicos-topo">
+    <div class="container">
+        <div class="swiper servicosSwiper">
+            <div class="swiper-wrapper" id="servicosCarouselWrapper">
+                <div class="swiper-slide">
+                    <div class="servicos-swiper-img" style="text-align:center; padding:50px;">
+                        <div class="spinner"></div>
+                        <p>Carregando serviços...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Carrossel de Produtos em Destaque -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Produtos em Destaque</h2>
+        <p class="section-sub">Os mais vendidos da nossa loja</p>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="carouselWrapper">
+                <div class="swiper-slide">
+                    <div class="carousel-img" style="text-align:center; padding:50px;">
+                        <p>Carregando produtos...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <div style="text-align: center;">
+            <a href="produtos.html" class="btn-produtos">Ver todos os produtos</a>
+        </div>
+    </div>
+</section>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h2>Recuperação <span>inteligente</span> e venda de parafusos</h2>
+            <p>Mais de 7 anos entregando soluções rapidas em manuteção e recuperação</p>
+            <div class="hero-stats">
+                <div class="stat-item"><span class="stat-number">+1.200</span><span>Clientes</span></div>
+                <div class="stat-item"><span class="stat-number">24h</span><span>Resposta</span></div>
+                <div class="stat-item"><span class="stat-number">98%</span><span>Satisfação</span></div>
+            </div>
+        </div>
+        <div class="hero-logo">
+            <div class="display-logo">
+                <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH Recuperadora">
+            </div>
+            <p style="margin-top:15px;"><i class="fas fa-certificate"></i> Excelencia e compromisso</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <div style="background:white; width:42px; height:42px; border-radius:10px; padding:4px;">
+                        <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH" style="width:100%; height:100%; object-fit:contain;">
+                    </div>
+                    <strong style="color:white;">BH RECUPERADORA</strong>
+                </div>
+                <p>Soluções rapidas em peças e serviços.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul style="list-style: none;">
+                    <li><i class="fas fa-phone-alt"></i> (66) 99901-9605</li>
+                    <li><i class="fas fa-phone-alt"></i> (66) 99995-8701</li>
+                    <li><i class="fas fa-envelope"></i> bhrecuperadora@hotmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Rua Dirson José Martini, 827, Sinop - MT</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
+            <!-- Botão Admin DISCRETO no rodapé -->
+            <div style="margin-top: 15px; text-align: center;">
+                <a href="admin.html" style="color: #4a627a; text-decoration: none; font-size: 11px; opacity: 0.5; transition: opacity 0.3s;" 
+                   onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+                    <i class="fas fa-lock"></i> Admin
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Carrinho Sidebar -->
+<div class="overlay" id="overlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3><i class="fas fa-shopping-cart"></i> Meu Carrinho</h3>
+        <i class="fas fa-times" id="closeCart" style="cursor:pointer; font-size:1.5rem;"></i>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p style="text-align:center; color:#999;">Seu carrinho esta vazio</p>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div>
+        <button class="btn-cart-send" id="sendCartBtn">
+            <i class="fab fa-whatsapp"></i> Solicitar Orçamento
+        </button>
+        <button class="btn-cart-print" id="printCartBtn">
+            <i class="fas fa-print"></i> Imprimir Orçamento
+        </button>
+    </div>
+</div>
+
+<!-- Botão Flutuante WhatsApp -->
+<a class="whatsapp-float" id="whatsappFloatBtn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Fale conosco no WhatsApp!</span>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
+
+<!-- MODAL/GALERIA DE SERVIÇOS -->
+<div class="modal-servicos" id="modalServicos">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Serviço</h2>
+            <span class="modal-fechar">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-descricao" id="modalDescricao"></div>
+            <div class="galeria-fotos" id="galeriaFotos"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

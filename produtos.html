@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BH Recuperadora | Produtos - Parafusos SXT</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Meu CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo-area">
+            <div class="logo-simbolo">
+                <img src="imagens/icones-bh-05.png" alt="Logo" onerror="this.style.display='none'">
+            </div>
+            <div class="logo-texto">
+                <h1>BH RECUPERADORA</h1>
+                <p>SOLUÇÕES RAPIDAS EM PEÇAS E SERVIÇOS</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="produtos.html" class="active">Produtos</a>
+            <a href="#" class="btn-contato" id="orcamentoNavBtn">Orçamento</a>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Página de Produtos -->
+<section class="section products-section">
+    <div class="container">
+        <h2 class="section-title">Todos os Parafusos SXT</h2>
+        <p class="section-sub">Escolha a quantidade e adicione ao carrinho</p>
+        
+        <!-- Filtros de preço -->
+        <div class="filtros-container">
+            <div class="filtros-botoes">
+                <button class="btn-filtro btn-filtro-ativo" id="filtrarTodos" onclick="resetarFiltro()">
+                    <i class="fas fa-list"></i> Todos
+                </button>
+                <button class="btn-filtro" id="filtrarMenorPreco" onclick="ordenarMenorPreco()">
+                    <i class="fas fa-arrow-up"></i> Menor Preço
+                </button>
+                <button class="btn-filtro" id="filtrarMaiorPreco" onclick="ordenarMaiorPreco()">
+                    <i class="fas fa-arrow-down"></i> Maior Preço
+                </button>
+            </div>
+            <div class="filtros-info">
+                <span id="totalProdutos">0</span> produtos encontrados
+            </div>
+        </div>
+        
+        <div class="products-grid" id="productsContainer">
+            <div style="text-align:center; padding:50px;">
+                <div class="spinner"></div>
+                <p>Carregando produtos...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <div style="background:white; width:42px; height:42px; border-radius:10px; padding:4px;">
+                        <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH" style="width:100%; height:100%; object-fit:contain;">
+                    </div>
+                    <strong style="color:white;">BH RECUPERADORA</strong>
+                </div>
+                <p>Soluções rapidas em peças e serviços.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul style="list-style: none;">
+                    <li><i class="fas fa-phone-alt"></i> (66) 99901-9605</li>
+                    <li><i class="fas fa-envelope"></i> torneariabh@hotmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Sinop - MT</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
+            <!-- Botão Admin DISCRETO no rodapé -->
+            <div style="margin-top: 15px; text-align: center;">
+                <a href="admin.html" style="color: #4a627a; text-decoration: none; font-size: 11px; opacity: 0.5; transition: opacity 0.3s;" 
+                   onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+                    <i class="fas fa-lock"></i> Admin
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Carrinho Sidebar -->
+<div class="overlay" id="overlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3><i class="fas fa-shopping-cart"></i> Meu Carrinho</h3>
+        <i class="fas fa-times" id="closeCart" style="cursor:pointer; font-size:1.5rem;"></i>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p style="text-align:center; color:#999;">Seu carrinho esta vazio</p>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div>
+        <button class="btn-cart-send" id="sendCartBtn">
+            <i class="fab fa-whatsapp"></i> Solicitar Orçamento
+        </button>
+        <button class="btn-cart-print" id="printCartBtn">
+            <i class="fas fa-print"></i> Imprimir Orçamento
+        </button>
+    </div>
+</div>
+
+<!-- Botão Flutuante WhatsApp -->
+<a class="whatsapp-float" id="whatsappFloatBtn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Fale conosco no WhatsApp!</span>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

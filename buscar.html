@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar - BH Recuperadora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="header">
+    <div class="container header-content">
+        <div class="logo-area">
+            <div class="logo-simbolo">
+                <img src="imagens/icones-bh-05.png" alt="Logo BH Recuperadora">
+            </div>
+            <div class="logo-texto">
+                <h1>BH RECUPERADORA</h1>
+                <p>SOLUÇÕES RÁPIDAS EM PEÇAS E SERVIÇOS</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="#" class="btn-contato" id="orcamentoNavBtn">Orçamento</a>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="search-header">
+    <div class="container">
+        <div class="search-box">
+            <h2><i class="fas fa-search"></i> Buscar produtos ou serviços</h2>
+            <input type="text" id="searchInput" placeholder="Ex: torno, solda, parafuso 08x30..." onkeyup="buscarProdutos()">
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div id="searchResults" class="search-results">
+            <div style="text-align: center; padding: 50px;"><div class="spinner"></div><p>Carregando...</p></div>
+        </div>
+        <div id="tagsCloud" class="tags-cloud"></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <strong style="color:white;">BH RECUPERADORA</strong>
+                <p>Soluções rápidas em peças e serviços.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul style="list-style: none;">
+                    <li><i class="fas fa-phone-alt"></i> (66) 99901-9605</li>
+                    <li><i class="fas fa-envelope"></i> bhrecuperadora@hotmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Sinop - MT</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="tags-seo.js"></script>
+<script>
+let todosProdutos = [];
+
+async function carregarProdutos() {
+    try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/6a073187adc21f119aa52743/latest`, {
+            headers: { 'X-Master-Key': '$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky' }
+        });
+        const data = await response.json();
+        todosProdutos = data.record?.produtos || [];
+        buscarProdutos();
+        gerarNuvemTags();
+    } catch(error) {
+        document.getElementById('searchResults').innerHTML = '<div class="no-results">Erro ao carregar produtos</div>';
+    }
+}
+
+function buscarProdutos() {
+    const termo = document.getElementById('searchInput').value.toLowerCase().trim();
+    let resultados = todosProdutos;
+    
+    if (termo) {
+        resultados = todosProdutos.filter(produto => {
+            if (produto.nome.toLowerCase().includes(termo)) return true;
+            if (produto.descricao && produto.descricao.toLowerCase().includes(termo)) return true;
+            const tags = gerarTagsProduto(produto.nome, produto.descricao);
+            if (tags.some(tag => tag.toLowerCase().includes(termo))) return true;
+            return false;
+        });
+    }
+    
+    mostrarResultados(resultados, termo);
+}
+
+function mostrarResultados(resultados, termo) {
+    const container = document.getElementById('searchResults');
+    
+    if (resultados.length === 0) {
+        container.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>Nenhum produto encontrado</h3><p>Tente: torno, solda, parafuso 08x30</p><a href="produtos.html" class="btn-produtos">Ver todos</a></div>`;
+        return;
+    }
+    
+    let html = `<p><i class="fas fa-chart-line"></i> ${resultados.length} resultado(s) encontrado(s)</p><div class="products-grid">`;
+    resultados.forEach(produto => {
+        const tags = gerarTagsProduto(produto.nome, produto.descricao);
+        html += `
+            <div class="product-card">
+                <div class="product-img"><img src="${produto.imagem || 'imagens/parafuso.jpg'}" alt="${produto.nome}"></div>
+                <div class="product-info">
+                    <h3>${produto.nome}</h3>
+                    <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+                    <div class="tags">${tags.slice(0, 3).map(tag => `<span class="tag">#${tag}</span>`).join('')}</div>
+                    <button class="btn-add-cart" onclick="addToCart('${produto.nome.replace(/'/g, "\\'")}', ${produto.preco})"><i class="fas fa-cart-plus"></i> Adicionar</button>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function gerarNuvemTags() {
+    const todasTags = new Set();
+    todosProdutos.forEach(produto => {
+        gerarTagsProduto(produto.nome, produto.descricao).forEach(tag => todasTags.add(tag));
+    });
+    SEO_CONFIG.keywords.forEach(tag => todasTags.add(tag));
+    
+    let html = '<h4><i class="fas fa-tags"></i> Tags populares:</h4><div class="tags-list">';
+    Array.from(todasTags).slice(0, 30).forEach(tag => {
+        html += `<a href="#" onclick="buscarPorTagClick('${tag.replace(/'/g, "\\'")}'); return false;" class="tag-item"><i class="fas fa-hashtag"></i> ${tag}</a>`;
+    });
+    html += '</div>';
+    document.getElementById('tagsCloud').innerHTML = html;
+}
+
+function buscarPorTagClick(tag) {
+    document.getElementById('searchInput').value = tag;
+    buscarProdutos();
+    document.getElementById('searchInput').scrollIntoView({ behavior: 'smooth' });
+}
+
+carregarProdutos();
+</script>
+</body>
+</html>
