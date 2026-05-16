@@ -33,7 +33,7 @@ const servicosImagensPadrao = [
     {
         imagem: "imagens/servico-torno.jpg",
         titulo: "Serviço de Torno",
-        descricao: "Usinagem de precisão e peças sob medida"
+        descricao: "Usinagem de precisão e Fabricação de peças sob medida"
     },
     {
         imagem: "imagens/servico-solda.jpg",
@@ -43,7 +43,7 @@ const servicosImagensPadrao = [
     {
         imagem: "imagens/servico-manutencao.jpg",
         titulo: "Manutenção Industrial",
-        descricao: "Reparo em máquinas / peças pesadas"
+        descricao: "Reparo em máquinas Pesadas e Serrarias"
     },
     {
         imagem: "imagens/servico-corte-plasma.jpg",
@@ -57,8 +57,8 @@ const servicosImagensPadrao = [
     },
     {
         imagem: "imagens/servico-postos-molas.jpg",
-        titulo: "Atendimento a Postos de Molas",
-        descricao: "Manutenção e reparo especializado para postos de molas"
+        titulo: "Serviços de Postos de Molas",
+        descricao: "Manutenção e reparo especializado para Caminhões, truck, toco e 3/4"
     }
 ];
 
