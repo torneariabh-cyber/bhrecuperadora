@@ -3,48 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>BH Recuperadora | Torno, Solda, Caminhões e Maquinas Pesadas</title>
+    <title>BH Recuperadora | Torno, Solda, Caminhões e Máquinas Pesadas</title>
     
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <!-- Meu CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home-new.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    
     <!-- SEO Meta Tags -->
-<meta name="description" content="BH Recuperadora - Especialistas em recuperação de peças, serviços de torno, solda, venda de parafusos em Sinop - MT">
-<meta name="keywords" content="Serviços de Torno, solda elétrica, solda alumínio, recuperação de máquinas pesadas, venda de parafusos, Sinop MT">
-<meta name="author" content="BH Recuperadora">
-<meta name="robots" content="index, follow">
-
-<!-- Carregar sistema de tags -->
-<script src="tags-seo.js"></script>
+    <meta name="description" content="BH Recuperadora - Especialistas em recuperação de peças, serviços de torno, solda, venda de parafusos em Sinop - MT">
+    <meta name="keywords" content="Serviços de Torno, solda elétrica, solda alumínio, recuperação de máquinas pesadas, venda de parafusos, Sinop MT">
+    <meta name="author" content="BH Recuperadora">
+    <meta name="robots" content="index, follow">
 </head>
 <body>
 
-<header class="header">
+<!-- HEADER MODERNO -->
+<header class="header header-modern">
     <div class="container header-content">
         <div class="logo-area">
-            <div class="logo-simbolo">
-                <img src="imagens/icones-bh-05.png" alt="Logo" onerror="this.style.display='none'">
+            <div class="logo-simbolo logo-glow">
+                <img src="imagens/icones-bh-05.png" alt="Logo">
             </div>
             <div class="logo-texto">
                 <h1>BH RECUPERADORA</h1>
-                <p>SOLUÇÕES RAPIDAS EM PEÇAS E SERVIÇOS</p>
+                <p>SOLUÇÕES RÁPIDAS EM PEÇAS E SERVIÇOS</p>
             </div>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="active">Inicio</a>
+            <a href="index.html" class="active">Início</a>
             <a href="produtos.html">Produtos</a>
             <a href="#" class="btn-contato" id="orcamentoNavBtn">Orçamento</a>
             <div class="cart-icon" id="cartIcon">
@@ -55,100 +58,221 @@
     </div>
 </header>
 
-<!-- CARROSSEL DE SERVIÇOS EM DESTAQUE -->
-<section class="section-carrossel-servicos-topo">
-    <div class="container">
-        <div class="swiper servicosSwiper">
-            <div class="swiper-wrapper" id="servicosCarouselWrapper">
-                <div class="swiper-slide">
-                    <div class="servicos-swiper-img" style="text-align:center; padding:50px;">
-                        <div class="spinner"></div>
-                        <p>Carregando serviços...</p>
-                    </div>
-                </div>
+<!-- HERO SECTION COM FUNDO PARALLAX -->
+<section class="hero-modern">
+    <div class="hero-overlay"></div>
+    <div class="hero-bg-video">
+        <!-- Imagem de fundo estática (caso não tenha vídeo) -->
+        <div class="hero-bg-image" style="background-image: url('imagens/fundo-oficina.jpg');"></div>
+    </div>
+    
+    <div class="container hero-modern-content">
+        <div class="hero-modern-text" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-badge">
+                <span><i class="fas fa-certificate"></i> 7+ ANOS DE EXPERIÊNCIA</span>
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <h1 class="hero-modern-title">
+                SOLUÇÕES RÁPIDAS<br>
+                <span class="hero-highlight">Torno, Solda, Caminhões e Máquinas Pesadas!</span>
+            </h1>
+            <p class="hero-modern-subtitle">
+                Peças e serviços com qualidade para manter sua máquina sempre em movimento.
+            </p>
+            <div class="hero-buttons">
+                <a href="produtos.html" class="btn-hero-primary">
+                    <i class="fas fa-shopping-cart"></i> VER PRODUTOS
+                </a>
+                <a href="#" class="btn-hero-secondary" id="heroOrcamentoBtn">
+                    <i class="fab fa-whatsapp"></i> SIMULAR ORÇAMENTO
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-modern-logo" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+            <div class="hero-logo-glass">
+                <div class="hero-logo-blur-bg"></div>
+                <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH Recuperadora" class="hero-logo-img">
+                <div class="hero-logo-glow"></div>
+            </div>
+            <div class="hero-certificate">
+                <i class="fas fa-medal"></i> Excelência e compromisso
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-scroll-indicator">
+        <span>Role para explorar</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- DIFERENCIAIS / BENEFÍCIOS -->
+<section class="diferenciais">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            
+            <h2 class="section-title-modern">Soluções Que movem o Seu Negocio! <span class="highlight">BH Recuperadora</span></h2>
+        </div>
+        
+        <div class="diferenciais-grid">
+            <div class="diferencial-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="diferencial-icon"><i class="fas fa-microchip"></i></div>
+                <h3>Peças de Qualidade</h3>
+                <p>Materiais selecionados e garantia de durabilidade para sua máquina.</p>
+            </div>
+            <div class="diferencial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="diferencial-icon"><i class="fas fa-tools"></i></div>
+                <h3>Serviços Especializados</h3>
+                <p>Equipe técnica qualificada para atender sua necessidade com excelência.</p>
+            </div>
+            <div class="diferencial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="diferencial-icon"><i class="fas fa-clock"></i></div>
+                <h3>Atendimento Rápido</h3>
+                <p>Agilidade no diagnóstico e solução para não parar sua operação.</p>
+            </div>
+            <div class="diferencial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="diferencial-icon"><i class="fas fa-truck"></i></div>
+                <h3>Frete Grátis</h3>
+                <p>Para toda região de Sinop e municípios vizinhos.</p>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Carrossel de Produtos em Destaque -->
-<section class="section">
+<!-- NOSSOS SERVIÇOS (CARROSSEL ESTILIZADO) -->
+<section class="servicos-section">
     <div class="container">
-        <h2 class="section-title">Produtos em Destaque</h2>
-        <p class="section-sub">Os mais vendidos da nossa loja</p>
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper" id="carouselWrapper">
-                <div class="swiper-slide">
-                    <div class="carousel-img" style="text-align:center; padding:50px;">
-                        <p>Carregando produtos...</p>
+        <div class="section-header" data-aos="fade-up">
+
+            <h2 class="section-title-modern">SERVIÇOS <span class="highlight">DESTAQUES</span></h2>
+        </div>
+        
+        <div class="servicos-carousel-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper servicosSwiperModern">
+                <div class="swiper-wrapper" id="servicosCarouselWrapper">
+                    <div class="swiper-slide">
+                        <div class="servicos-card-placeholder">
+                            <div class="spinner"></div>
+                            <p>Carregando serviços...</p>
+                        </div>
                     </div>
                 </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        <div style="text-align: center;">
-            <a href="produtos.html" class="btn-produtos">Ver todos os produtos</a>
         </div>
     </div>
 </section>
 
-<!-- Hero -->
-<section class="hero">
-    <div class="container hero-grid">
-        <div class="hero-text">
-            <h2>Recuperação <span>inteligente</span> e venda de parafusos</h2>
-            <p>Mais de 7 anos entregando soluções rapidas em manuteção e recuperação</p>
-            <div class="hero-stats">
-                <div class="stat-item"><span class="stat-number">+1.200</span><span>Clientes</span></div>
-                <div class="stat-item"><span class="stat-number">24h</span><span>Resposta</span></div>
-                <div class="stat-item"><span class="stat-number">100%</span><span>Satisfação</span></div>
+<!-- PRODUTOS EM DESTAQUE -->
+<section class="produtos-destaque">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          
+            <h2 class="section-title-modern">PRODUTOS <span class="highlight">DESTAQUES</span></h2>
+            <p class="section-sub-modern">Os mais vendidos da nossa loja, com qualidade garantida</p>
+        </div>
+        
+        <div class="produtos-carousel-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper produtosSwiperModern">
+                <div class="swiper-wrapper" id="carouselWrapper">
+                    <div class="swiper-slide">
+                        <div class="produtos-card-placeholder">
+                            <div class="spinner"></div>
+                            <p>Carregando produtos...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
-        <div class="hero-logo">
-            <div class="display-logo">
-                <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH Recuperadora">
+        
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+            <a href="produtos.html" class="btn-produtos-modern">
+                Ver todos os produtos <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- NÚMEROS / ESTATÍSTICAS -->
+<section class="stats-section parallax-stats">
+    <div class="stats-overlay"></div>
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item-modern" data-aos="zoom-in" data-aos-delay="0">
+                <div class="stat-number-modern" data-count="1200">0</div>
+                <div class="stat-label">Clientes atendidos</div>
             </div>
-            <p style="margin-top:15px;"><i class="fas fa-certificate"></i> Excelencia e compromisso</p>
+            <div class="stat-item-modern" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-number-modern" data-count="24">0</div>
+                <div class="stat-label">Horas de resposta</div>
+            </div>
+            <div class="stat-item-modern" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-number-modern" data-count="100">0</div>
+                <div class="stat-label">% de satisfação</div>
+            </div>
+            <div class="stat-item-modern" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-number-modern" data-count="7">0</div>
+                <div class="stat-label">Anos de mercado</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Precisa de um orçamento rápido?</h2>
+            <p>Entre em contato conosco e receba um atendimento personalizado</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-whatsapp" id="ctaWhatsappBtn">
+                    <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+                </a>
+                <a href="produtos.html" class="cta-products">
+                    Ver produtos <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer footer-modern">
     <div class="container">
         <div class="footer-content">
             <div class="footer-col">
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <div style="background:white; width:42px; height:42px; border-radius:10px; padding:4px;">
-                        <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH" style="width:100%; height:100%; object-fit:contain;">
-                    </div>
-                    <strong style="color:white;">BH RECUPERADORA</strong>
+                <div class="footer-logo">
+                    <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH">
+                    <strong>BH RECUPERADORA</strong>
                 </div>
-                <p>Soluções rapidas em peças e serviços.</p>
+                <p>Soluções rápidas em peças e serviços para sua operação.</p>
             </div>
             <div class="footer-col">
                 <h4>Contato</h4>
-                <ul style="list-style: none;">
+                <ul>
                     <li><i class="fas fa-phone-alt"></i> (66) 99901-9605</li>
                     <li><i class="fas fa-phone-alt"></i> (66) 99995-8701</li>
                     <li><i class="fas fa-envelope"></i> bhrecuperadora@hotmail.com</li>
                     <li><i class="fas fa-map-marker-alt"></i> Rua Dirson José Martini, 827, Sinop - MT</li>
                 </ul>
             </div>
+            <div class="footer-col">
+                <h4>Horário de Funcionamento</h4>
+                <ul>
+                    <li><i class="far fa-clock"></i> Segunda a Sexta: 8h às 18h</li>
+                    <li><i class="far fa-clock"></i> Sábado: 8h às 12h</li>
+                </ul>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
-            <!-- Botão Admin DISCRETO no rodapé -->
-            <div style="margin-top: 15px; text-align: center;">
-                <a href="admin.html" style="color: #4a627a; text-decoration: none; font-size: 11px; opacity: 0.5; transition: opacity 0.3s;" 
-                   onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
-                    <i class="fas fa-lock"></i> Admin
-                </a>
+            <div class="footer-links">
+                <a href="admin.html">Admin</a>
             </div>
         </div>
     </div>
@@ -162,7 +286,7 @@
         <i class="fas fa-times" id="closeCart" style="cursor:pointer; font-size:1.5rem;"></i>
     </div>
     <div class="cart-items" id="cartItems">
-        <p style="text-align:center; color:#999;">Seu carrinho esta vazio</p>
+        <p style="text-align:center; color:#999;">Seu carrinho está vazio</p>
     </div>
     <div class="cart-footer">
         <div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div>
@@ -181,9 +305,6 @@
     <span class="whatsapp-tooltip">Fale conosco no WhatsApp!</span>
 </a>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="js/script.js"></script>
-
 <!-- MODAL/GALERIA DE SERVIÇOS -->
 <div class="modal-servicos" id="modalServicos">
     <div class="modal-content">
@@ -197,5 +318,65 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+    // Inicializar AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+    
+    // Animação de contadores
+    function animateCounter(element, target) {
+        let current = 0;
+        const increment = target / 50;
+        const interval = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target;
+                if (target === 1200) element.textContent = '+1.200';
+                else if (target === 24) element.textContent = '24h';
+                else if (target === 100) element.textContent = '100%';
+                else element.textContent = '+' + target;
+                clearInterval(interval);
+            } else {
+                if (target === 1200) element.textContent = '+' + Math.floor(current);
+                else if (target === 24) element.textContent = Math.floor(current) + 'h';
+                else if (target === 100) element.textContent = Math.floor(current) + '%';
+                else element.textContent = '+' + Math.floor(current);
+            }
+        }, 30);
+    }
+    
+    // Iniciar contadores quando entrar na viewport
+    const observerOptions = { threshold: 0.3, rootMargin: '0px' };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counters = document.querySelectorAll('.stat-number-modern');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    if (counter.textContent === '0') {
+                        animateCounter(counter, target);
+                    }
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) observer.observe(statsSection);
+    
+    // Scroll suave para indicador
+    document.querySelector('.hero-scroll-indicator')?.addEventListener('click', () => {
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    });
+</script>
 </body>
 </html>
