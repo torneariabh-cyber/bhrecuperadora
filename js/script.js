@@ -23,17 +23,13 @@ const servicosPadrao = [
 // ==================== FUNÇÃO PARA PEGAR PRODUTOS ALEATÓRIOS ====================
 function getRandomProducts(produtosList, quantidade = 6) {
     if (!produtosList || produtosList.length === 0) return [];
-    
-    if (produtosList.length <= quantidade) {
-        return [...produtosList];
-    }
+    if (produtosList.length <= quantidade) return [...produtosList];
     
     const shuffled = [...produtosList];
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    
     return shuffled.slice(0, quantidade);
 }
 
@@ -57,20 +53,16 @@ async function carregarDadosJSONBin() {
             produtos = [];
         }
         
-        // 🔥 CORREÇÃO: Carregar serviços preservando os padrão
+        // Carregar serviços preservando os padrão
         const servicosSalvos = dados.servicos || [];
-        
-        // Começar com os serviços padrão
         servicos = [...servicosPadrao];
-        
-        // Adicionar serviços personalizados
         for (const serv of servicosSalvos) {
             if (!serv.isPadrao) {
                 servicos.push(serv);
             }
         }
         
-        console.log(`✅ Carregados ${servicos.length} serviços (${servicosPadrao.length} padrão + ${servicos.length - servicosPadrao.length} personalizados)`);
+        console.log(`✅ Carregados ${servicos.length} serviços`);
         
         // Construir galeriaServicos
         for (const servico of servicos) {
@@ -84,7 +76,6 @@ async function carregarDadosJSONBin() {
         return true;
     } catch(error) {
         console.error('❌ Erro ao carregar:', error);
-        // Fallback para serviços padrão
         servicos = [...servicosPadrao];
         produtos = [];
         renderizarTudo();
@@ -96,7 +87,79 @@ function renderizarTudo() {
     if(document.getElementById('productsContainer')) renderAllProducts();
     if(document.getElementById('carouselWrapper')) renderCarousel();
     if(document.getElementById('servicosCarouselWrapper')) renderServicosCarousel();
-    if(document.getElementById('totalProdutos')) document.getElementById('totalProdutos').textContent = produtos.length;
+    atualizarContadorProdutos(); // 🔥 ADICIONADO: atualiza o contador
+}
+
+// 🔥 NOVA FUNÇÃO: Atualiza o contador de produtos na tela
+function atualizarContadorProdutos() {
+    const totalSpan = document.getElementById('totalProdutos');
+    if (totalSpan) {
+        totalSpan.textContent = produtos.length;
+    }
+}
+
+// ==================== FUNÇÕES DE FILTRO (CORRIGIDAS) ====================
+let filtroAtual = 'todos';
+
+function ordenarMenorPreco() {
+    console.log('🔄 Ordenando por MENOR preço');
+    filtroAtual = 'menorPreco';
+    const produtosOrdenados = [...produtos].sort((a, b) => a.preco - b.preco);
+    renderAllProducts(produtosOrdenados);
+    atualizarBotaoFiltro('menorPreco');
+}
+
+function ordenarMaiorPreco() {
+    console.log('🔄 Ordenando por MAIOR preço');
+    filtroAtual = 'maiorPreco';
+    const produtosOrdenados = [...produtos].sort((a, b) => b.preco - a.preco);
+    renderAllProducts(produtosOrdenados);
+    atualizarBotaoFiltro('maiorPreco');
+}
+
+function resetarFiltro() {
+    console.log('🔄 Resetando filtro - Mostrando TODOS produtos');
+    filtroAtual = 'todos';
+    renderAllProducts(produtos);
+    atualizarBotaoFiltro('todos');
+}
+
+function atualizarBotaoFiltro(filtro) {
+    const btnMenorPreco = document.getElementById('filtrarMenorPreco');
+    const btnMaiorPreco = document.getElementById('filtrarMaiorPreco');
+    const btnTodos = document.getElementById('filtrarTodos');
+    
+    // Resetar todos os botões
+    if (btnMenorPreco) {
+        btnMenorPreco.classList.remove('btn-filtro-ativo');
+        btnMenorPreco.style.background = '#f4f7fc';
+        btnMenorPreco.style.color = '#1e2a3e';
+    }
+    if (btnMaiorPreco) {
+        btnMaiorPreco.classList.remove('btn-filtro-ativo');
+        btnMaiorPreco.style.background = '#f4f7fc';
+        btnMaiorPreco.style.color = '#1e2a3e';
+    }
+    if (btnTodos) {
+        btnTodos.classList.remove('btn-filtro-ativo');
+        btnTodos.style.background = '#f4f7fc';
+        btnTodos.style.color = '#1e2a3e';
+    }
+    
+    // Ativar botão correspondente
+    if (filtro === 'menorPreco' && btnMenorPreco) {
+        btnMenorPreco.classList.add('btn-filtro-ativo');
+        btnMenorPreco.style.background = '#0b2b3b';
+        btnMenorPreco.style.color = 'white';
+    } else if (filtro === 'maiorPreco' && btnMaiorPreco) {
+        btnMaiorPreco.classList.add('btn-filtro-ativo');
+        btnMaiorPreco.style.background = '#0b2b3b';
+        btnMaiorPreco.style.color = 'white';
+    } else if (filtro === 'todos' && btnTodos) {
+        btnTodos.classList.add('btn-filtro-ativo');
+        btnTodos.style.background = '#0b2b3b';
+        btnTodos.style.color = 'white';
+    }
 }
 
 // ==================== FUNÇÕES DE RENDERIZAÇÃO ====================
@@ -104,6 +167,12 @@ function renderAllProducts(produtosList = null) {
     const lista = produtosList || produtos;
     const container = document.getElementById('productsContainer');
     if (!container) return;
+    
+    // 🔥 CORREÇÃO: Atualiza o contador com a quantidade atual
+    const totalSpan = document.getElementById('totalProdutos');
+    if (totalSpan) {
+        totalSpan.textContent = lista.length;
+    }
     
     if(lista.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum produto cadastrado ainda.</p>';
@@ -297,7 +366,6 @@ function abrirGaleriaServicoDinamica(servico) {
 function abrirGaleriaServico(titulo) {
     const servicoData = galeriaServicos[titulo];
     if (!servicoData) {
-        // Tentar encontrar no array de serviços
         const servico = servicos.find(s => s.nome === titulo);
         if (servico) {
             abrirGaleriaServicoDinamica(servico);
@@ -527,12 +595,15 @@ function initCartEvents() {
     if (printCartBtn) printCartBtn.addEventListener('click', printBudget);
 }
 
+// Tornar funções globais para os botões HTML
+window.ordenarMenorPreco = ordenarMenorPreco;
+window.ordenarMaiorPreco = ordenarMaiorPreco;
+window.resetarFiltro = resetarFiltro;
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarDadosJSONBin().then(() => {
         console.log('✅ Site inicializado');
-        console.log('📦 Total de serviços:', servicos.length);
-        console.log('🔧 Serviços padrão:', servicos.filter(s => s.isPadrao).length);
-        console.log('✨ Serviços personalizados:', servicos.filter(s => !s.isPadrao).length);
+        console.log('📦 Total de produtos:', produtos.length);
     });
     loadCart();
     initCartEvents();
