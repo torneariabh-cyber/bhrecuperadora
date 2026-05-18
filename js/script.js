@@ -7,32 +7,33 @@ let produtos = [];
 let servicos = [];
 let carrinho = [];
 
-// Dados das galerias de fotos para cada serviço (será preenchido dinamicamente)
+// Dados das galerias de fotos para cada serviço
 let galeriaServicos = {};
 
+// Serviços padrão (fallback caso não haja no JSON)
+const servicosPadrao = [
+    { id: "padrao_torno", nome: "Serviço de Torno", descricao: "Usinagem de precisão e Fabricação de peças sob medida", descricao_detalhada: "Conheça nosso trabalho de usinagem alta precisão. Realizamos serviços de rosqueamento, refile, canaletas e peças sob medida com excelente acabamento.", imagem: "imagens/servico-torno.jpg", galeria: ["imagens/torno-1.jpg", "imagens/torno-2.jpg", "imagens/torno-3.jpg", "imagens/torno-4.jpg"], isPadrao: true },
+    { id: "padrao_solda", nome: "Solda em Geral", descricao: "Solda elétrica e alumínio", descricao_detalhada: "Serviços de solda elétrica, MIG/MAG, TIG e alumínio, reparos industriais e manutenção preventiva.", imagem: "imagens/servico-solda.jpg", galeria: ["imagens/solda-1.jpg", "imagens/solda-2.jpg", "imagens/solda-3.jpg", "imagens/solda-4.jpg"], isPadrao: true },
+    { id: "padrao_manutencao", nome: "Manutenção Industrial", descricao: "Reparo em máquinas Pesadas e Serrarias", descricao_detalhada: "Especialistas em manutenção preventiva e corretiva de máquinas pesadas, motores, bombas e equipamentos industriais. Atendimento rápido e eficiente.", imagem: "imagens/servico-manutencao.jpg", galeria: ["imagens/manutencao-1.jpg", "imagens/manutencao-2.jpg", "imagens/manutencao-3.jpg", "imagens/manutencao-4.jpg"], isPadrao: true },
+    { id: "padrao_plasma", nome: "Corte Plasma", descricao: "Corte de alta precisão em diversos materiais", descricao_detalhada: "Corte plasma de alta precisão para chapas de aço, inox, alumínio e outros metais. Tecnologia moderna para cortes limpos e precisos.", imagem: "imagens/servico-corte-plasma.jpg", galeria: ["imagens/plasma-1.jpg", "imagens/plasma-2.jpg", "imagens/plasma-3.jpg", "imagens/plasma-4.jpg"], isPadrao: true },
+    { id: "padrao_plasma_tubo", nome: "Corte Plasma em Tubo", descricao: "Corte preciso em tubos de aço, inox e alumínio", descricao_detalhada: "Especialistas em corte plasma de tubos estruturais, canos e perfis tubulares. Cortes precisos para indústria e construção civil.", imagem: "imagens/servico-corte-plasma-tubo.jpg", galeria: ["imagens/plasma-tubo-1.jpg", "imagens/plasma-tubo-2.jpg", "imagens/plasma-tubo-3.jpg", "imagens/plasma-tubo-4.jpg"], isPadrao: true },
+    { id: "padrao_postos", nome: "Atendimento a Postos de Molas", descricao: "Manutenção e reparo especializado para Caminhões, truck, toco e 3/4", descricao_detalhada: "Atendimento especializado para postos de molas. Realizamos manutenção preventiva e corretiva, reparo de feixes de molas, substituição de componentes e serviços de solda especializada para caminhões e veículos pesados. Qualidade e agilidade no atendimento.", imagem: "imagens/servico-postos-molas.jpg", galeria: ["imagens/postos-molas-1.jpg", "imagens/postos-molas-2.jpg", "imagens/postos-molas-3.jpg", "imagens/postos-molas-4.jpg"], isPadrao: true }
+];
+
 // ==================== FUNÇÃO PARA PEGAR PRODUTOS ALEATÓRIOS ====================
-/**
- * Retorna um array com produtos aleatórios (máx 6)
- * @param {Array} produtosList - Lista de produtos
- * @param {number} quantidade - Quantidade desejada (padrão 6)
- * @returns {Array} - Produtos aleatórios
- */
 function getRandomProducts(produtosList, quantidade = 6) {
     if (!produtosList || produtosList.length === 0) return [];
     
-    // Se tiver menos produtos que a quantidade desejada, retorna todos
     if (produtosList.length <= quantidade) {
         return [...produtosList];
     }
     
-    // Embaralhar o array usando Fisher-Yates shuffle
     const shuffled = [...produtosList];
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     
-    // Retornar os primeiros 'quantidade' produtos
     return shuffled.slice(0, quantidade);
 }
 
@@ -51,35 +52,41 @@ async function carregarDadosJSONBin() {
         // Carregar produtos
         if (dados.produtos && dados.produtos.length > 0) {
             produtos = dados.produtos;
-            console.log(`✅ Carregados ${produtos.length} produtos do JSONBin`);
+            console.log(`✅ Carregados ${produtos.length} produtos`);
         } else {
             produtos = [];
-            console.log('📦 Nenhum produto encontrado');
         }
         
-        // Carregar serviços
-        if (dados.servicos && dados.servicos.length > 0) {
-            servicos = dados.servicos;
-            console.log(`✅ Carregados ${servicos.length} serviços do JSONBin`);
-            
-            // Construir galeriaServicos a partir dos dados
-            for (const servico of servicos) {
-                galeriaServicos[servico.nome] = {
-                    descricao: servico.descricao_detalhada || servico.descricao,
-                    fotos: (servico.galeria || []).map(url => ({ url: url, legenda: servico.nome }))
-                };
+        // 🔥 CORREÇÃO: Carregar serviços preservando os padrão
+        const servicosSalvos = dados.servicos || [];
+        
+        // Começar com os serviços padrão
+        servicos = [...servicosPadrao];
+        
+        // Adicionar serviços personalizados
+        for (const serv of servicosSalvos) {
+            if (!serv.isPadrao) {
+                servicos.push(serv);
             }
-        } else {
-            servicos = [];
-            console.log('📦 Nenhum serviço encontrado');
+        }
+        
+        console.log(`✅ Carregados ${servicos.length} serviços (${servicosPadrao.length} padrão + ${servicos.length - servicosPadrao.length} personalizados)`);
+        
+        // Construir galeriaServicos
+        for (const servico of servicos) {
+            galeriaServicos[servico.nome] = {
+                descricao: servico.descricao_detalhada || servico.descricao,
+                fotos: (servico.galeria || []).map(url => ({ url: url, legenda: servico.nome }))
+            };
         }
         
         renderizarTudo();
         return true;
     } catch(error) {
-        console.error('❌ Erro ao carregar do JSONBin:', error);
+        console.error('❌ Erro ao carregar:', error);
+        // Fallback para serviços padrão
+        servicos = [...servicosPadrao];
         produtos = [];
-        servicos = [];
         renderizarTudo();
         return false;
     }
@@ -125,22 +132,19 @@ function renderAllProducts(produtosList = null) {
     }
 }
 
-// 🆕 FUNÇÃO ATUALIZADA - Carrossel com produtos aleatórios
 function renderCarousel() {
     const wrapper = document.getElementById('carouselWrapper');
     if (!wrapper) return;
     
-    // Verificar se existem produtos
     if(produtos.length === 0) {
         wrapper.innerHTML = '<div class="swiper-slide"><div style="text-align:center; padding:50px;"><p>Nenhum produto cadastrado.</p></div></div>';
         return;
     }
     
-    // 🔥 PEGAR PRODUTOS ALEATÓRIOS (entre 4 e 8 produtos, dependendo da quantidade disponível)
     const quantidadeDestaques = Math.min(6, produtos.length);
     const produtosAleatorios = getRandomProducts(produtos, quantidadeDestaques);
     
-    console.log(`🎲 Carrossel carregado com ${produtosAleatorios.length} produtos aleatórios`);
+    console.log(`🎲 Carrossel com ${produtosAleatorios.length} produtos aleatórios`);
     
     wrapper.innerHTML = '';
     for (const prod of produtosAleatorios) {
@@ -162,10 +166,7 @@ function renderCarousel() {
         wrapper.appendChild(slide);
     }
     
-    // Reinicializar o Swiper (destruir o anterior se existir)
-    if (window.carouselSwiper) {
-        window.carouselSwiper.destroy(true, true);
-    }
+    if (window.carouselSwiper) window.carouselSwiper.destroy(true, true);
     
     if (typeof Swiper !== 'undefined') {
         window.carouselSwiper = new Swiper('.mySwiper', {
@@ -175,19 +176,8 @@ function renderCarousel() {
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             autoplay: { delay: 4000, disableOnInteraction: false },
             loop: produtosAleatorios.length >= 3,
-            breakpoints: { 
-                640: { slidesPerView: 2 }, 
-                1024: { slidesPerView: 3 } 
-            }
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
         });
-    }
-}
-
-// Função para forçar atualização aleatória do carrossel
-function refreshRandomCarousel() {
-    if (produtos.length > 0) {
-        renderCarousel();
-        showNotification('🔄 Destaques atualizados aleatoriamente!');
     }
 }
 
@@ -230,10 +220,7 @@ function renderServicosCarousel() {
         wrapper.appendChild(slide);
     }
     
-    // Reinicializar o Swiper de serviços
-    if (window.servicosSwiper) {
-        window.servicosSwiper.destroy(true, true);
-    }
+    if (window.servicosSwiper) window.servicosSwiper.destroy(true, true);
     
     if (typeof Swiper !== 'undefined') {
         window.servicosSwiper = new Swiper('.servicosSwiper', {
@@ -252,7 +239,6 @@ function renderServicosCarousel() {
         });
     }
     
-    // Adicionar eventos de clique
     setTimeout(() => {
         document.querySelectorAll('.servicos-swiper-img').forEach(card => {
             card.addEventListener('click', function() {
@@ -272,7 +258,6 @@ function renderServicosCarousel() {
     }, 100);
 }
 
-// Função para abrir galeria dinâmica (para serviços adicionados pelo admin)
 function abrirGaleriaServicoDinamica(servico) {
     const modal = document.getElementById('modalServicos');
     const modalTitulo = document.getElementById('modalTitulo');
@@ -309,10 +294,16 @@ function abrirGaleriaServicoDinamica(servico) {
     document.body.style.overflow = 'hidden';
 }
 
-// Função original para abrir galeria (mantida para compatibilidade)
 function abrirGaleriaServico(titulo) {
     const servicoData = galeriaServicos[titulo];
-    if (!servicoData) return;
+    if (!servicoData) {
+        // Tentar encontrar no array de serviços
+        const servico = servicos.find(s => s.nome === titulo);
+        if (servico) {
+            abrirGaleriaServicoDinamica(servico);
+        }
+        return;
+    }
     
     const modal = document.getElementById('modalServicos');
     const modalTitulo = document.getElementById('modalTitulo');
@@ -410,7 +401,6 @@ function updateQuantity(index, delta) {
 window.addToCart = addToCart;
 window.removeFromCart = removeFromCart;
 window.updateQuantity = updateQuantity;
-window.refreshRandomCarousel = refreshRandomCarousel;
 
 function updateCartUI() {
     const cartItemsDiv = document.getElementById('cartItems');
@@ -539,8 +529,10 @@ function initCartEvents() {
 
 document.addEventListener('DOMContentLoaded', () => {
     carregarDadosJSONBin().then(() => {
-        console.log('✅ Site inicializado com ' + servicos.length + ' serviços');
-        console.log('🎲 Carrossel com produtos aleatórios ativado');
+        console.log('✅ Site inicializado');
+        console.log('📦 Total de serviços:', servicos.length);
+        console.log('🔧 Serviços padrão:', servicos.filter(s => s.isPadrao).length);
+        console.log('✨ Serviços personalizados:', servicos.filter(s => !s.isPadrao).length);
     });
     loadCart();
     initCartEvents();
