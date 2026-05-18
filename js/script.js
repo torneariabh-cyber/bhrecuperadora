@@ -527,23 +527,385 @@ function generatePrintHTML() {
         alert('Adicione produtos ao carrinho primeiro!');
         return null;
     }
+    
     const dataAtual = new Date().toLocaleDateString('pt-BR');
     const horaAtual = new Date().toLocaleTimeString('pt-BR');
+    
+    // Número de orçamento aleatório de 4 dígitos
+    const numeroAleatorio = Math.floor(Math.random() * 9999) + 1;
+    const numeroOrcamento = String(numeroAleatorio).padStart(4, '0');
+    
     const totalValor = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
-    let itemsHTML = '';
+    const totalLiquido = totalValor; // Sem desconto
+    
+    // Separar produtos e serviços
+    let itemsProdutosHTML = '';
+    let itemsServicosHTML = '';
+    let totalProdutos = 0;
+    let totalServicos = 0;
+    
     for (let idx = 0; idx < carrinho.length; idx++) {
         const item = carrinho[idx];
-        itemsHTML += `
-            <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${idx + 1}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.nome}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantidade}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(item.preco)}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(item.preco * item.quantidade)}</td>
-            </tr>
-        `;
+        const subtotal = item.preco * item.quantidade;
+        
+        // Verificar se é serviço
+        const isServico = item.nome.toLowerCase().includes('serviço') || 
+                          item.nome.toLowerCase().includes('servico') ||
+                          item.nome.toLowerCase().includes('torno') ||
+                          item.nome.toLowerCase().includes('solda') ||
+                          item.nome.toLowerCase().includes('manutenção') ||
+                          item.nome.toLowerCase().includes('manutencao') ||
+                          item.nome.toLowerCase().includes('corte') ||
+                          item.nome.toLowerCase().includes('recuperação');
+        
+        if (isServico) {
+            totalServicos += subtotal;
+            itemsServicosHTML += `
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${String(idx + 1).padStart(4, '0')}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.nome}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantidade}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(item.preco)}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(subtotal)}</td>
+                </tr>
+            `;
+        } else {
+            totalProdutos += subtotal;
+            itemsProdutosHTML += `
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${String(idx + 1).padStart(4, '0')}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.nome}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantidade}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(item.preco)}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${formatPrice(subtotal)}</td>
+                </tr>
+            `;
+        }
     }
-    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Orcamento BH Recuperadora</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',Arial,sans-serif;background:white;padding:30px;color:#1e2a3e;}.print-container{max-width:900px;margin:0 auto;background:white;}.header-print{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #f9b81b;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}.logo-print{display:flex;align-items:center;gap:15px;}.logo-icon{width:60px;height:60px;}.logo-icon img{width:100%;height:100%;object-fit:contain;}.logo-text h1{color:#0b2b3b;font-size:28px;margin-bottom:5px;font-family:'Montserrat',sans-serif;}.logo-text p{color:#4a627a;font-size:12px;}.info-cliente{background:#f4f7fc;padding:15px;border-radius:10px;margin-bottom:25px;display:flex;justify-content:space-between;flex-wrap:wrap;}table{width:100%;border-collapse:collapse;margin-bottom:25px;}th{background:#0b2b3b;color:white;padding:10px;text-align:left;}td{padding:8px;border-bottom:1px solid #ddd;}.total-box{text-align:right;padding:15px;background:#fef3e0;border-radius:10px;margin-bottom:30px;}.total-box h2{color:#0b2b3b;}.footer-print{text-align:center;font-size:11px;padding-top:20px;border-top:1px solid #ddd;margin-top:20px;}.obs{background:#f9f9f9;padding:12px;border-radius:8px;font-size:12px;margin-bottom:20px;}.assinatura{margin-top:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}.assinatura-item{text-align:center;flex:1;}.linha-assinatura{border-top:1px solid #999;width:200px;margin:10px auto 5px auto;}@media print{body{padding:0;}.no-print{display:none;}}</style></head><body><div class="print-container"><div class="header-print"><div class="logo-print"><div class="logo-icon"><img src="imagens/icones-bh-05.png" alt="Logo BH"></div><div class="logo-text"><h1>BH RECUPERADORA</h1><p>Soluções rapidas em peças e serviços</p></div></div></div><div class="info-cliente"><div><strong>Data:</strong> ${dataAtual} - ${horaAtual}</div><div><strong>Orçamento:</strong> BH-${Date.now().toString().slice(-8)}</div><div><strong>Cliente:</strong> _________________________________</div></div><tr><thead><tr><th>#</th><th>Produto</th><th>Qtd</th><th>Unitario</th><th>Subtotal</th></tr></thead><tbody>${itemsHTML}</tbody></table><div class="total-box"><h2>Total: ${formatPrice(totalValor)}</h2></div><div class="obs"><strong>Observacoes:</strong><br>- Validade: 24 horas<br>- Pagamento: Pix, Cartao, Dinheiro<br>- Entregamos em Sinop e regiao<br>- Os preços podem sofrer alterações sem aviso previo</div><div class="assinatura"><div class="assinatura-item"><div class="linha-assinatura"></div><p>Cliente</p></div><div class="assinatura-item"><div class="linha-assinatura"></div><p>BH Recuperadora</p></div></div><div class="footer-print"><p>BH Recuperadora - Especialistas em recuperação e venda de parafusos</p><p>E-mail: torneariabh@hotmail.com | WhatsApp: (66) 99901-9605 | Sinop - MT</p><p>* Este documento e um orçamento e não representa uma nota fiscal *</p></div></div><div class="no-print" style="text-align: center; margin-top: 20px;"><button onclick="window.print()" style="padding: 10px 30px; background: #0b2b3b; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">🖨️ Imprimir / Salvar PDF</button></div></body></html>`;
+    
+    return `<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Orçamento BH Recuperadora</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Inter', Arial, sans-serif;
+                background: #f5f5f5;
+                padding: 30px;
+                color: #1e2a3e;
+            }
+            .print-container {
+                max-width: 900px;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+            .header-print {
+                background: #0b2b3b;
+                color: white;
+                padding: 20px 30px;
+            }
+            .header-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-bottom: 15px;
+            }
+            .logo-area {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                background: white;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px;
+            }
+            .logo-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .logo-text h1 {
+                font-size: 22px;
+                font-weight: 800;
+                margin-bottom: 5px;
+            }
+            .logo-text p {
+                font-size: 11px;
+                opacity: 0.8;
+            }
+            .orcamento-numero {
+                text-align: right;
+                border-left: 2px solid #f9b81b;
+                padding-left: 20px;
+            }
+            .orcamento-numero h2 {
+                font-size: 24px;
+                color: #f9b81b;
+                margin-bottom: 5px;
+            }
+            .orcamento-numero p {
+                font-size: 12px;
+            }
+            .info-empresa {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255,255,255,0.2);
+                font-size: 12px;
+            }
+            .info-empresa span {
+                opacity: 0.9;
+            }
+            .body-print {
+                padding: 30px;
+            }
+            .info-data {
+                background: #f4f7fc;
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 25px;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 15px;
+                font-size: 13px;
+            }
+            .info-data strong {
+                color: #0b2b3b;
+            }
+            .section-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: #0b2b3b;
+                margin: 25px 0 10px 0;
+                padding-bottom: 5px;
+                border-bottom: 2px solid #f9b81b;
+                display: inline-block;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                font-size: 13px;
+            }
+            th {
+                background: #0b2b3b;
+                color: white;
+                padding: 10px;
+                text-align: left;
+                font-weight: 600;
+            }
+            th:nth-child(3), th:nth-child(4), th:nth-child(5) {
+                text-align: center;
+            }
+            td {
+                padding: 8px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            td:nth-child(3), td:nth-child(4), td:nth-child(5) {
+                text-align: center;
+            }
+            .totais-box {
+                background: #f8f9fa;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 20px 0;
+                text-align: right;
+            }
+            .totais-line {
+                display: flex;
+                justify-content: flex-end;
+                gap: 40px;
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+            .totais-line.total {
+                font-size: 18px;
+                font-weight: 800;
+                color: #0b2b3b;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 2px solid #f9b81b;
+            }
+            .observacoes {
+                background: #fef3e0;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 20px 0;
+                font-size: 12px;
+            }
+            .observacoes strong {
+                color: #0b2b3b;
+            }
+            .assinatura {
+                margin-top: 40px;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+            .assinatura-item {
+                text-align: center;
+                flex: 1;
+            }
+            .linha-assinatura {
+                border-top: 1px solid #999;
+                width: 200px;
+                margin: 10px auto 5px auto;
+            }
+            .footer-print {
+                text-align: center;
+                font-size: 10px;
+                padding: 15px;
+                border-top: 1px solid #ddd;
+                color: #666;
+            }
+            @media print {
+                body {
+                    background: white;
+                    padding: 0;
+                }
+                .no-print {
+                    display: none;
+                }
+                .print-container {
+                    box-shadow: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="print-container">
+            <div class="header-print">
+                <div class="header-top">
+                    <div class="logo-area">
+                        <div class="logo-icon">
+                            <img src="imagens/icones-bh-05.png" alt="Logo BH" onerror="this.style.display='none'">
+                        </div>
+                        <div class="logo-text">
+                            <h1>BH RECUPERADORA</h1>
+                            <p>SOLUÇÕES RÁPIDAS EM PEÇAS E SERVIÇOS</p>
+                        </div>
+                    </div>
+                    <div class="orcamento-numero">
+                        <h2>ORÇAMENTO</h2>
+                        <p>Nº ${numeroOrcamento}</p>
+                    </div>
+                </div>
+                <div class="info-empresa">
+                    <span><i class="fas fa-map-marker-alt"></i> Rua Dirson José Martini, 827 - Sinop - MT</span>
+                    <span><i class="fas fa-phone-alt"></i> (66) 99901-9605</span>
+                    <span><i class="fas fa-envelope"></i> torneariabh@hotmail.com</span>
+                    <span><i class="fas fa-calculator"></i> CNPJ: 27.095.847/0001-53</span>
+                </div>
+            </div>
+            
+            <div class="body-print">
+                <div class="info-data">
+                    <div><strong>Data Emissão:</strong> ${dataAtual} às ${horaAtual}</div>
+                    <div><strong>Orçamento Nº:</strong> ${numeroOrcamento}</div>
+                    <div><strong>Validade:</strong> 24 horas</div>
+                </div>
+                
+                ${itemsServicosHTML ? `
+                    <div class="section-title">📋 SERVIÇOS</div>
+                    <table>
+                        <thead>
+                            <tr><th>Código</th><th>Descrição do Item</th><th>Quant.</th><th>Vlr Unitário</th><th>Vlr Total</th></tr>
+                        </thead>
+                        <tbody>
+                            ${itemsServicosHTML}
+                        </tbody>
+                    </table>
+                ` : ''}
+                
+                ${itemsProdutosHTML ? `
+                    <div class="section-title">📦 PRODUTOS</div>
+                    <table>
+                        <thead>
+                            <tr><th>Código</th><th>Descrição do Item</th><th>Quant.</th><th>Vlr Unitário</th><th>Vlr Total</th></tr>
+                        </thead>
+                        <tbody>
+                            ${itemsProdutosHTML}
+                        </tbody>
+                    </table>
+                ` : ''}
+                
+                <div class="totais-box">
+                    ${totalProdutos > 0 ? `
+                        <div class="totais-line">
+                            <span>Total de Produtos:</span>
+                            <strong>${formatPrice(totalProdutos)}</strong>
+                        </div>
+                    ` : ''}
+                    ${totalServicos > 0 ? `
+                        <div class="totais-line">
+                            <span>Total de Serviços:</span>
+                            <strong>${formatPrice(totalServicos)}</strong>
+                        </div>
+                    ` : ''}
+                    <div class="totais-line total">
+                        <span>TOTAL:</span>
+                        <strong style="color: #f9b81b;">${formatPrice(totalLiquido)}</strong>
+                    </div>
+                </div>
+                
+                <div class="observacoes">
+                    <strong><i class="fas fa-info-circle"></i> Observações:</strong><br>
+                    • Orçamento válido por 24 horas.<br>
+                    • Formas de pagamento: Pix, Cartão de Débito/Crédito, Dinheiro.<br>
+                    • Entregamos em Sinop e região (consulte frete).<br>
+                    • Os preços podem sofrer alterações sem aviso prévio.<br>
+                    • Serviço de Torno + Mão de obra especializada.
+                </div>
+                
+                <div class="assinatura">
+                    <div class="assinatura-item">
+                        <div class="linha-assinatura"></div>
+                        <p>Cliente</p>
+                    </div>
+                    <div class="assinatura-item">
+                        <div class="linha-assinatura"></div>
+                        <p>BH Recuperadora</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-print">
+                <p>BH Recuperadora - Especialistas em recuperação e venda de parafusos</p>
+                <p>Rua Dirson José Martini, 827 - Setor Industrial - Sinop - MT | WhatsApp: (66) 99901-9605</p>
+                <p>* Este documento é um orçamento e não representa uma nota fiscal *</p>
+            </div>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()" style="padding: 12px 30px; background: #0b2b3b; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin: 0 10px;">
+                🖨️ Imprimir / Salvar PDF
+            </button>
+            <button onclick="window.close()" style="padding: 12px 30px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">
+                ❌ Fechar
+            </button>
+        </div>
+    </body>
+    </html>`;
 }
 
 function printBudget() {
