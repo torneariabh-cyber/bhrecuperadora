@@ -62,7 +62,7 @@ async function carregarDadosJSONBin() {
             }
         }
         
-        console.log(`✅ Carregados ${servicos.length} serviços`);
+        console.log(`✅ Carregados ${servicos.length} serviços (${servicosPadrao.length} padrão + ${servicos.length - servicosPadrao.length} personalizados)`);
         
         // Construir galeriaServicos
         for (const servico of servicos) {
@@ -75,7 +75,7 @@ async function carregarDadosJSONBin() {
         renderizarTudo();
         return true;
     } catch(error) {
-        console.error('❌ Erro ao carregar:', error);
+        console.error('❌ Erro ao carregar do JSONBin:', error);
         servicos = [...servicosPadrao];
         produtos = [];
         renderizarTudo();
@@ -87,18 +87,10 @@ function renderizarTudo() {
     if(document.getElementById('productsContainer')) renderAllProducts();
     if(document.getElementById('carouselWrapper')) renderCarousel();
     if(document.getElementById('servicosCarouselWrapper')) renderServicosCarousel();
-    atualizarContadorProdutos(); // 🔥 ADICIONADO: atualiza o contador
+    if(document.getElementById('totalProdutos')) document.getElementById('totalProdutos').textContent = produtos.length;
 }
 
-// 🔥 NOVA FUNÇÃO: Atualiza o contador de produtos na tela
-function atualizarContadorProdutos() {
-    const totalSpan = document.getElementById('totalProdutos');
-    if (totalSpan) {
-        totalSpan.textContent = produtos.length;
-    }
-}
-
-// ==================== FUNÇÕES DE FILTRO (CORRIGIDAS) ====================
+// ==================== FUNÇÕES DE FILTRO ====================
 let filtroAtual = 'todos';
 
 function ordenarMenorPreco() {
@@ -129,7 +121,6 @@ function atualizarBotaoFiltro(filtro) {
     const btnMaiorPreco = document.getElementById('filtrarMaiorPreco');
     const btnTodos = document.getElementById('filtrarTodos');
     
-    // Resetar todos os botões
     if (btnMenorPreco) {
         btnMenorPreco.classList.remove('btn-filtro-ativo');
         btnMenorPreco.style.background = '#f4f7fc';
@@ -146,7 +137,6 @@ function atualizarBotaoFiltro(filtro) {
         btnTodos.style.color = '#1e2a3e';
     }
     
-    // Ativar botão correspondente
     if (filtro === 'menorPreco' && btnMenorPreco) {
         btnMenorPreco.classList.add('btn-filtro-ativo');
         btnMenorPreco.style.background = '#0b2b3b';
@@ -168,11 +158,8 @@ function renderAllProducts(produtosList = null) {
     const container = document.getElementById('productsContainer');
     if (!container) return;
     
-    // 🔥 CORREÇÃO: Atualiza o contador com a quantidade atual
     const totalSpan = document.getElementById('totalProdutos');
-    if (totalSpan) {
-        totalSpan.textContent = lista.length;
-    }
+    if (totalSpan) totalSpan.textContent = lista.length;
     
     if(lista.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum produto cadastrado ainda.</p>';
@@ -213,7 +200,7 @@ function renderCarousel() {
     const quantidadeDestaques = Math.min(6, produtos.length);
     const produtosAleatorios = getRandomProducts(produtos, quantidadeDestaques);
     
-    console.log(`🎲 Carrossel com ${produtosAleatorios.length} produtos aleatórios`);
+    console.log(`🎲 Carrossel carregado com ${produtosAleatorios.length} produtos aleatórios`);
     
     wrapper.innerHTML = '';
     for (const prod of produtosAleatorios) {
@@ -235,17 +222,24 @@ function renderCarousel() {
         wrapper.appendChild(slide);
     }
     
+    // Destruir swiper antigo se existir
+    if (window.carouselSwiperModern) window.carouselSwiperModern.destroy(true, true);
     if (window.carouselSwiper) window.carouselSwiper.destroy(true, true);
     
     if (typeof Swiper !== 'undefined') {
-        window.carouselSwiper = new Swiper('.mySwiper', {
+        const container = document.querySelector('.produtosSwiperModern') ? '.produtosSwiperModern' : '.mySwiper';
+        
+        window.carouselSwiperModern = new Swiper(container, {
             slidesPerView: 1,
             spaceBetween: 20,
             pagination: { el: '.swiper-pagination', clickable: true },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             autoplay: { delay: 4000, disableOnInteraction: false },
             loop: produtosAleatorios.length >= 3,
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            breakpoints: { 
+                640: { slidesPerView: 2 }, 
+                1024: { slidesPerView: 3 } 
+            }
         });
     }
 }
@@ -277,7 +271,7 @@ function renderServicosCarousel() {
         const mensagemRandom = mensagensClique[Math.floor(Math.random() * mensagensClique.length)];
         
         slide.innerHTML = `
-            <div class="servicos-swiper-img" style="cursor: pointer;" data-servico-nome="${servico.nome.replace(/'/g, "\\'")}">
+            <div class="servicos-swiper-img" style="cursor: pointer;">
                 <img src="${servico.imagem || 'imagens/servico-padrao.jpg'}" alt="${servico.nome}" 
                      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 800 600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%230b2b3b%27/%3E%3Ctext x=%27400%27 y=%27300%27 text-anchor=%27middle%27 fill=%27%23f9b81b%27 font-size=%2740%27%3E🔧%3C/text%3E%3Ctext x=%27400%27 y=%27350%27 text-anchor=%27middle%27 fill=%27%23f9b81b%27 font-size=%2722%27%3E${servico.nome}%3C/text%3E%3C/svg%3E'">
                 <div class="servico-badge"><i class="fas fa-star"></i> Destaque</div>
@@ -289,14 +283,18 @@ function renderServicosCarousel() {
         wrapper.appendChild(slide);
     }
     
+    // Destruir swiper antigo se existir
+    if (window.servicosSwiperModern) window.servicosSwiperModern.destroy(true, true);
     if (window.servicosSwiper) window.servicosSwiper.destroy(true, true);
     
     if (typeof Swiper !== 'undefined') {
-        window.servicosSwiper = new Swiper('.servicosSwiper', {
+        const container = document.querySelector('.servicosSwiperModern') ? '.servicosSwiperModern' : '.servicosSwiper';
+        
+        window.servicosSwiperModern = new Swiper(container, {
             slidesPerView: 'auto',
             spaceBetween: 20,
             centeredSlides: false,
-            loop: true,
+            loop: servicos.length >= 3,
             autoplay: { delay: 4000, disableOnInteraction: false },
             pagination: { el: '.swiper-pagination', clickable: true },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
@@ -308,6 +306,7 @@ function renderServicosCarousel() {
         });
     }
     
+    // Adicionar eventos de clique
     setTimeout(() => {
         document.querySelectorAll('.servicos-swiper-img').forEach(card => {
             card.addEventListener('click', function() {
@@ -327,6 +326,7 @@ function renderServicosCarousel() {
     }, 100);
 }
 
+// Função para abrir galeria dinâmica (para serviços adicionados pelo admin)
 function abrirGaleriaServicoDinamica(servico) {
     const modal = document.getElementById('modalServicos');
     const modalTitulo = document.getElementById('modalTitulo');
@@ -484,7 +484,7 @@ function updateCartUI() {
     if (cartTotalSpan) cartTotalSpan.textContent = formatPrice(totalValor);
     
     if (carrinho.length === 0) {
-        cartItemsDiv.innerHTML = '<p style="text-align:center; color:#999;">Seu carrinho esta vazio</p>';
+        cartItemsDiv.innerHTML = '<p style="text-align:center; color:#999;">Seu carrinho está vazio</p>';
         return;
     }
     
@@ -543,7 +543,7 @@ function generatePrintHTML() {
             </tr>
         `;
     }
-    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Orcamento BH Recuperadora</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',Arial,sans-serif;background:white;padding:30px;color:#1e2a3e;}.print-container{max-width:900px;margin:0 auto;background:white;}.header-print{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #f9b81b;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}.logo-print{display:flex;align-items:center;gap:15px;}.logo-icon{width:60px;height:60px;}.logo-icon img{width:100%;height:100%;object-fit:contain;}.logo-text h1{color:#0b2b3b;font-size:28px;margin-bottom:5px;font-family:'Montserrat',sans-serif;}.logo-text p{color:#4a627a;font-size:12px;}.info-cliente{background:#f4f7fc;padding:15px;border-radius:10px;margin-bottom:25px;display:flex;justify-content:space-between;flex-wrap:wrap;}table{width:100%;border-collapse:collapse;margin-bottom:25px;}th{background:#0b2b3b;color:white;padding:10px;text-align:left;}td{padding:8px;border-bottom:1px solid #ddd;}.total-box{text-align:right;padding:15px;background:#fef3e0;border-radius:10px;margin-bottom:30px;}.total-box h2{color:#0b2b3b;}.footer-print{text-align:center;font-size:11px;padding-top:20px;border-top:1px solid #ddd;margin-top:20px;}.obs{background:#f9f9f9;padding:12px;border-radius:8px;font-size:12px;margin-bottom:20px;}.assinatura{margin-top:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}.assinatura-item{text-align:center;flex:1;}.linha-assinatura{border-top:1px solid #999;width:200px;margin:10px auto 5px auto;}@media print{body{padding:0;}.no-print{display:none;}}</style></head><body><div class="print-container"><div class="header-print"><div class="logo-print"><div class="logo-icon"><img src="imagens/icones-bh-05.png" alt="Logo BH"></div><div class="logo-text"><h1>BH RECUPERADORA</h1><p>Soluções rapidas em peças e serviços</p></div></div></div><div class="info-cliente"><div><strong>Data:</strong> ${dataAtual} - ${horaAtual}</div><div><strong>Orçamento:</strong> BH-${Date.now().toString().slice(-8)}</div><div><strong>Cliente:</strong> _________________________________</div></div><table><thead><tr><th>#</th><th>Produto</th><th>Qtd</th><th>Unitario</th><th>Subtotal</th></tr></thead><tbody>${itemsHTML}</tbody></table><div class="total-box"><h2>Total: ${formatPrice(totalValor)}</h2></div><div class="obs"><strong>Observacoes:</strong><br>- Validade: 24 horas<br>- Pagamento: Pix, Cartao, Dinheiro<br>- Entregamos em Sinop e regiao<br>- Os preços podem sofrer alterações sem aviso previo</div><div class="assinatura"><div class="assinatura-item"><div class="linha-assinatura"></div><p>Cliente</p></div><div class="assinatura-item"><div class="linha-assinatura"></div><p>BH Recuperadora</p></div></div><div class="footer-print"><p>BH Recuperadora - Especialistas em recuperação e venda de parafusos</p><p>E-mail: torneariabh@hotmail.com | WhatsApp: (66) 99901-9605 | Sinop - MT</p><p>* Este documento e um orçamento e não representa uma nota fiscal *</p></div></div><div class="no-print" style="text-align: center; margin-top: 20px;"><button onclick="window.print()" style="padding: 10px 30px; background: #0b2b3b; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">🖨️ Imprimir / Salvar PDF</button></div></body></html>`;
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Orcamento BH Recuperadora</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',Arial,sans-serif;background:white;padding:30px;color:#1e2a3e;}.print-container{max-width:900px;margin:0 auto;background:white;}.header-print{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #f9b81b;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}.logo-print{display:flex;align-items:center;gap:15px;}.logo-icon{width:60px;height:60px;}.logo-icon img{width:100%;height:100%;object-fit:contain;}.logo-text h1{color:#0b2b3b;font-size:28px;margin-bottom:5px;font-family:'Montserrat',sans-serif;}.logo-text p{color:#4a627a;font-size:12px;}.info-cliente{background:#f4f7fc;padding:15px;border-radius:10px;margin-bottom:25px;display:flex;justify-content:space-between;flex-wrap:wrap;}table{width:100%;border-collapse:collapse;margin-bottom:25px;}th{background:#0b2b3b;color:white;padding:10px;text-align:left;}td{padding:8px;border-bottom:1px solid #ddd;}.total-box{text-align:right;padding:15px;background:#fef3e0;border-radius:10px;margin-bottom:30px;}.total-box h2{color:#0b2b3b;}.footer-print{text-align:center;font-size:11px;padding-top:20px;border-top:1px solid #ddd;margin-top:20px;}.obs{background:#f9f9f9;padding:12px;border-radius:8px;font-size:12px;margin-bottom:20px;}.assinatura{margin-top:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}.assinatura-item{text-align:center;flex:1;}.linha-assinatura{border-top:1px solid #999;width:200px;margin:10px auto 5px auto;}@media print{body{padding:0;}.no-print{display:none;}}</style></head><body><div class="print-container"><div class="header-print"><div class="logo-print"><div class="logo-icon"><img src="imagens/icones-bh-05.png" alt="Logo BH"></div><div class="logo-text"><h1>BH RECUPERADORA</h1><p>Soluções rapidas em peças e serviços</p></div></div></div><div class="info-cliente"><div><strong>Data:</strong> ${dataAtual} - ${horaAtual}</div><div><strong>Orçamento:</strong> BH-${Date.now().toString().slice(-8)}</div><div><strong>Cliente:</strong> _________________________________</div></div><tr><thead><tr><th>#</th><th>Produto</th><th>Qtd</th><th>Unitario</th><th>Subtotal</th></tr></thead><tbody>${itemsHTML}</tbody></table><div class="total-box"><h2>Total: ${formatPrice(totalValor)}</h2></div><div class="obs"><strong>Observacoes:</strong><br>- Validade: 24 horas<br>- Pagamento: Pix, Cartao, Dinheiro<br>- Entregamos em Sinop e regiao<br>- Os preços podem sofrer alterações sem aviso previo</div><div class="assinatura"><div class="assinatura-item"><div class="linha-assinatura"></div><p>Cliente</p></div><div class="assinatura-item"><div class="linha-assinatura"></div><p>BH Recuperadora</p></div></div><div class="footer-print"><p>BH Recuperadora - Especialistas em recuperação e venda de parafusos</p><p>E-mail: torneariabh@hotmail.com | WhatsApp: (66) 99901-9605 | Sinop - MT</p><p>* Este documento e um orçamento e não representa uma nota fiscal *</p></div></div><div class="no-print" style="text-align: center; margin-top: 20px;"><button onclick="window.print()" style="padding: 10px 30px; background: #0b2b3b; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">🖨️ Imprimir / Salvar PDF</button></div></body></html>`;
 }
 
 function printBudget() {
@@ -561,7 +561,7 @@ function printBudget() {
 
 function sendCartToWhatsApp() {
     if (carrinho.length === 0) { alert('Adicione produtos ao carrinho primeiro!'); return; }
-    let message = 'Ola! Gostaria de solicitar orçamento:%0A%0A';
+    let message = 'Olá! Gostaria de solicitar orçamento:%0A%0A';
     for (const item of carrinho) message += `*${item.nome}* - Qtd: ${item.quantidade} - Unit: ${formatPrice(item.preco)} - Sub: ${formatPrice(item.preco * item.quantidade)}%0A`;
     const total = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
     message += `%0A*TOTAL: ${formatPrice(total)}*`;
@@ -573,7 +573,7 @@ function sendCartToWhatsApp() {
 }
 
 function openWhatsApp() {
-    const message = 'Ola! Gostaria de mais informacoes sobre os servicos e produtos da BH Recuperadora.';
+    const message = 'Olá! Gostaria de mais informações sobre os serviços e produtos da BH Recuperadora.';
     window.open(`https://wa.me/5566999019605?text=${encodeURIComponent(message)}`, '_blank');
 }
 
@@ -599,11 +599,18 @@ function initCartEvents() {
 window.ordenarMenorPreco = ordenarMenorPreco;
 window.ordenarMaiorPreco = ordenarMaiorPreco;
 window.resetarFiltro = resetarFiltro;
+window.refreshRandomCarousel = function() {
+    if (produtos.length > 0) {
+        renderCarousel();
+        showNotification('🔄 Destaques atualizados aleatoriamente!');
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     carregarDadosJSONBin().then(() => {
         console.log('✅ Site inicializado');
         console.log('📦 Total de produtos:', produtos.length);
+        console.log('🔧 Total de serviços:', servicos.length);
     });
     loadCart();
     initCartEvents();
@@ -611,6 +618,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const orcamentoBtn = document.getElementById('orcamentoNavBtn');
     if (orcamentoBtn) orcamentoBtn.addEventListener('click', (e) => { e.preventDefault(); if (carrinho.length > 0) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho primeiro!'); });
+    
+    const heroOrcamentoBtn = document.getElementById('heroOrcamentoBtn');
+    if (heroOrcamentoBtn) heroOrcamentoBtn.addEventListener('click', (e) => { e.preventDefault(); if (carrinho.length > 0) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho primeiro!'); });
+    
+    const ctaWhatsappBtn = document.getElementById('ctaWhatsappBtn');
+    if (ctaWhatsappBtn) ctaWhatsappBtn.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
     
     const whatsappBtn = document.getElementById('whatsappFloatBtn');
     if (whatsappBtn) whatsappBtn.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
