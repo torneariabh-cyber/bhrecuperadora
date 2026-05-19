@@ -2,7 +2,7 @@
 
 const SEO_CONFIG = {
     siteName: "BH Recuperadora",
-    siteDescription: "Especialistas em recuperação de peças, serviços de torno, solda elétrica e alumínio, venda de parafusos. Atendemos indústrias, serrarias, construção civil e agricultura em Sinop - MT.",
+    siteDescription: "Serviços de torno, solda elétrica e alumínio, Atendemos indústrias, serrarias, construção civil e agricultura em Sinop - MT.",
     siteUrl: window.location.origin,
     whatsappNumber: "5566999019605",
     email: "bhrecuperadora@hotmail.com",
