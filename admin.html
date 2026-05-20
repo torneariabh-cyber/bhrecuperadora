@@ -60,6 +60,10 @@
         .foto-edit-item { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
         .foto-edit-item input { flex: 1; }
         .categoria-item { display: flex; justify-content: space-between; align-items: center; background: #f1f3f5; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; }
+        .image-preview { max-width: 100px; max-height: 80px; margin-top: 8px; border-radius: 8px; border: 1px solid #ddd; display: inline-block; }
+        .upload-wrapper { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .btn-upload { background: #17a2b8; padding: 8px 16px; margin: 0; }
+        .toggle-btn { background: #6c757d; padding: 6px 12px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -99,7 +103,7 @@
             </div>
         </div>
 
-        <!-- Abas (agora com Categorias) -->
+        <!-- Abas -->
         <div class="card">
             <div class="tabs-admin">
                 <button class="tab-btn active" onclick="switchTab('produtos')"><i class="fas fa-box"></i> Produtos</button>
@@ -121,25 +125,31 @@
                 </div>
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select id="prodCategoria">
-                        <option value="">Sem categoria</option>
-                    </select>
+                    <select id="prodCategoria"><option value="">Sem categoria</option></select>
                 </div>
                 <div class="form-group">
-                    <label>📸 URL da Imagem</label>
-                    <input type="text" id="prodImagem" placeholder="https://exemplo.com/imagem.jpg">
+                    <label>📸 Imagem do Produto</label>
+                    <div class="upload-wrapper">
+                        <input type="text" id="prodImagem" placeholder="URL da imagem (ou faça upload)" style="flex:1;">
+                        <button type="button" class="btn-upload" onclick="uploadImageToField('prodImagem')"><i class="fas fa-cloud-upload-alt"></i> Enviar imagem</button>
+                    </div>
+                    <div id="prodImagemPreview"></div>
+                    <small>Formatos: JPG, PNG, GIF. A imagem será redimensionada para 800x600px.</small>
                 </div>
                 <div class="form-group">
                     <label>Descrição</label>
                     <textarea id="prodDescricao" placeholder="Descrição do produto..."></textarea>
                 </div>
                 <button onclick="adicionarProduto()"><i class="fas fa-save"></i> Salvar Produto</button>
-                <hr style="margin: 30px 0;">
-                <h2><i class="fas fa-list"></i> Produtos Cadastrados (<span id="totalProdutosCount">0</span>)</h2>
-                <div id="listaProdutos" class="grid"></div>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 30px 0 20px 0;">
+                    <h2 style="margin: 0;"><i class="fas fa-list"></i> Produtos Cadastrados (<span id="totalProdutosCount">0</span>)</h2>
+                    <button id="toggleProdutosBtn" class="btn-info toggle-btn" onclick="toggleProdutosList()"><i class="fas fa-chevron-up"></i> Ocultar</button>
+                </div>
+                <div id="produtosListContainer" class="grid"></div>
             </div>
 
-            <!-- TAB SERVICOS (idêntico ao anterior) -->
+            <!-- TAB SERVICOS -->
             <div id="tabServicos" class="tab-content">
                 <h2><i class="fas fa-plus-circle"></i> Adicionar Novo Serviço</h2>
                 <div id="servAlert" class="alert"></div>
@@ -152,22 +162,32 @@
                     <textarea id="servDescricao" placeholder="Breve descrição do serviço..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>📸 URL da Imagem Principal</label>
-                    <input type="text" id="servImagem" placeholder="https://exemplo.com/imagem.jpg">
+                    <label>📸 Imagem Principal</label>
+                    <div class="upload-wrapper">
+                        <input type="text" id="servImagem" placeholder="URL da imagem" style="flex:1;">
+                        <button type="button" class="btn-upload" onclick="uploadImageToField('servImagem')"><i class="fas fa-cloud-upload-alt"></i> Enviar</button>
+                    </div>
+                    <div id="servImagemPreview"></div>
                 </div>
                 <div class="form-group">
                     <label>📸 Galeria de Fotos (URLs separadas por vírgula)</label>
-                    <input type="text" id="servGaleria" placeholder="https://exemplo.com/foto1.jpg, https://exemplo.com/foto2.jpg">
-                    <small>Cole as URLs separadas por vírgula (as legendas serão o nome do serviço)</small>
+                    <div class="upload-wrapper">
+                        <input type="text" id="servGaleria" placeholder="URL1, URL2, ..." style="flex:1;">
+                        <button type="button" class="btn-upload" onclick="uploadMultipleImagesToGaleria()"><i class="fas fa-cloud-upload-alt"></i> Enviar várias fotos</button>
+                    </div>
+                    <small>Você pode colar URLs ou enviar múltiplas imagens (serão redimensionadas).</small>
                 </div>
                 <div class="form-group">
                     <label>Descrição Detalhada (para o modal)</label>
                     <textarea id="servDescricaoDetalhada" placeholder="Descrição completa do serviço..."></textarea>
                 </div>
                 <button onclick="adicionarServico()"><i class="fas fa-save"></i> Salvar Serviço</button>
-                <hr style="margin: 30px 0;">
-                <h2><i class="fas fa-list"></i> Serviços Cadastrados (<span id="totalServicosCount">0</span>)</h2>
-                <div id="listaServicos" class="grid"></div>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 30px 0 20px 0;">
+                    <h2 style="margin: 0;"><i class="fas fa-list"></i> Serviços Cadastrados (<span id="totalServicosCount">0</span>)</h2>
+                    <button id="toggleServicosBtn" class="btn-info toggle-btn" onclick="toggleServicosList()"><i class="fas fa-chevron-up"></i> Ocultar</button>
+                </div>
+                <div id="servicosListContainer" class="grid"></div>
                 <div class="info-item" style="margin-top: 20px; background: #cce5ff;">
                     <i class="fas fa-info-circle"></i> <strong>Observação:</strong> Clique em "Editar" em qualquer serviço para modificar nome, descrição, fotos e legendas individuais.
                 </div>
@@ -188,7 +208,7 @@
             </div>
         </div>
 
-        <!-- Configurações (backup etc) -->
+        <!-- Configurações -->
         <div class="card">
             <h2><i class="fas fa-database"></i> Backup e Configurações</h2>
             <div id="configAlert" class="alert"></div>
@@ -212,7 +232,7 @@
     </div>
 </div>
 
-<!-- Modais de edição (produto e serviço) mantidos -->
+<!-- Modais de edição -->
 <div id="editProdutoModal" class="edit-modal" style="display: none;">
     <div class="edit-modal-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -234,16 +254,17 @@
 </div>
 
 <script>
-// ==================== CONFIGURAÇÕES JSONBIN ====================
+// ==================== CONFIGURAÇÕES ====================
 const JSONBIN_BIN_ID = "6a073187adc21f119aa52743";
 const JSONBIN_MASTER_KEY = "$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky";
+const IMGBB_API_KEY = "615982928dee6c73f2a072485c426dcc";
 
 let SENHA_ADMIN = localStorage.getItem('admin_senha') || "admin123";
 let produtos = [];
 let servicos = [];
-let categorias = []; // array de strings ou objetos {id, nome}
+let categorias = [];
 
-// Serviços padrão (idênticos aos anteriores)
+// Serviços padrão
 const servicosPadrao = [
     { id: "padrao_torno", nome: "Serviço de Torno", descricao: "Usinagem de precisão e Fabricação de peças sob medida", descricao_detalhada: "Conheça nosso trabalho de usinagem alta precisão. Realizamos serviços de rosqueamento, refile, canaletas e peças sob medida com excelente acabamento.", imagem: "https://via.placeholder.com/800x600?text=Torno", galeria: [], isPadrao: true },
     { id: "padrao_solda", nome: "Solda em Geral", descricao: "Solda elétrica e alumínio", descricao_detalhada: "Serviços de solda elétrica, MIG/MAG, TIG e alumínio, reparos industriais e manutenção preventiva.", imagem: "https://via.placeholder.com/800x600?text=Solda", galeria: [], isPadrao: true },
@@ -252,6 +273,124 @@ const servicosPadrao = [
     { id: "padrao_plasma_tubo", nome: "Corte Plasma em Tubo", descricao: "Corte preciso em tubos de aço, inox e alumínio", descricao_detalhada: "Especialistas em corte plasma de tubos estruturais, canos e perfis tubulares.", imagem: "https://via.placeholder.com/800x600?text=Plasma+Tubo", galeria: [], isPadrao: true },
     { id: "padrao_postos", nome: "Atendimento a Postos de Molas", descricao: "Manutenção e reparo especializado para Caminhões", descricao_detalhada: "Atendimento especializado para postos de molas. Realizamos manutenção preventiva e corretiva, reparo de feixes de molas.", imagem: "https://via.placeholder.com/800x600?text=Postos+de+Molas", galeria: [], isPadrao: true }
 ];
+
+// ==================== FUNÇÕES DE UPLOAD E REDIMENSIONAMENTO ====================
+function resizeImage(file, maxWidth, maxHeight) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = () => {
+                let width = img.width;
+                let height = img.height;
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = Math.floor(width * ratio);
+                    height = Math.floor(height * ratio);
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, file.type, 0.9);
+            };
+            img.onerror = reject;
+        };
+        reader.onerror = reject;
+    });
+}
+
+async function uploadToImgBB(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('key', IMGBB_API_KEY);
+    try {
+        const response = await fetch('https://api.imgbb.com/1/upload', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            return data.data.url;
+        } else {
+            throw new Error(data.error?.message || 'Erro no upload');
+        }
+    } catch (error) {
+        console.error('ImgBB upload error:', error);
+        throw error;
+    }
+}
+
+async function uploadImageToField(fieldId) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const field = document.getElementById(fieldId);
+        if (!field) return;
+        const btn = document.querySelector(`[onclick="uploadImageToField('${fieldId}')"]`);
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        btn.disabled = true;
+        try {
+            const resizedBlob = await resizeImage(file, 800, 600);
+            const url = await uploadToImgBB(resizedBlob);
+            field.value = url;
+            const previewDiv = document.getElementById(`${fieldId}Preview`);
+            if (previewDiv) {
+                previewDiv.innerHTML = `<img src="${url}" class="image-preview" alt="Prévia">`;
+            }
+            mostrarAlerta('config', '✅ Imagem enviada e redimensionada com sucesso!', 'success');
+        } catch (err) {
+            console.error(err);
+            mostrarAlerta('config', '❌ Erro no upload da imagem.', 'error');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    };
+    input.click();
+}
+
+async function uploadMultipleImagesToGaleria() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+        const galeriaField = document.getElementById('servGaleria');
+        let currentUrls = galeriaField.value.trim() ? galeriaField.value.split(',').map(u => u.trim()) : [];
+        const btn = document.querySelector('[onclick="uploadMultipleImagesToGaleria()"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        btn.disabled = true;
+        try {
+            for (const file of files) {
+                const resizedBlob = await resizeImage(file, 800, 600);
+                const url = await uploadToImgBB(resizedBlob);
+                currentUrls.push(url);
+            }
+            galeriaField.value = currentUrls.join(', ');
+            mostrarAlerta('serv', `✅ ${files.length} imagem(ns) enviada(s) com sucesso!`, 'success');
+        } catch (err) {
+            console.error(err);
+            mostrarAlerta('serv', '❌ Erro ao enviar uma ou mais imagens.', 'error');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    };
+    input.click();
+}
 
 // ==================== FUNÇÕES JSONBIN ====================
 async function carregarDoJSONBin() {
@@ -265,13 +404,7 @@ async function carregarDoJSONBin() {
         const data = await response.json();
         const dados = data.record;
         produtos = dados.produtos && Array.isArray(dados.produtos) ? dados.produtos : [];
-        // Categorias
-        if (dados.categorias && Array.isArray(dados.categorias)) {
-            categorias = dados.categorias;
-        } else {
-            categorias = [];
-        }
-        // Serviços (já com merge dos padrão)
+        categorias = dados.categorias && Array.isArray(dados.categorias) ? dados.categorias : [];
         const servicosSalvos = dados.servicos || [];
         servicos = [];
         for (const padrao of servicosPadrao) {
@@ -319,7 +452,7 @@ async function salvarNoJSONBin() {
                 galeria: s.galeria || [],
                 isPadrao: s.isPadrao
             })),
-            categorias: categorias,  // array de objetos {id, nome} ou strings
+            categorias: categorias,
             ultimaAtualizacao: new Date().toISOString()
         };
         const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
@@ -422,14 +555,11 @@ function editarCategoria(id, nomeAntigo) {
         } else {
             categorias[index] = novoNome;
         }
-        // Atualizar produtos que usavam a categoria antiga
-        produtos.forEach(p => {
-            if (p.categoria === nomeAntigo) p.categoria = novoNome;
-        });
+        produtos.forEach(p => { if (p.categoria === nomeAntigo) p.categoria = novoNome; });
         salvarNoJSONBin().then(() => {
             carregarListaCategoriasAdmin();
             carregarSelectCategorias();
-            carregarListaProdutos(); // para mostrar categorias atualizadas nos cards
+            carregarListaProdutos();
             mostrarAlerta('cat', '✅ Categoria atualizada!', 'success');
             atualizarInfoProdutos();
         });
@@ -441,10 +571,7 @@ function excluirCategoria(id, nome) {
     const index = categorias.findIndex(c => (typeof c === 'object' ? c.id : c) === id);
     if (index !== -1) {
         categorias.splice(index, 1);
-        // Remover a categoria dos produtos
-        produtos.forEach(p => {
-            if (p.categoria === nome) p.categoria = '';
-        });
+        produtos.forEach(p => { if (p.categoria === nome) p.categoria = ''; });
         salvarNoJSONBin().then(() => {
             carregarListaCategoriasAdmin();
             carregarSelectCategorias();
@@ -455,7 +582,7 @@ function excluirCategoria(id, nome) {
     }
 }
 
-// ==================== PRODUTOS (com categoria) ====================
+// ==================== PRODUTOS ====================
 function adicionarProduto() {
     const nome = document.getElementById('prodNome').value.trim();
     const preco = parseFloat(document.getElementById('prodPreco').value);
@@ -486,6 +613,7 @@ function limparFormProduto() {
     document.getElementById('prodCategoria').value = '';
     document.getElementById('prodImagem').value = '';
     document.getElementById('prodDescricao').value = '';
+    document.getElementById('prodImagemPreview').innerHTML = '';
 }
 
 let produtoEditando = null;
@@ -499,17 +627,19 @@ function abrirModalEditarProduto(produto) {
         const selected = (produto.categoria === nomeCat) ? 'selected' : '';
         options += `<option value="${nomeCat.replace(/"/g, '&quot;')}" ${selected}>${nomeCat}</option>`;
     });
+    const previewHtml = produto.imagem ? `<div style="margin-top:10px;"><img src="${produto.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : '';
     content.innerHTML = `
         <div class="form-group"><label>Nome do Produto *</label><input type="text" id="editProdNome" value="${produto.nome.replace(/"/g, '&quot;')}"></div>
         <div class="form-group"><label>Preço (R$) *</label><input type="number" step="0.01" id="editProdPreco" value="${produto.preco}"></div>
         <div class="form-group"><label>Categoria</label><select id="editProdCategoria">${options}</select></div>
-        <div class="form-group"><label>URL da Imagem</label><input type="text" id="editProdImagem" value="${produto.imagem || ''}" placeholder="https://...">${produto.imagem ? `<div style="margin-top:10px;"><img src="${produto.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}</div>
+        <div class="form-group"><label>URL da Imagem</label><div class="upload-wrapper"><input type="text" id="editProdImagem" value="${produto.imagem || ''}" style="flex:1;"><button type="button" class="btn-upload" onclick="uploadImageToField('editProdImagem')"><i class="fas fa-cloud-upload-alt"></i> Enviar</button></div>${previewHtml}<div id="editProdImagemPreview"></div></div>
         <div class="form-group"><label>Descrição</label><textarea id="editProdDescricao" rows="3">${(produto.descricao || '').replace(/"/g, '&quot;')}</textarea></div>
         <hr><div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;"><button onclick="fecharModalProduto()" class="btn-danger">Cancelar</button><button onclick="salvarEdicaoProduto()" class="btn-success">Salvar</button></div>
     `;
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
+
 function salvarEdicaoProduto() {
     if (!produtoEditando) return;
     const novoNome = document.getElementById('editProdNome')?.value.trim();
@@ -525,11 +655,13 @@ function salvarEdicaoProduto() {
     if (novaDescricao) produtoEditando.descricao = novaDescricao;
     salvarNoJSONBin().then(() => { carregarListaProdutos(); mostrarAlerta('prod', '✅ Produto atualizado!', 'success'); fecharModalProduto(); atualizarInfoProdutos(); });
 }
+
 function fecharModalProduto() { document.getElementById('editProdutoModal').style.display = 'none'; document.body.style.overflow = ''; produtoEditando = null; }
 function editarProduto(id) { const produto = produtos.find(p => p.id === id); if(produto) abrirModalEditarProduto(produto); }
 function deletarProduto(id) { if(confirm('⚠️ Tem certeza que deseja excluir este produto?')) { produtos = produtos.filter(p => p.id !== id); salvarNoJSONBin().then(() => { carregarListaProdutos(); mostrarAlerta('prod', '🗑️ Produto excluído!', 'success'); atualizarInfoProdutos(); }); } }
+
 function carregarListaProdutos() {
-    const container = document.getElementById('listaProdutos');
+    const container = document.getElementById('produtosListContainer');
     const totalSpan = document.getElementById('totalProdutosCount');
     if(!container) return;
     if(produtos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum produto cadastrado ainda.</p>'; if(totalSpan) totalSpan.textContent = '0'; return; }
@@ -543,7 +675,7 @@ function carregarListaProdutos() {
     });
 }
 
-// ==================== SERVIÇOS (mantido igual ao anterior, sem categorias) ====================
+// ==================== SERVIÇOS ====================
 function adicionarServico() {
     const nome = document.getElementById('servNome').value.trim();
     const descricao = document.getElementById('servDescricao').value.trim();
@@ -557,15 +689,19 @@ function adicionarServico() {
     servicos.push(novoServico);
     salvarNoJSONBin().then(() => { mostrarAlerta('serv', '✅ Serviço adicionado!', 'success'); carregarListaServicos(); limparFormServico(); atualizarInfoProdutos(); });
 }
+
 function limparFormServico() {
     document.getElementById('servNome').value = '';
     document.getElementById('servDescricao').value = '';
     document.getElementById('servImagem').value = '';
     document.getElementById('servGaleria').value = '';
     document.getElementById('servDescricaoDetalhada').value = '';
+    document.getElementById('servImagemPreview').innerHTML = '';
 }
+
 let servicoEditando = null;
-function abrirModalEditarServico(servico) { /* mesmo código já existente */ 
+
+function abrirModalEditarServico(servico) {
     servicoEditando = JSON.parse(JSON.stringify(servico));
     const modal = document.getElementById('editServicoModal');
     const modalTitulo = document.getElementById('modalServicoTitulo');
@@ -588,7 +724,7 @@ function abrirModalEditarServico(servico) { /* mesmo código já existente */
     content.innerHTML = `
         <div class="form-group"><label>Nome do Serviço *</label><input type="text" id="editServNome" value="${servico.nome.replace(/"/g, '&quot;')}"></div>
         <div class="form-group"><label>Descrição Curta *</label><textarea id="editServDescricao" rows="3">${servico.descricao.replace(/"/g, '&quot;')}</textarea></div>
-        <div class="form-group"><label>URL da Imagem Principal</label><input type="text" id="editServImagem" value="${servico.imagem || ''}" placeholder="https://...">${servico.imagem ? `<div style="margin-top:10px;"><img src="${servico.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}</div>
+        <div class="form-group"><label>URL da Imagem Principal</label><div class="upload-wrapper"><input type="text" id="editServImagem" value="${servico.imagem || ''}" style="flex:1;"><button type="button" class="btn-upload" onclick="uploadImageToField('editServImagem')"><i class="fas fa-cloud-upload-alt"></i> Enviar</button></div>${servico.imagem ? `<div style="margin-top:10px;"><img src="${servico.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}<div id="editServImagemPreview"></div></div>
         <div class="form-group"><label>📸 Fotos e Legendas</label><div id="fotosContainer" style="margin-bottom:10px;">${fotosHtml}</div><button type="button" onclick="adicionarCampoFoto()" class="btn-info" style="background:#17a2b8; margin-top:5px;">+ Adicionar outra foto</button><small>Cole a URL direta da imagem e defina uma legenda personalizada.</small></div>
         <div class="form-group"><label>Descrição Detalhada</label><textarea id="editServDescricaoDetalhada" rows="4">${(servico.descricao_detalhada || servico.descricao).replace(/"/g, '&quot;')}</textarea></div>
         ${servico.isPadrao ? `<div class="info-item" style="background:#fff3cd; margin:15px 0;"><i class="fas fa-info-circle"></i> Este é um serviço padrão. Você pode editar todas as informações livremente.</div>` : ''}
@@ -597,15 +733,18 @@ function abrirModalEditarServico(servico) { /* mesmo código já existente */
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
-function adicionarCampoFoto() { /* mesmo código */ 
+
+function adicionarCampoFoto() {
     const container = document.getElementById('fotosContainer');
     if (!container) return;
     const div = document.createElement('div'); div.className = 'foto-edit-item';
     div.innerHTML = `<input type="text" class="foto-url" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button>`;
     container.appendChild(div);
 }
+
 function removerCampoFoto(btn) { const div = btn.closest('.foto-edit-item'); if(div) div.remove(); }
-function salvarEdicaoServico() { /* mesmo código */ 
+
+function salvarEdicaoServico() {
     if (!servicoEditando) return;
     const novoNome = document.getElementById('editServNome')?.value.trim();
     const novaDescricao = document.getElementById('editServDescricao')?.value.trim();
@@ -631,6 +770,7 @@ function salvarEdicaoServico() { /* mesmo código */
     }
     salvarNoJSONBin().then(() => { carregarListaServicos(); mostrarAlerta('serv', '✅ Serviço atualizado!', 'success'); fecharModalEdicao(); atualizarInfoProdutos(); });
 }
+
 function fecharModalEdicao() { document.getElementById('editServicoModal').style.display = 'none'; document.body.style.overflow = ''; servicoEditando = null; }
 function editarServico(id) { const servico = servicos.find(s => s.id === id); if(servico) abrirModalEditarServico(servico); }
 function deletarServico(id) {
@@ -638,8 +778,9 @@ function deletarServico(id) {
     if(servico && servico.isPadrao) { mostrarAlerta('serv', '❌ Serviços padrão não podem ser excluídos, mas podem ser editados!', 'error'); return; }
     if(confirm('⚠️ Tem certeza que deseja excluir este serviço?')) { servicos = servicos.filter(s => s.id !== id); salvarNoJSONBin().then(() => { carregarListaServicos(); mostrarAlerta('serv', '🗑️ Serviço excluído!', 'success'); atualizarInfoProdutos(); }); }
 }
+
 function carregarListaServicos() {
-    const container = document.getElementById('listaServicos');
+    const container = document.getElementById('servicosListContainer');
     const totalSpan = document.getElementById('totalServicosCount');
     if(!container) return;
     if(servicos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum serviço cadastrado.</p>'; if(totalSpan) totalSpan.textContent = '0'; return; }
@@ -654,6 +795,31 @@ function carregarListaServicos() {
     });
 }
 
+// ==================== TOGGLE DAS LISTAS ====================
+function toggleProdutosList() {
+    const container = document.getElementById('produtosListContainer');
+    const btn = document.getElementById('toggleProdutosBtn');
+    if (container.style.display === 'none') {
+        container.style.display = 'grid';
+        btn.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar';
+    } else {
+        container.style.display = 'none';
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i> Mostrar';
+    }
+}
+
+function toggleServicosList() {
+    const container = document.getElementById('servicosListContainer');
+    const btn = document.getElementById('toggleServicosBtn');
+    if (container.style.display === 'none') {
+        container.style.display = 'grid';
+        btn.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar';
+    } else {
+        container.style.display = 'none';
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i> Mostrar';
+    }
+}
+
 // ==================== FUNÇÕES GERAIS ====================
 function atualizarInfoProdutos() { 
     document.getElementById('infoTotalProdutos').textContent = produtos.length;
@@ -665,6 +831,7 @@ function atualizarInfoProdutos() {
     if (prodCount) prodCount.textContent = produtos.length;
     if (servCount) servCount.textContent = servicos.length;
 }
+
 function exportarDados() { 
     const dados = { produtos, servicos, categorias, exportadoEm: new Date().toISOString() };
     const a = document.createElement('a'); 
@@ -673,6 +840,7 @@ function exportarDados() {
     a.click(); 
     mostrarAlerta('config', '✅ Backup exportado!', 'success');
 }
+
 function importarDados() { 
     const input = document.getElementById('arquivoImportar'); 
     input.click(); 
@@ -705,16 +873,20 @@ function importarDados() {
         reader.readAsText(e.target.files[0]); 
     }; 
 }
+
 function alterarSenha() { 
     const nova = document.getElementById('novaSenha').value; 
     if(nova && nova.length >= 4) { localStorage.setItem('admin_senha', nova); SENHA_ADMIN = nova; mostrarAlerta('config', '✅ Senha alterada!', 'success'); document.getElementById('novaSenha').value = ''; } 
     else mostrarAlerta('config', '❌ Mínimo 4 caracteres!', 'error'); 
 }
+
 function refreshData() { carregarDoJSONBin().then(() => { carregarListaProdutos(); carregarListaServicos(); carregarListaCategoriasAdmin(); carregarSelectCategorias(); atualizarInfoProdutos(); mostrarAlerta('config', '🔄 Dados recarregados do JSONBin!', 'success'); }); }
+
 function mostrarAlerta(tipo, msg, classe) { 
     const div = document.getElementById(`${tipo}Alert`); 
     if(div) { div.textContent = msg; div.className = `alert ${classe}`; div.style.display = 'block'; setTimeout(() => div.style.display = 'none', 4000); } 
 }
+
 function switchTab(tab) {
     const tabProdutos = document.getElementById('tabProdutos');
     const tabServicos = document.getElementById('tabServicos');
@@ -725,15 +897,16 @@ function switchTab(tab) {
     else if (tab === 'servicos') { tabProdutos.classList.remove('active'); tabServicos.classList.add('active'); tabCategorias.classList.remove('active'); btns[1].classList.add('active'); carregarListaServicos(); }
     else if (tab === 'categorias') { tabProdutos.classList.remove('active'); tabServicos.classList.remove('active'); tabCategorias.classList.add('active'); btns[2].classList.add('active'); carregarListaCategoriasAdmin(); }
 }
+
 function fazerLogin() {
     const senha = document.getElementById('senhaAdmin').value;
     if(senha === SENHA_ADMIN) { localStorage.setItem('admin_logado', 'true'); document.getElementById('loginScreen').style.display = 'none'; document.getElementById('adminScreen').style.display = 'block'; carregarDoJSONBin().then(() => { carregarListaProdutos(); carregarListaServicos(); carregarListaCategoriasAdmin(); carregarSelectCategorias(); atualizarInfoProdutos(); }); }
     else { const alertDiv = document.getElementById('loginAlert'); alertDiv.textContent = '❌ Senha incorreta!'; alertDiv.style.display = 'block'; setTimeout(() => alertDiv.style.display = 'none', 3000); }
 }
+
 document.getElementById('senhaAdmin')?.addEventListener('keypress', e => { if (e.key === 'Enter') fazerLogin(); });
 function logout() { localStorage.removeItem('admin_logado'); document.getElementById('loginScreen').style.display = 'block'; document.getElementById('adminScreen').style.display = 'none'; document.getElementById('senhaAdmin').value = ''; document.getElementById('senhaAdmin').focus(); }
 
-// Expor funções globais
 window.adicionarProduto = adicionarProduto; window.editarProduto = editarProduto; window.deletarProduto = deletarProduto;
 window.editarServico = editarServico; window.deletarServico = deletarServico; window.exportarDados = exportarDados;
 window.importarDados = importarDados; window.alterarSenha = alterarSenha; window.refreshData = refreshData;
@@ -741,6 +914,8 @@ window.fazerLogin = fazerLogin; window.logout = logout; window.switchTab = switc
 window.fecharModalProduto = fecharModalProduto; window.fecharModalEdicao = fecharModalEdicao;
 window.sincronizarJSONBin = sincronizarJSONBin; window.adicionarCampoFoto = adicionarCampoFoto; window.removerCampoFoto = removerCampoFoto;
 window.adicionarCategoria = adicionarCategoria; window.editarCategoria = editarCategoria; window.excluirCategoria = excluirCategoria;
+window.uploadImageToField = uploadImageToField; window.uploadMultipleImagesToGaleria = uploadMultipleImagesToGaleria;
+window.toggleProdutosList = toggleProdutosList; window.toggleServicosList = toggleServicosList;
 
 document.getElementById('loginScreen').style.display = 'block';
 document.getElementById('adminScreen').style.display = 'none';
