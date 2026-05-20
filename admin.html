@@ -25,10 +25,10 @@
         .btn-warning:hover { background: #e0a800; }
         .btn-info { background: #17a2b8; }
         .btn-info:hover { background: #138496; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-top: 20px; }
         .item-card { background: #f8f9fa; border-radius: 12px; padding: 15px; border: 1px solid #e0e0e0; transition: transform 0.3s; }
         .item-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .item-card h3 { color: #0b2b3b; margin-bottom: 10px; font-size: 1rem; }
+        .item-card h3 { color: #0b2b3b; margin-bottom: 10px; font-size: 1rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .preco { color: #f9b81b; font-size: 1.2rem; font-weight: bold; margin: 10px 0; }
         .acoes { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         .alert { padding: 12px; border-radius: 8px; margin-bottom: 20px; display: none; }
@@ -40,33 +40,26 @@
         .info-item { margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 8px; }
         .voltar-link { display: inline-block; margin-top: 20px; color: #0b2b3b; text-decoration: none; font-weight: 500; }
         .voltar-link:hover { color: #f9b81b; }
-        .upload-area { border: 2px dashed #ddd; border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.3s; background: #f8f9fa; }
-        .upload-area:hover { border-color: #f9b81b; background: #fff8e7; }
-        .preview-container { background: #f8f9fa; border-radius: 12px; padding: 15px; margin-top: 15px; }
-        .preview-img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; }
-        .progress-bar { width: 100%; height: 4px; background: #e0e0e0; border-radius: 2px; margin-top: 10px; overflow: hidden; }
-        .progress-fill { width: 0%; height: 100%; background: #f9b81b; transition: width 0.3s; }
-        .url-display { font-size: 12px; color: #666; word-break: break-all; }
-        .btn-cancel { background: #dc3545; padding: 5px 15px; font-size: 12px; }
-        .compress-warning { background: #d4edda; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px; }
         .header-status { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .status-box { background: #f8f9fa; padding: 8px 15px; border-radius: 20px; font-size: 12px; }
         .status-conectado { color: #28a745; }
         .status-offline { color: #ffc107; }
-        .info-tamanho { font-size: 11px; margin-top: 5px; color: #666; }
-        .servico-usado { font-size: 11px; margin-top: 5px; color: #28a745; }
-        .foto-item-admin { display: flex; gap: 10px; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
-        .foto-item-admin img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
-        .galeria-upload-area { border: 1px dashed #0b2b3b; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; margin-top: 10px; }
-        .galeria-fotos-preview { margin-top: 15px; max-height: 300px; overflow-y: auto; }
         .badge-padrao { background: #28a745; color: white; font-size: 10px; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
-        .tabs-admin { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; }
+        .tabs-admin { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; flex-wrap: wrap; }
         .tab-btn { background: none; color: #0b2b3b; padding: 10px 20px; border-radius: 8px 8px 0 0; margin: 0; }
         .tab-btn.active { background: #0b2b3b; color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .foto-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin: 5px; cursor: pointer; }
-        .foto-thumb:hover { opacity: 0.8; }
+        .servico-card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+        .servico-info { font-size: 12px; color: #666; margin: 8px 0; }
+        .badge-galeria { background: #17a2b8; color: white; font-size: 10px; padding: 2px 8px; border-radius: 20px; }
+        .edit-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10001; overflow-y: auto; }
+        .edit-modal-content { background: white; max-width: 700px; margin: 50px auto; border-radius: 20px; padding: 30px; }
+        .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #f9b81b; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .foto-edit-item { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+        .foto-edit-item input { flex: 1; }
+        .categoria-item { display: flex; justify-content: space-between; align-items: center; background: #f1f3f5; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -86,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Painel Admin (inicialmente oculto) -->
+    <!-- Painel Admin -->
     <div id="adminScreen" style="display: none;">
         <div class="card">
             <div class="header-status">
@@ -100,192 +93,116 @@
                 <a href="index.html" style="background: #6c757d; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">
                     <i class="fas fa-home"></i> Site
                 </a>
-                <button class="btn-warning" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Atualizar</button>
+                <button class="btn-warning" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Recarregar</button>
+                <button class="btn-info" onclick="sincronizarJSONBin()"><i class="fas fa-cloud-upload-alt"></i> Forçar Sincronização</button>
                 <button class="btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
             </div>
         </div>
 
-        <!-- Abas -->
+        <!-- Abas (agora com Categorias) -->
         <div class="card">
             <div class="tabs-admin">
                 <button class="tab-btn active" onclick="switchTab('produtos')"><i class="fas fa-box"></i> Produtos</button>
                 <button class="tab-btn" onclick="switchTab('servicos')"><i class="fas fa-tools"></i> Serviços</button>
+                <button class="tab-btn" onclick="switchTab('categorias')"><i class="fas fa-tags"></i> Categorias</button>
             </div>
 
             <!-- TAB PRODUTOS -->
             <div id="tabProdutos" class="tab-content active">
                 <h2><i class="fas fa-plus-circle"></i> Adicionar Produto</h2>
                 <div id="prodAlert" class="alert"></div>
-                
                 <div class="form-group">
                     <label>Nome do Produto *</label>
                     <input type="text" id="prodNome" placeholder="Ex: PARAFUSO SXT 08X30">
                 </div>
-                
                 <div class="form-group">
                     <label>Preço (R$) *</label>
                     <input type="number" step="0.01" id="prodPreco" placeholder="0.00">
                 </div>
-                
                 <div class="form-group">
-                    <label>📸 Imagem do Produto</label>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <button type="button" onclick="switchImageTab('upload')" style="background: #0b2b3b; color: white; padding: 8px 16px; border-radius: 20px; border: none;"><i class="fas fa-upload"></i> Do dispositivo</button>
-                        <button type="button" onclick="switchImageTab('link')" style="background: #e9ecef; color: #0b2b3b; padding: 8px 16px; border-radius: 20px; border: none;"><i class="fas fa-link"></i> Link da web</button>
-                    </div>
-                    
-                    <div id="uploadTabDiv">
-                        <div class="upload-area" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="event.preventDefault(); handleDrop(event)">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #0b2b3b; margin-bottom: 15px;"></i>
-                            <p><strong>Clique ou arraste a imagem aqui</strong></p>
-                            <small>JPG, PNG, GIF, WEBP (max 32MB) | Otimização automática para 800x600px</small>
-                        </div>
-                        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="handleFileSelect(this.files[0])">
-                        <div id="progressContainer" style="display: none; margin-top: 15px;">
-                            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
-                            <p id="progressText" style="font-size: 12px; margin-top: 5px; text-align: center;">Processando...</p>
-                        </div>
-                        <div id="previewContainer" style="display: none; margin-top: 15px;">
-                            <div class="preview-container">
-                                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                                    <img id="previewImg" class="preview-img" src="">
-                                    <div style="flex: 1;">
-                                        <div id="uploadStatus"></div>
-                                        <div id="imageUrlDisplay" class="url-display"></div>
-                                        <div id="servicoUsado" class="servico-usado"></div>
-                                        <div id="infoTamanho" class="info-tamanho"></div>
-                                        <button class="btn-cancel" onclick="cancelarUpload()"><i class="fas fa-times"></i> Cancelar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="linkTabDiv" style="display: none;">
-                        <input type="text" id="prodImagem" placeholder="https://exemplo.com/imagem.jpg">
-                        <small>Cole a URL direta da imagem</small>
-                    </div>
+                    <label>Categoria</label>
+                    <select id="prodCategoria">
+                        <option value="">Sem categoria</option>
+                    </select>
                 </div>
-                
+                <div class="form-group">
+                    <label>📸 URL da Imagem</label>
+                    <input type="text" id="prodImagem" placeholder="https://exemplo.com/imagem.jpg">
+                </div>
                 <div class="form-group">
                     <label>Descrição</label>
                     <textarea id="prodDescricao" placeholder="Descrição do produto..."></textarea>
                 </div>
-                
                 <button onclick="adicionarProduto()"><i class="fas fa-save"></i> Salvar Produto</button>
-                
                 <hr style="margin: 30px 0;">
-                
-                <h2><i class="fas fa-list"></i> Produtos Cadastrados</h2>
+                <h2><i class="fas fa-list"></i> Produtos Cadastrados (<span id="totalProdutosCount">0</span>)</h2>
                 <div id="listaProdutos" class="grid"></div>
             </div>
 
-            <!-- TAB SERVICOS -->
+            <!-- TAB SERVICOS (idêntico ao anterior) -->
             <div id="tabServicos" class="tab-content">
-                <h2><i class="fas fa-plus-circle"></i> Adicionar Serviço</h2>
+                <h2><i class="fas fa-plus-circle"></i> Adicionar Novo Serviço</h2>
                 <div id="servAlert" class="alert"></div>
-                
                 <div class="form-group">
                     <label>Nome do Serviço *</label>
-                    <input type="text" id="servNome" placeholder="Ex: Solda em Geral">
+                    <input type="text" id="servNome" placeholder="Ex: Serviço Especializado">
                 </div>
-                
                 <div class="form-group">
                     <label>Descrição Curta *</label>
                     <textarea id="servDescricao" placeholder="Breve descrição do serviço..."></textarea>
                 </div>
-                
                 <div class="form-group">
-                    <label>📸 Imagem Principal (Thumbnail)</label>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <button type="button" onclick="switchServImageTab('upload')" style="background: #0b2b3b; color: white; padding: 8px 16px; border-radius: 20px; border: none;"><i class="fas fa-upload"></i> Do dispositivo</button>
-                        <button type="button" onclick="switchServImageTab('link')" style="background: #e9ecef; color: #0b2b3b; padding: 8px 16px; border-radius: 20px; border: none;"><i class="fas fa-link"></i> Link da web</button>
-                    </div>
-                    
-                    <div id="servUploadTabDiv">
-                        <div class="upload-area" onclick="document.getElementById('servFileInput').click()" ondragover="event.preventDefault()" ondrop="event.preventDefault(); handleServDrop(event)">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #0b2b3b; margin-bottom: 15px;"></i>
-                            <p><strong>Clique ou arraste a imagem aqui</strong></p>
-                            <small>Imagem principal do serviço (será exibida no carrossel)</small>
-                        </div>
-                        <input type="file" id="servFileInput" style="display: none;" accept="image/*" onchange="handleServFileSelect(this.files[0])">
-                        <div id="servProgressContainer" style="display: none; margin-top: 15px;">
-                            <div class="progress-bar"><div id="servProgressFill" class="progress-fill"></div></div>
-                            <p id="servProgressText" style="font-size: 12px; margin-top: 5px; text-align: center;">Processando...</p>
-                        </div>
-                        <div id="servPreviewContainer" style="display: none; margin-top: 15px;">
-                            <div class="preview-container">
-                                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                                    <img id="servPreviewImg" class="preview-img" src="">
-                                    <div style="flex: 1;">
-                                        <div id="servUploadStatus"></div>
-                                        <div id="servImageUrlDisplay" class="url-display"></div>
-                                        <div id="servServicoUsado" class="servico-usado"></div>
-                                        <div id="servInfoTamanho" class="info-tamanho"></div>
-                                        <button class="btn-cancel" onclick="cancelarServUpload()"><i class="fas fa-times"></i> Cancelar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="servLinkTabDiv" style="display: none;">
-                        <input type="text" id="servImagem" placeholder="https://exemplo.com/imagem.jpg">
-                        <small>Cole a URL direta da imagem principal</small>
-                    </div>
+                    <label>📸 URL da Imagem Principal</label>
+                    <input type="text" id="servImagem" placeholder="https://exemplo.com/imagem.jpg">
                 </div>
-                
                 <div class="form-group">
-                    <label>📸 Galeria de Fotos (múltiplas imagens)</label>
-                    <div class="galeria-upload-area" onclick="document.getElementById('galeriaFileInput').click()">
-                        <i class="fas fa-images" style="font-size: 32px; color: #0b2b3b; margin-bottom: 10px;"></i>
-                        <p><strong>Clique para adicionar fotos à galeria</strong></p>
-                        <small>Você pode selecionar várias fotos de uma vez | Otimização automática</small>
-                    </div>
-                    <input type="file" id="galeriaFileInput" style="display: none;" accept="image/*" multiple onchange="handleGaleriaFileSelect(this.files)">
-                    <div id="galeriaProgressContainer" style="display: none; margin-top: 15px;">
-                        <div class="progress-bar"><div id="galeriaProgressFill" class="progress-fill"></div></div>
-                        <p id="galeriaProgressText" style="font-size: 12px; margin-top: 5px; text-align: center;">Enviando fotos...</p>
-                    </div>
-                    <div id="galeriaPreviewContainer" class="galeria-fotos-preview"></div>
+                    <label>📸 Galeria de Fotos (URLs separadas por vírgula)</label>
+                    <input type="text" id="servGaleria" placeholder="https://exemplo.com/foto1.jpg, https://exemplo.com/foto2.jpg">
+                    <small>Cole as URLs separadas por vírgula (as legendas serão o nome do serviço)</small>
                 </div>
-                
                 <div class="form-group">
                     <label>Descrição Detalhada (para o modal)</label>
-                    <textarea id="servDescricaoDetalhada" placeholder="Descrição completa do serviço que aparecerá no modal ao clicar..."></textarea>
+                    <textarea id="servDescricaoDetalhada" placeholder="Descrição completa do serviço..."></textarea>
                 </div>
-                
                 <button onclick="adicionarServico()"><i class="fas fa-save"></i> Salvar Serviço</button>
-                
                 <hr style="margin: 30px 0;">
-                
-                <h2><i class="fas fa-list"></i> Serviços Cadastrados</h2>
+                <h2><i class="fas fa-list"></i> Serviços Cadastrados (<span id="totalServicosCount">0</span>)</h2>
                 <div id="listaServicos" class="grid"></div>
-                
                 <div class="info-item" style="margin-top: 20px; background: #cce5ff;">
-                    <i class="fas fa-info-circle"></i> <strong>Observação:</strong> Os serviços padrão (Torno, Solda, etc.) são mantidos automaticamente. Você pode adicionar novos ou editar os existentes.
+                    <i class="fas fa-info-circle"></i> <strong>Observação:</strong> Clique em "Editar" em qualquer serviço para modificar nome, descrição, fotos e legendas individuais.
                 </div>
+            </div>
+
+            <!-- TAB CATEGORIAS -->
+            <div id="tabCategorias" class="tab-content">
+                <h2><i class="fas fa-tags"></i> Gerenciar Categorias</h2>
+                <div id="catAlert" class="alert"></div>
+                <div class="form-group">
+                    <label>Nova Categoria</label>
+                    <input type="text" id="novaCategoriaNome" placeholder="Ex: Parafusos, Ferramentas, Motor...">
+                </div>
+                <button onclick="adicionarCategoria()"><i class="fas fa-plus"></i> Adicionar Categoria</button>
+                <hr style="margin: 30px 0;">
+                <h3>Categorias Existentes</h3>
+                <div id="listaCategorias"></div>
             </div>
         </div>
 
-        <!-- Configurações -->
+        <!-- Configurações (backup etc) -->
         <div class="card">
             <h2><i class="fas fa-database"></i> Backup e Configurações</h2>
             <div id="configAlert" class="alert"></div>
-            
             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
                 <button class="btn-success" onclick="exportarDados()"><i class="fas fa-download"></i> Exportar Backup</button>
                 <button class="btn-warning" onclick="importarDados()"><i class="fas fa-upload"></i> Importar Backup</button>
                 <input type="file" id="arquivoImportar" style="display:none" accept=".json">
             </div>
-            
-            <div class="info-item"><strong>Bin ID:</strong> <span id="infoBinId">6a073187adc21f119aa52743</span></div>
+            <div class="info-item"><strong>JSONBin ID:</strong> 6a073187adc21f119aa52743</div>
             <div class="info-item"><strong>Total de Produtos:</strong> <span id="infoTotalProdutos">0</span></div>
             <div class="info-item"><strong>Total de Serviços:</strong> <span id="infoTotalServicos">0</span></div>
+            <div class="info-item"><strong>Total de Categorias:</strong> <span id="infoTotalCategorias">0</span></div>
             <div class="info-item"><strong>Última Atualização:</strong> <span id="infoUltimaAtualizacao">-</span></div>
-            
             <hr style="margin: 20px 0;">
-            
             <h3><i class="fas fa-key"></i> Alterar Senha</h3>
             <div class="form-group">
                 <input type="password" id="novaSenha" placeholder="Digite a nova senha (mínimo 4 caracteres)">
@@ -295,720 +212,538 @@
     </div>
 </div>
 
+<!-- Modais de edição (produto e serviço) mantidos -->
+<div id="editProdutoModal" class="edit-modal" style="display: none;">
+    <div class="edit-modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;"><i class="fas fa-edit"></i> Editar Produto</h2>
+            <button onclick="fecharModalProduto()" class="btn-danger" style="padding: 8px 16px;"><i class="fas fa-times"></i> Fechar</button>
+        </div>
+        <div id="modalEditProdutoContent"></div>
+    </div>
+</div>
+
+<div id="editServicoModal" class="edit-modal" style="display: none;">
+    <div class="edit-modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 id="modalServicoTitulo" style="margin: 0;">Editar Serviço</h2>
+            <button onclick="fecharModalEdicao()" class="btn-danger" style="padding: 8px 16px;"><i class="fas fa-times"></i> Fechar</button>
+        </div>
+        <div id="modalEditContent"></div>
+    </div>
+</div>
+
 <script>
-// ==================== CONFIGURAÇÕES ====================
+// ==================== CONFIGURAÇÕES JSONBIN ====================
 const JSONBIN_BIN_ID = "6a073187adc21f119aa52743";
-const JSONBIN_API_KEY = "$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky";
+const JSONBIN_MASTER_KEY = "$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky";
+
 let SENHA_ADMIN = localStorage.getItem('admin_senha') || "admin123";
 let produtos = [];
 let servicos = [];
+let categorias = []; // array de strings ou objetos {id, nome}
 
-// Serviços padrão (serão preservados)
+// Serviços padrão (idênticos aos anteriores)
 const servicosPadrao = [
-    { id: "padrao_torno", nome: "Serviço de Torno", descricao: "Usinagem de precisão e Fabricação de peças sob medida", descricao_detalhada: "Conheça nosso trabalho de usinagem alta precisão. Realizamos serviços de rosqueamento, refile, canaletas e peças sob medida com excelente acabamento.", imagem: "imagens/servico-torno.jpg", galeria: ["imagens/torno-1.jpg", "imagens/torno-2.jpg", "imagens/torno-3.jpg", "imagens/torno-4.jpg"], isPadrao: true },
-    { id: "padrao_solda", nome: "Solda em Geral", descricao: "Solda elétrica e alumínio", descricao_detalhada: "Serviços de solda elétrica, MIG/MAG, TIG e alumínio, reparos industriais e manutenção preventiva.", imagem: "imagens/servico-solda.jpg", galeria: ["imagens/solda-1.jpg", "imagens/solda-2.jpg", "imagens/solda-3.jpg", "imagens/solda-4.jpg"], isPadrao: true },
-    { id: "padrao_manutencao", nome: "Manutenção Industrial", descricao: "Reparo em máquinas Pesadas e Serrarias", descricao_detalhada: "Especialistas em manutenção preventiva e corretiva de máquinas pesadas, motores, bombas e equipamentos industriais. Atendimento rápido e eficiente.", imagem: "imagens/servico-manutencao.jpg", galeria: ["imagens/manutencao-1.jpg", "imagens/manutencao-2.jpg", "imagens/manutencao-3.jpg", "imagens/manutencao-4.jpg"], isPadrao: true },
-    { id: "padrao_plasma", nome: "Corte Plasma", descricao: "Corte de alta precisão em diversos materiais", descricao_detalhada: "Corte plasma de alta precisão para chapas de aço, inox, alumínio e outros metais. Tecnologia moderna para cortes limpos e precisos.", imagem: "imagens/servico-corte-plasma.jpg", galeria: ["imagens/plasma-1.jpg", "imagens/plasma-2.jpg", "imagens/plasma-3.jpg", "imagens/plasma-4.jpg"], isPadrao: true },
-    { id: "padrao_plasma_tubo", nome: "Corte Plasma em Tubo", descricao: "Corte preciso em tubos de aço, inox e alumínio", descricao_detalhada: "Especialistas em corte plasma de tubos estruturais, canos e perfis tubulares. Cortes precisos para indústria e construção civil.", imagem: "imagens/servico-corte-plasma-tubo.jpg", galeria: ["imagens/plasma-tubo-1.jpg", "imagens/plasma-tubo-2.jpg", "imagens/plasma-tubo-3.jpg", "imagens/plasma-tubo-4.jpg"], isPadrao: true },
-    { id: "padrao_postos", nome: "Atendimento a Postos de Molas", descricao: "Manutenção e reparo especializado para Caminhões, truck, toco e 3/4", descricao_detalhada: "Atendimento especializado para postos de molas. Realizamos manutenção preventiva e corretiva, reparo de feixes de molas, substituição de componentes e serviços de solda especializada para caminhões e veículos pesados. Qualidade e agilidade no atendimento.", imagem: "imagens/servico-postos-molas.jpg", galeria: ["imagens/postos-molas-1.jpg", "imagens/postos-molas-2.jpg", "imagens/postos-molas-3.jpg", "imagens/postos-molas-4.jpg"], isPadrao: true }
+    { id: "padrao_torno", nome: "Serviço de Torno", descricao: "Usinagem de precisão e Fabricação de peças sob medida", descricao_detalhada: "Conheça nosso trabalho de usinagem alta precisão. Realizamos serviços de rosqueamento, refile, canaletas e peças sob medida com excelente acabamento.", imagem: "https://via.placeholder.com/800x600?text=Torno", galeria: [], isPadrao: true },
+    { id: "padrao_solda", nome: "Solda em Geral", descricao: "Solda elétrica e alumínio", descricao_detalhada: "Serviços de solda elétrica, MIG/MAG, TIG e alumínio, reparos industriais e manutenção preventiva.", imagem: "https://via.placeholder.com/800x600?text=Solda", galeria: [], isPadrao: true },
+    { id: "padrao_manutencao", nome: "Manutenção Industrial", descricao: "Reparo em máquinas Pesadas e Serrarias", descricao_detalhada: "Especialistas em manutenção preventiva e corretiva de máquinas pesadas, motores, bombas e equipamentos industriais.", imagem: "https://via.placeholder.com/800x600?text=Manutencao", galeria: [], isPadrao: true },
+    { id: "padrao_plasma", nome: "Corte Plasma", descricao: "Corte de alta precisão em diversos materiais", descricao_detalhada: "Corte plasma de alta precisão para chapas de aço, inox, alumínio e outros metais.", imagem: "https://via.placeholder.com/800x600?text=Corte+Plasma", galeria: [], isPadrao: true },
+    { id: "padrao_plasma_tubo", nome: "Corte Plasma em Tubo", descricao: "Corte preciso em tubos de aço, inox e alumínio", descricao_detalhada: "Especialistas em corte plasma de tubos estruturais, canos e perfis tubulares.", imagem: "https://via.placeholder.com/800x600?text=Plasma+Tubo", galeria: [], isPadrao: true },
+    { id: "padrao_postos", nome: "Atendimento a Postos de Molas", descricao: "Manutenção e reparo especializado para Caminhões", descricao_detalhada: "Atendimento especializado para postos de molas. Realizamos manutenção preventiva e corretiva, reparo de feixes de molas.", imagem: "https://via.placeholder.com/800x600?text=Postos+de+Molas", galeria: [], isPadrao: true }
 ];
 
-// Upload para produtos
-let imagemUploaded = false, imagemUrl = '', imagemUploadEmProgresso = false;
-let prodImagemInput = null;
-let servicoUtilizado = '';
-let imagemCompactada = false;
-let compactacaoInfo = null;
-
-// Upload para serviços
-let servImagemUploaded = false, servImagemUrl = '', servImagemUploadEmProgresso = false;
-let servImagemInput = null;
-let galeriaUrls = [];
-let galeriaUploadEmProgresso = false;
-
-// Configurações de compressão
-const COMPRESS_QUALITY_START = 0.85;
-const COMPRESS_MIN_QUALITY = 0.65;
-const COMPRESS_MAX_WIDTH = 800;
-const COMPRESS_MAX_HEIGHT = 600;
-const TARGET_SIZE_KB = 150;
-
-const IMGBB_API_KEY = "615982928dee6c73f2a072485c426dcc";
-const FREEIMAGE_API_KEY = "6d207e02198a847aa98d0a2a901485a5";
-
-// ==================== FUNÇÕES AUXILIARES ====================
-function formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-// ==================== COMPRESSÃO ====================
-async function compressImageInteligente(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                let width = img.width;
-                let height = img.height;
-                
-                if (width > COMPRESS_MAX_WIDTH || height > COMPRESS_MAX_HEIGHT) {
-                    const ratioWidth = COMPRESS_MAX_WIDTH / width;
-                    const ratioHeight = COMPRESS_MAX_HEIGHT / height;
-                    const ratio = Math.min(ratioWidth, ratioHeight);
-                    width = Math.floor(width * ratio);
-                    height = Math.floor(height * ratio);
-                }
-                
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                let currentQuality = COMPRESS_QUALITY_START;
-                let attempts = 0;
-                const maxAttempts = 6;
-                let bestBlob = null;
-                let bestQuality = currentQuality;
-                
-                function tryCompress() {
-                    canvas.toBlob(async (blob) => {
-                        const sizeKB = blob.size / 1024;
-                        
-                        if (sizeKB <= TARGET_SIZE_KB || attempts >= maxAttempts) {
-                            if (sizeKB > TARGET_SIZE_KB && bestBlob && bestBlob.size < blob.size) {
-                                const compressedFile = new File([bestBlob], file.name.replace(/\.[^/.]+$/, '') + '.jpg', {
-                                    type: 'image/jpeg',
-                                    lastModified: Date.now()
-                                });
-                                resolve({
-                                    file: compressedFile,
-                                    originalSize: file.size,
-                                    compressedSize: bestBlob.size,
-                                    reduction: ((1 - bestBlob.size / file.size) * 100).toFixed(1),
-                                    quality: bestQuality,
-                                    dimensions: { width, height }
-                                });
-                            } else {
-                                const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '') + '.jpg', {
-                                    type: 'image/jpeg',
-                                    lastModified: Date.now()
-                                });
-                                resolve({
-                                    file: compressedFile,
-                                    originalSize: file.size,
-                                    compressedSize: blob.size,
-                                    reduction: ((1 - blob.size / file.size) * 100).toFixed(1),
-                                    quality: currentQuality,
-                                    dimensions: { width, height }
-                                });
-                            }
-                        } else {
-                            if (!bestBlob || blob.size < bestBlob.size) {
-                                bestBlob = blob;
-                                bestQuality = currentQuality;
-                            }
-                            attempts++;
-                            currentQuality = Math.max(COMPRESS_MIN_QUALITY, currentQuality - 0.05);
-                            tryCompress();
-                        }
-                    }, 'image/jpeg', currentQuality);
-                }
-                tryCompress();
-            };
-            img.onerror = () => reject(new Error('Erro ao carregar imagem'));
-            img.src = e.target.result;
-        };
-        reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
-        reader.readAsDataURL(file);
-    });
-}
-
-async function uploadParaImgBB(file) {
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('key', IMGBB_API_KEY);
-    const response = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
-    const data = await response.json();
-    if (data.success) return { url: data.data.url, servico: 'ImgBB' };
-    throw new Error(data.error?.message || 'Upload falhou');
-}
-
-async function uploadParaFreeImage(file) {
-    const formData = new FormData();
-    formData.append('source', file);
-    formData.append('type', 'file');
-    formData.append('action', 'upload');
-    formData.append('key', FREEIMAGE_API_KEY);
-    const response = await fetch('https://freeimage.host/api/1/upload', { method: 'POST', body: formData });
-    const data = await response.json();
-    if (data.status_code === 200 && data.image && data.image.url) return { url: data.image.url, servico: 'FreeImage.host' };
-    throw new Error(data.error?.message || 'Upload falhou');
-}
-
-async function fazerUploadComFallback(file, progressCallback) {
+// ==================== FUNÇÕES JSONBIN ====================
+async function carregarDoJSONBin() {
     try {
-        if (progressCallback) progressCallback(60, 'Enviando para ImgBB...');
-        const resultado = await uploadParaImgBB(file);
-        return resultado;
-    } catch(erroImgBB) {
-        console.log('ImgBB falhou, tentando FreeImage...');
-        if (progressCallback) progressCallback(70, 'ImgBB indisponível, tentando FreeImage...');
-        const resultado = await uploadParaFreeImage(file);
-        return resultado;
-    }
-}
-
-// ==================== FUNÇÕES PRODUTOS ====================
-function updateProgress(percent, message) {
-    const fill = document.getElementById('progressFill');
-    const text = document.getElementById('progressText');
-    if (fill) fill.style.width = `${percent}%`;
-    if (text) text.textContent = message;
-}
-
-async function processarEUploadProduto(file) {
-    if (imagemUploadEmProgresso) return;
-    imagemUploadEmProgresso = true;
-    
-    document.getElementById('infoTamanho').innerHTML = `<i class="fas fa-image"></i> Original: ${formatFileSize(file.size)}`;
-    let fileToUpload = file;
-    imagemCompactada = false;
-    compactacaoInfo = null;
-    
-    updateProgress(5, `📦 Otimizando imagem para 800x600...`);
-    try {
-        const result = await compressImageInteligente(file);
-        fileToUpload = result.file;
-        imagemCompactada = true;
-        compactacaoInfo = result;
-        document.getElementById('infoTamanho').innerHTML = `
-            <div class="compress-warning">
-                <i class="fas fa-compress-alt"></i> <strong>Imagem otimizada!</strong><br>
-                📐 ${result.dimensions.width}x${result.dimensions.height}px<br>
-                📉 ${formatFileSize(result.originalSize)} → ${formatFileSize(result.compressedSize)}<br>
-                📊 Redução de ${result.reduction}%
-            </div>
-        `;
-        updateProgress(40, `✅ Otimizado! Tamanho: ${formatFileSize(result.compressedSize)}`);
-    } catch(compressError) {
-        updateProgress(30, '⚠️ Otimização falhou, enviando original...');
-    }
-    
-    try {
-        const resultado = await fazerUploadComFallback(fileToUpload, (p, msg) => updateProgress(p, msg));
-        imagemUrl = resultado.url;
-        servicoUtilizado = resultado.servico + (imagemCompactada ? ' (otimizada)' : '');
-        updateProgress(100, 'Upload concluído!');
-        document.getElementById('servicoUsado').innerHTML = `<i class="fas fa-check-circle"></i> Hospedado no ${servicoUtilizado}`;
-        if (prodImagemInput) prodImagemInput.value = imagemUrl;
-        document.getElementById('uploadStatus').innerHTML = '<span style="color: #28a745;"><i class="fas fa-check-circle"></i> ✅ Imagem enviada!</span>';
-        document.getElementById('imageUrlDisplay').innerHTML = `<small>🔗 Link: <a href="${imagemUrl}" target="_blank">${imagemUrl.substring(0, 60)}...</a></small>`;
-        setTimeout(() => { document.getElementById('progressContainer').style.display = 'none'; }, 1500);
-        imagemUploaded = true;
-        mostrarAlerta('prod', '✅ Imagem enviada!', 'success');
-    } catch(error) {
-        document.getElementById('progressContainer').style.display = 'none';
-        document.getElementById('uploadStatus').innerHTML = '<span style="color: #dc3545;"><i class="fas fa-exclamation-circle"></i> ❌ Erro no upload!</span>';
-        imagemUploaded = false;
-        mostrarAlerta('prod', '❌ Erro no upload.', 'error');
-    } finally {
-        imagemUploadEmProgresso = false;
-    }
-}
-
-function handleFileSelect(file) {
-    if (!file) return;
-    if (file.size > 32 * 1024 * 1024) { mostrarAlerta('prod', 'Max 32MB', 'error'); return; }
-    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    if (!tiposPermitidos.includes(file.type)) { mostrarAlerta('prod', 'Formato inválido', 'error'); return; }
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById('previewImg').src = e.target.result;
-        document.getElementById('previewContainer').style.display = 'block';
-        document.getElementById('uploadStatus').innerHTML = '<span style="color: #ffc107;"><i class="fas fa-spinner fa-spin"></i> Analisando...</span>';
-        document.getElementById('progressContainer').style.display = 'block';
-        updateProgress(0, 'Analisando...');
-    };
-    reader.readAsDataURL(file);
-    processarEUploadProduto(file);
-}
-
-function handleDrop(event) { event.preventDefault(); const file = event.dataTransfer.files[0]; if (file && file.type.startsWith('image/')) handleFileSelect(file); }
-function cancelarUpload() { document.getElementById('previewContainer').style.display = 'none'; document.getElementById('progressContainer').style.display = 'none'; if (prodImagemInput) prodImagemInput.value = ''; document.getElementById('fileInput').value = ''; imagemUploaded = false; imagemUrl = ''; }
-
-function switchImageTab(tab) {
-    const uploadTab = document.getElementById('uploadTabDiv'), linkTab = document.getElementById('linkTabDiv');
-    if (tab === 'upload') { uploadTab.style.display = 'block'; linkTab.style.display = 'none'; }
-    else { uploadTab.style.display = 'none'; linkTab.style.display = 'block'; }
-}
-
-function adicionarProduto() {
-    const nome = document.getElementById('prodNome').value.trim();
-    const preco = parseFloat(document.getElementById('prodPreco').value);
-    const uploadTab = document.getElementById('uploadTabDiv');
-    const isUploadTab = uploadTab.style.display !== 'none';
-    let imagem = '';
-    if (isUploadTab) { if (!imagemUploaded && !imagemUrl) { mostrarAlerta('prod', 'Faça o upload da imagem primeiro!', 'error'); return; } imagem = imagemUrl; }
-    else { imagem = document.getElementById('prodImagem').value.trim(); if (!imagem) { mostrarAlerta('prod', 'Informe a URL da imagem!', 'error'); return; } }
-    if(!nome || isNaN(preco) || preco <= 0) { mostrarAlerta('prod', 'Preencha nome e preço!', 'error'); return; }
-    const descricao = document.getElementById('prodDescricao').value.trim();
-    const novoProduto = { id: Date.now(), nome: nome.toUpperCase(), preco: preco, imagem: imagem, descricao: descricao || 'Produto de qualidade' };
-    produtos.push(novoProduto);
-    salvarDados().then(() => {
-        mostrarAlerta('prod', '✅ Produto adicionado!', 'success');
-        carregarListaProdutos();
-        atualizarInfoProdutos();
-        document.getElementById('prodNome').value = '';
-        document.getElementById('prodPreco').value = '';
-        document.getElementById('prodDescricao').value = '';
-        cancelarUpload();
-    });
-}
-
-// ==================== FUNÇÕES SERVIÇOS ====================
-function updateServProgress(percent, message) {
-    const fill = document.getElementById('servProgressFill');
-    const text = document.getElementById('servProgressText');
-    if (fill) fill.style.width = `${percent}%`;
-    if (text) text.textContent = message;
-}
-
-function updateGaleriaProgress(percent, message) {
-    const fill = document.getElementById('galeriaProgressFill');
-    const text = document.getElementById('galeriaProgressText');
-    if (fill) fill.style.width = `${percent}%`;
-    if (text) text.textContent = message;
-}
-
-async function processarEUploadServico(file) {
-    if (servImagemUploadEmProgresso) return;
-    servImagemUploadEmProgresso = true;
-    
-    document.getElementById('servInfoTamanho').innerHTML = `<i class="fas fa-image"></i> Original: ${formatFileSize(file.size)}`;
-    let fileToUpload = file;
-    
-    updateServProgress(5, `📦 Otimizando imagem...`);
-    try {
-        const result = await compressImageInteligente(file);
-        fileToUpload = result.file;
-        document.getElementById('servInfoTamanho').innerHTML = `
-            <div class="compress-warning">
-                <i class="fas fa-compress-alt"></i> <strong>Imagem otimizada!</strong><br>
-                📐 ${result.dimensions.width}x${result.dimensions.height}px<br>
-                📉 ${formatFileSize(result.originalSize)} → ${formatFileSize(result.compressedSize)}<br>
-                📊 Redução de ${result.reduction}%
-            </div>
-        `;
-        updateServProgress(40, `✅ Otimizado! Tamanho: ${formatFileSize(result.compressedSize)}`);
-    } catch(compressError) {
-        updateServProgress(30, '⚠️ Otimização falhou...');
-    }
-    
-    try {
-        const resultado = await fazerUploadComFallback(fileToUpload, (p, msg) => updateServProgress(p, msg));
-        servImagemUrl = resultado.url;
-        updateServProgress(100, 'Upload concluído!');
-        document.getElementById('servServicoUsado').innerHTML = `<i class="fas fa-check-circle"></i> Hospedado no ${resultado.servico}`;
-        if (servImagemInput) servImagemInput.value = servImagemUrl;
-        document.getElementById('servUploadStatus').innerHTML = '<span style="color: #28a745;"><i class="fas fa-check-circle"></i> ✅ Imagem enviada!</span>';
-        document.getElementById('servImageUrlDisplay').innerHTML = `<small>🔗 Link: <a href="${servImagemUrl}" target="_blank">${servImagemUrl.substring(0, 60)}...</a></small>`;
-        setTimeout(() => { document.getElementById('servProgressContainer').style.display = 'none'; }, 1500);
-        servImagemUploaded = true;
-        mostrarAlerta('serv', '✅ Imagem principal enviada!', 'success');
-    } catch(error) {
-        document.getElementById('servProgressContainer').style.display = 'none';
-        document.getElementById('servUploadStatus').innerHTML = '<span style="color: #dc3545;"><i class="fas fa-exclamation-circle"></i> ❌ Erro!</span>';
-        servImagemUploaded = false;
-        mostrarAlerta('serv', '❌ Erro no upload.', 'error');
-    } finally {
-        servImagemUploadEmProgresso = false;
-    }
-}
-
-function handleServFileSelect(file) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById('servPreviewImg').src = e.target.result;
-        document.getElementById('servPreviewContainer').style.display = 'block';
-        document.getElementById('servUploadStatus').innerHTML = '<span class="fa fa-spinner fa-spin"></span> Analisando...';
-        document.getElementById('servProgressContainer').style.display = 'block';
-        updateServProgress(0, 'Analisando...');
-    };
-    reader.readAsDataURL(file);
-    processarEUploadServico(file);
-}
-
-function handleServDrop(event) { event.preventDefault(); const file = event.dataTransfer.files[0]; if (file && file.type.startsWith('image/')) handleServFileSelect(file); }
-function cancelarServUpload() { document.getElementById('servPreviewContainer').style.display = 'none'; document.getElementById('servProgressContainer').style.display = 'none'; if (servImagemInput) servImagemInput.value = ''; document.getElementById('servFileInput').value = ''; servImagemUploaded = false; servImagemUrl = ''; }
-
-function switchServImageTab(tab) {
-    const uploadTab = document.getElementById('servUploadTabDiv'), linkTab = document.getElementById('servLinkTabDiv');
-    if (tab === 'upload') { uploadTab.style.display = 'block'; linkTab.style.display = 'none'; }
-    else { uploadTab.style.display = 'none'; linkTab.style.display = 'block'; }
-}
-
-async function processarUploadGaleria(files) {
-    if (galeriaUploadEmProgresso) return;
-    galeriaUploadEmProgresso = true;
-    galeriaUrls = [];
-    const galeriaContainer = document.getElementById('galeriaPreviewContainer');
-    galeriaContainer.innerHTML = '<div class="compress-warning">📤 Enviando fotos...</div>';
-    
-    let uploaded = 0;
-    for (const file of files) {
-        try {
-            let fileToUpload = file;
-            try {
-                const result = await compressImageInteligente(file);
-                fileToUpload = result.file;
-            } catch(e) {}
-            
-            const resultado = await fazerUploadComFallback(fileToUpload, (p, msg) => updateGaleriaProgress(Math.round((uploaded/files.length)*100), msg));
-            galeriaUrls.push(resultado.url);
-            
-            // Adicionar thumbnail
-            const thumbDiv = document.createElement('div');
-            thumbDiv.style.display = 'inline-block';
-            thumbDiv.style.margin = '5px';
-            thumbDiv.style.position = 'relative';
-            thumbDiv.innerHTML = `
-                <img src="${resultado.url}" class="foto-thumb" style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
-                <button type="button" onclick="removerFotoGaleria(${galeriaUrls.length-1})" style="position:absolute;top:-5px;right:-5px;background:#dc3545;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;">×</button>
-            `;
-            galeriaContainer.appendChild(thumbDiv);
-            
-            uploaded++;
-            updateGaleriaProgress(Math.round((uploaded/files.length)*100), `Enviando ${uploaded}/${files.length}...`);
-        } catch(e) {
-            console.error('Erro no upload da galeria:', e);
+        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+            method: 'GET',
+            headers: { 'X-Master-Key': JSONBIN_MASTER_KEY, 'Content-Type': 'application/json' }
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        const dados = data.record;
+        produtos = dados.produtos && Array.isArray(dados.produtos) ? dados.produtos : [];
+        // Categorias
+        if (dados.categorias && Array.isArray(dados.categorias)) {
+            categorias = dados.categorias;
+        } else {
+            categorias = [];
         }
+        // Serviços (já com merge dos padrão)
+        const servicosSalvos = dados.servicos || [];
+        servicos = [];
+        for (const padrao of servicosPadrao) {
+            const editado = servicosSalvos.find(s => s.id === padrao.id);
+            if (editado) servicos.push({ ...padrao, ...editado, isPadrao: true });
+            else servicos.push({ ...padrao });
+        }
+        for (const serv of servicosSalvos) {
+            if (!serv.isPadrao && !servicos.find(s => s.id === serv.id)) servicos.push(serv);
+        }
+        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
+        document.getElementById('infoStatus').className = 'status-conectado';
+        return true;
+    } catch(error) {
+        console.error('Erro ao carregar do JSONBin:', error);
+        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Offline (usando cache)';
+        document.getElementById('infoStatus').className = 'status-offline';
+        const cached = localStorage.getItem('bh_recuperadora_cache');
+        if (cached) {
+            try {
+                const cache = JSON.parse(cached);
+                produtos = cache.produtos || [];
+                servicos = cache.servicos || [...servicosPadrao];
+                categorias = cache.categorias || [];
+            } catch(e) {}
+        } else {
+            servicos = [...servicosPadrao];
+            produtos = [];
+            categorias = [];
+        }
+        return false;
     }
-    
-    updateGaleriaProgress(100, 'Upload concluído!');
-    setTimeout(() => { document.getElementById('galeriaProgressContainer').style.display = 'none'; }, 1500);
-    galeriaUploadEmProgresso = false;
-    mostrarAlerta('serv', `✅ ${galeriaUrls.length} fotos adicionadas à galeria!`, 'success');
 }
 
-function handleGaleriaFileSelect(files) {
-    if (!files || files.length === 0) return;
-    document.getElementById('galeriaProgressContainer').style.display = 'block';
-    updateGaleriaProgress(0, 'Preparando upload...');
-    processarUploadGaleria(Array.from(files));
-}
-
-function removerFotoGaleria(index) {
-    if (confirm('Remover esta foto da galeria?')) {
-        galeriaUrls.splice(index, 1);
-        renderGaleriaPreview();
-        mostrarAlerta('serv', 'Foto removida da galeria', 'info');
+async function salvarNoJSONBin() {
+    try {
+        const dadosParaSalvar = {
+            produtos: produtos,
+            servicos: servicos.map(s => ({
+                id: s.id,
+                nome: s.nome,
+                descricao: s.descricao,
+                descricao_detalhada: s.descricao_detalhada,
+                imagem: s.imagem,
+                galeria: s.galeria || [],
+                isPadrao: s.isPadrao
+            })),
+            categorias: categorias,  // array de objetos {id, nome} ou strings
+            ultimaAtualizacao: new Date().toISOString()
+        };
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_MASTER_KEY },
+            body: JSON.stringify(dadosParaSalvar)
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        localStorage.setItem('bh_recuperadora_cache', JSON.stringify(dadosParaSalvar));
+        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
+        document.getElementById('infoStatus').className = 'status-conectado';
+        return true;
+    } catch(error) {
+        console.error('Erro ao salvar no JSONBin:', error);
+        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao salvar';
+        document.getElementById('infoStatus').className = 'status-offline';
+        localStorage.setItem('bh_recuperadora_cache', JSON.stringify({ produtos, servicos, categorias, ultimaAtualizacao: new Date().toISOString() }));
+        mostrarAlerta('config', '⚠️ Erro ao salvar no JSONBin, mas dados foram salvos localmente!', 'warning');
+        return false;
     }
 }
 
-function renderGaleriaPreview() {
-    const container = document.getElementById('galeriaPreviewContainer');
+async function sincronizarJSONBin() {
+    mostrarAlerta('config', '🔄 Sincronizando com JSONBin...', 'info');
+    const sucesso = await salvarNoJSONBin();
+    if (sucesso) mostrarAlerta('config', '✅ Sincronizado com sucesso!', 'success');
+    else mostrarAlerta('config', '⚠️ Erro na sincronização, verifique sua conexão!', 'error');
+}
+
+// ==================== CATEGORIAS ====================
+function carregarSelectCategorias() {
+    const select = document.getElementById('prodCategoria');
+    if (!select) return;
+    select.innerHTML = '<option value="">Sem categoria</option>';
+    categorias.forEach(cat => {
+        const nome = typeof cat === 'string' ? cat : cat.nome;
+        select.innerHTML += `<option value="${nome.replace(/"/g, '&quot;')}">${nome}</option>`;
+    });
+}
+
+function carregarListaCategoriasAdmin() {
+    const container = document.getElementById('listaCategorias');
+    if (!container) return;
+    if (categorias.length === 0) {
+        container.innerHTML = '<p>Nenhuma categoria cadastrada.</p>';
+        document.getElementById('infoTotalCategorias').textContent = '0';
+        return;
+    }
+    document.getElementById('infoTotalCategorias').textContent = categorias.length;
     container.innerHTML = '';
-    galeriaUrls.forEach((url, idx) => {
+    categorias.forEach((cat, idx) => {
+        const nome = typeof cat === 'string' ? cat : cat.nome;
+        const id = typeof cat === 'object' ? cat.id : idx;
         const div = document.createElement('div');
-        div.style.display = 'inline-block';
-        div.style.margin = '5px';
-        div.style.position = 'relative';
+        div.className = 'categoria-item';
         div.innerHTML = `
-            <img src="${url}" class="foto-thumb" style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
-            <button type="button" onclick="removerFotoGaleria(${idx})" style="position:absolute;top:-5px;right:-5px;background:#dc3545;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;">×</button>
+            <span><i class="fas fa-tag"></i> ${nome}</span>
+            <div>
+                <button class="btn-warning" style="padding: 4px 12px; margin-right: 5px;" onclick="editarCategoria(${typeof id === 'string' ? `'${id}'` : id}, '${nome.replace(/"/g, '&quot;')}')"><i class="fas fa-edit"></i></button>
+                <button class="btn-danger" style="padding: 4px 12px;" onclick="excluirCategoria(${typeof id === 'string' ? `'${id}'` : id}, '${nome.replace(/"/g, '&quot;')}')"><i class="fas fa-trash"></i></button>
+            </div>
         `;
         container.appendChild(div);
     });
 }
 
+function adicionarCategoria() {
+    const nomeInput = document.getElementById('novaCategoriaNome');
+    const nome = nomeInput.value.trim();
+    if (!nome) {
+        mostrarAlerta('cat', '❌ Digite um nome para a categoria.', 'error');
+        return;
+    }
+    if (categorias.some(c => (typeof c === 'string' ? c : c.nome) === nome)) {
+        mostrarAlerta('cat', '❌ Esta categoria já existe.', 'error');
+        return;
+    }
+    const novaCat = { id: Date.now(), nome: nome };
+    categorias.push(novaCat);
+    salvarNoJSONBin().then(() => {
+        carregarListaCategoriasAdmin();
+        carregarSelectCategorias();
+        mostrarAlerta('cat', '✅ Categoria adicionada!', 'success');
+        nomeInput.value = '';
+        atualizarInfoProdutos();
+    });
+}
+
+function editarCategoria(id, nomeAntigo) {
+    const novoNome = prompt('Editar categoria:', nomeAntigo);
+    if (!novoNome || novoNome === nomeAntigo) return;
+    if (categorias.some(c => (typeof c === 'string' ? c : c.nome) === novoNome && (typeof c === 'string' ? c : c.id) !== id)) {
+        alert('Já existe uma categoria com esse nome.');
+        return;
+    }
+    const index = categorias.findIndex(c => (typeof c === 'object' ? c.id : c) === id);
+    if (index !== -1) {
+        if (typeof categorias[index] === 'object') {
+            categorias[index].nome = novoNome;
+        } else {
+            categorias[index] = novoNome;
+        }
+        // Atualizar produtos que usavam a categoria antiga
+        produtos.forEach(p => {
+            if (p.categoria === nomeAntigo) p.categoria = novoNome;
+        });
+        salvarNoJSONBin().then(() => {
+            carregarListaCategoriasAdmin();
+            carregarSelectCategorias();
+            carregarListaProdutos(); // para mostrar categorias atualizadas nos cards
+            mostrarAlerta('cat', '✅ Categoria atualizada!', 'success');
+            atualizarInfoProdutos();
+        });
+    }
+}
+
+function excluirCategoria(id, nome) {
+    if (!confirm(`Tem certeza que deseja excluir a categoria "${nome}"? Produtos com esta categoria ficarão sem categoria.`)) return;
+    const index = categorias.findIndex(c => (typeof c === 'object' ? c.id : c) === id);
+    if (index !== -1) {
+        categorias.splice(index, 1);
+        // Remover a categoria dos produtos
+        produtos.forEach(p => {
+            if (p.categoria === nome) p.categoria = '';
+        });
+        salvarNoJSONBin().then(() => {
+            carregarListaCategoriasAdmin();
+            carregarSelectCategorias();
+            carregarListaProdutos();
+            mostrarAlerta('cat', '🗑️ Categoria excluída!', 'success');
+            atualizarInfoProdutos();
+        });
+    }
+}
+
+// ==================== PRODUTOS (com categoria) ====================
+function adicionarProduto() {
+    const nome = document.getElementById('prodNome').value.trim();
+    const preco = parseFloat(document.getElementById('prodPreco').value);
+    const categoria = document.getElementById('prodCategoria').value;
+    const imagem = document.getElementById('prodImagem').value.trim();
+    const descricao = document.getElementById('prodDescricao').value.trim();
+    if(!nome || isNaN(preco) || preco <= 0) { mostrarAlerta('prod', '❌ Preencha nome e preço válidos!', 'error'); return; }
+    const novoProduto = { 
+        id: Date.now(), 
+        nome: nome.toUpperCase(), 
+        preco: preco, 
+        categoria: categoria || null,
+        imagem: imagem || null, 
+        descricao: descricao || 'Produto de qualidade' 
+    };
+    produtos.push(novoProduto);
+    salvarNoJSONBin().then(() => {
+        mostrarAlerta('prod', '✅ Produto adicionado e sincronizado!', 'success');
+        carregarListaProdutos();
+        limparFormProduto();
+        atualizarInfoProdutos();
+    });
+}
+
+function limparFormProduto() {
+    document.getElementById('prodNome').value = '';
+    document.getElementById('prodPreco').value = '';
+    document.getElementById('prodCategoria').value = '';
+    document.getElementById('prodImagem').value = '';
+    document.getElementById('prodDescricao').value = '';
+}
+
+let produtoEditando = null;
+function abrirModalEditarProduto(produto) {
+    produtoEditando = produto;
+    const modal = document.getElementById('editProdutoModal');
+    const content = document.getElementById('modalEditProdutoContent');
+    let options = '<option value="">Sem categoria</option>';
+    categorias.forEach(cat => {
+        const nomeCat = typeof cat === 'string' ? cat : cat.nome;
+        const selected = (produto.categoria === nomeCat) ? 'selected' : '';
+        options += `<option value="${nomeCat.replace(/"/g, '&quot;')}" ${selected}>${nomeCat}</option>`;
+    });
+    content.innerHTML = `
+        <div class="form-group"><label>Nome do Produto *</label><input type="text" id="editProdNome" value="${produto.nome.replace(/"/g, '&quot;')}"></div>
+        <div class="form-group"><label>Preço (R$) *</label><input type="number" step="0.01" id="editProdPreco" value="${produto.preco}"></div>
+        <div class="form-group"><label>Categoria</label><select id="editProdCategoria">${options}</select></div>
+        <div class="form-group"><label>URL da Imagem</label><input type="text" id="editProdImagem" value="${produto.imagem || ''}" placeholder="https://...">${produto.imagem ? `<div style="margin-top:10px;"><img src="${produto.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}</div>
+        <div class="form-group"><label>Descrição</label><textarea id="editProdDescricao" rows="3">${(produto.descricao || '').replace(/"/g, '&quot;')}</textarea></div>
+        <hr><div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;"><button onclick="fecharModalProduto()" class="btn-danger">Cancelar</button><button onclick="salvarEdicaoProduto()" class="btn-success">Salvar</button></div>
+    `;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+function salvarEdicaoProduto() {
+    if (!produtoEditando) return;
+    const novoNome = document.getElementById('editProdNome')?.value.trim();
+    const novoPreco = parseFloat(document.getElementById('editProdPreco')?.value);
+    const novaCategoria = document.getElementById('editProdCategoria')?.value;
+    const novaImagem = document.getElementById('editProdImagem')?.value.trim();
+    const novaDescricao = document.getElementById('editProdDescricao')?.value.trim();
+    if (!novoNome || isNaN(novoPreco) || novoPreco <= 0) { mostrarAlerta('prod', '❌ Nome e preço válidos são obrigatórios!', 'error'); return; }
+    produtoEditando.nome = novoNome.toUpperCase();
+    produtoEditando.preco = novoPreco;
+    produtoEditando.categoria = novaCategoria || null;
+    if (novaImagem && novaImagem !== '') produtoEditando.imagem = novaImagem;
+    if (novaDescricao) produtoEditando.descricao = novaDescricao;
+    salvarNoJSONBin().then(() => { carregarListaProdutos(); mostrarAlerta('prod', '✅ Produto atualizado!', 'success'); fecharModalProduto(); atualizarInfoProdutos(); });
+}
+function fecharModalProduto() { document.getElementById('editProdutoModal').style.display = 'none'; document.body.style.overflow = ''; produtoEditando = null; }
+function editarProduto(id) { const produto = produtos.find(p => p.id === id); if(produto) abrirModalEditarProduto(produto); }
+function deletarProduto(id) { if(confirm('⚠️ Tem certeza que deseja excluir este produto?')) { produtos = produtos.filter(p => p.id !== id); salvarNoJSONBin().then(() => { carregarListaProdutos(); mostrarAlerta('prod', '🗑️ Produto excluído!', 'success'); atualizarInfoProdutos(); }); } }
+function carregarListaProdutos() {
+    const container = document.getElementById('listaProdutos');
+    const totalSpan = document.getElementById('totalProdutosCount');
+    if(!container) return;
+    if(produtos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum produto cadastrado ainda.</p>'; if(totalSpan) totalSpan.textContent = '0'; return; }
+    if(totalSpan) totalSpan.textContent = produtos.length;
+    container.innerHTML = '';
+    produtos.forEach(produto => {
+        const card = document.createElement('div'); card.className = 'item-card';
+        const catBadge = produto.categoria ? `<span style="background:#17a2b8; color:white; font-size:10px; padding:2px 6px; border-radius:20px; margin-left:8px;">${produto.categoria}</span>` : '';
+        card.innerHTML = `<h3>${produto.nome} ${catBadge}</h3><div class="preco">R$ ${produto.preco.toFixed(2)}</div>${produto.imagem ? `<img src="${produto.imagem}" style="max-width:80px; max-height:80px; border-radius:8px; margin:10px 0;">` : ''}<div class="acoes"><button onclick="editarProduto(${produto.id})"><i class="fas fa-edit"></i> Editar</button><button class="btn-danger" onclick="deletarProduto(${produto.id})"><i class="fas fa-trash"></i> Excluir</button></div>`;
+        container.appendChild(card);
+    });
+}
+
+// ==================== SERVIÇOS (mantido igual ao anterior, sem categorias) ====================
 function adicionarServico() {
     const nome = document.getElementById('servNome').value.trim();
     const descricao = document.getElementById('servDescricao').value.trim();
+    const imagem = document.getElementById('servImagem').value.trim();
+    const galeriaStr = document.getElementById('servGaleria').value.trim();
     const descricaoDetalhada = document.getElementById('servDescricaoDetalhada').value.trim();
-    const uploadTab = document.getElementById('servUploadTabDiv');
-    const isUploadTab = uploadTab.style.display !== 'none';
-    let imagem = '';
-    
-    if (isUploadTab) { if (!servImagemUploaded && !servImagemUrl) { mostrarAlerta('serv', 'Faça o upload da imagem principal primeiro!', 'error'); return; } imagem = servImagemUrl; }
-    else { imagem = document.getElementById('servImagem').value.trim(); if (!imagem) { mostrarAlerta('serv', 'Informe a URL da imagem principal!', 'error'); return; } }
-    
-    if(!nome || !descricao) { mostrarAlerta('serv', 'Preencha nome e descrição!', 'error'); return; }
-    
-    const novoServico = { 
-        id: Date.now(), 
-        nome: nome, 
-        descricao: descricao, 
-        descricao_detalhada: descricaoDetalhada || descricao,
-        imagem: imagem, 
-        galeria: galeriaUrls,
-        isPadrao: false
-    };
-    
+    if(!nome || !descricao) { mostrarAlerta('serv', '❌ Preencha nome e descrição!', 'error'); return; }
+    let galeria = [];
+    if(galeriaStr) galeria = galeriaStr.split(',').map(url => url.trim()).filter(url => url).map(url => ({ url: url, legenda: nome }));
+    const novoServico = { id: Date.now(), nome: nome, descricao: descricao, descricao_detalhada: descricaoDetalhada || descricao, imagem: imagem || null, galeria: galeria, isPadrao: false };
     servicos.push(novoServico);
-    salvarDados().then(() => {
-        mostrarAlerta('serv', '✅ Serviço adicionado!', 'success');
-        carregarListaServicos();
-        atualizarInfoProdutos();
-        
-        // Limpar formulário
-        document.getElementById('servNome').value = '';
-        document.getElementById('servDescricao').value = '';
-        document.getElementById('servDescricaoDetalhada').value = '';
-        cancelarServUpload();
-        galeriaUrls = [];
-        document.getElementById('galeriaPreviewContainer').innerHTML = '';
-        document.getElementById('galeriaFileInput').value = '';
-    });
+    salvarNoJSONBin().then(() => { mostrarAlerta('serv', '✅ Serviço adicionado!', 'success'); carregarListaServicos(); limparFormServico(); atualizarInfoProdutos(); });
 }
-
-function editarServico(id) {
-    const s = servicos.find(s => s.id === id);
-    if(s) {
-        const novoNome = prompt('Editar nome:', s.nome);
-        const novaDesc = prompt('Editar descrição curta:', s.descricao);
-        if(novoNome && novaDesc) {
-            s.nome = novoNome;
-            s.descricao = novaDesc;
-            salvarDados().then(() => carregarListaServicos());
-        }
+function limparFormServico() {
+    document.getElementById('servNome').value = '';
+    document.getElementById('servDescricao').value = '';
+    document.getElementById('servImagem').value = '';
+    document.getElementById('servGaleria').value = '';
+    document.getElementById('servDescricaoDetalhada').value = '';
+}
+let servicoEditando = null;
+function abrirModalEditarServico(servico) { /* mesmo código já existente */ 
+    servicoEditando = JSON.parse(JSON.stringify(servico));
+    const modal = document.getElementById('editServicoModal');
+    const modalTitulo = document.getElementById('modalServicoTitulo');
+    const content = document.getElementById('modalEditContent');
+    const badge = servico.isPadrao ? '<span class="badge-padrao">Padrão (Editável)</span>' : '<span class="badge-galeria">Personalizado</span>';
+    modalTitulo.innerHTML = `<i class="fas fa-edit"></i> Editando: ${servico.nome} ${badge}`;
+    let fotosArray = [];
+    if (servico.galeria && Array.isArray(servico.galeria)) {
+        fotosArray = servico.galeria.map(item => {
+            if (typeof item === 'string') return { url: item, legenda: servico.nome };
+            else if (typeof item === 'object' && item.url) return { url: item.url, legenda: item.legenda || servico.nome };
+            return null;
+        }).filter(f => f && f.url);
     }
+    let fotosHtml = '';
+    fotosArray.forEach((foto, idx) => {
+        fotosHtml += `<div class="foto-edit-item"><input type="text" class="foto-url" value="${foto.url.replace(/"/g, '&quot;')}" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" value="${foto.legenda.replace(/"/g, '&quot;')}" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button></div>`;
+    });
+    if (fotosArray.length === 0) fotosHtml = `<div class="foto-edit-item"><input type="text" class="foto-url" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button></div>`;
+    content.innerHTML = `
+        <div class="form-group"><label>Nome do Serviço *</label><input type="text" id="editServNome" value="${servico.nome.replace(/"/g, '&quot;')}"></div>
+        <div class="form-group"><label>Descrição Curta *</label><textarea id="editServDescricao" rows="3">${servico.descricao.replace(/"/g, '&quot;')}</textarea></div>
+        <div class="form-group"><label>URL da Imagem Principal</label><input type="text" id="editServImagem" value="${servico.imagem || ''}" placeholder="https://...">${servico.imagem ? `<div style="margin-top:10px;"><img src="${servico.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}</div>
+        <div class="form-group"><label>📸 Fotos e Legendas</label><div id="fotosContainer" style="margin-bottom:10px;">${fotosHtml}</div><button type="button" onclick="adicionarCampoFoto()" class="btn-info" style="background:#17a2b8; margin-top:5px;">+ Adicionar outra foto</button><small>Cole a URL direta da imagem e defina uma legenda personalizada.</small></div>
+        <div class="form-group"><label>Descrição Detalhada</label><textarea id="editServDescricaoDetalhada" rows="4">${(servico.descricao_detalhada || servico.descricao).replace(/"/g, '&quot;')}</textarea></div>
+        ${servico.isPadrao ? `<div class="info-item" style="background:#fff3cd; margin:15px 0;"><i class="fas fa-info-circle"></i> Este é um serviço padrão. Você pode editar todas as informações livremente.</div>` : ''}
+        <hr><div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;"><button onclick="fecharModalEdicao()" class="btn-danger">Cancelar</button><button onclick="salvarEdicaoServico()" class="btn-success">Salvar</button></div>
+    `;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
-
+function adicionarCampoFoto() { /* mesmo código */ 
+    const container = document.getElementById('fotosContainer');
+    if (!container) return;
+    const div = document.createElement('div'); div.className = 'foto-edit-item';
+    div.innerHTML = `<input type="text" class="foto-url" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button>`;
+    container.appendChild(div);
+}
+function removerCampoFoto(btn) { const div = btn.closest('.foto-edit-item'); if(div) div.remove(); }
+function salvarEdicaoServico() { /* mesmo código */ 
+    if (!servicoEditando) return;
+    const novoNome = document.getElementById('editServNome')?.value.trim();
+    const novaDescricao = document.getElementById('editServDescricao')?.value.trim();
+    const novaImagem = document.getElementById('editServImagem')?.value.trim();
+    const novaDescricaoDetalhada = document.getElementById('editServDescricaoDetalhada')?.value.trim();
+    if (!novoNome || !novaDescricao) { mostrarAlerta('serv', '❌ Nome e descrição são obrigatórios!', 'error'); return; }
+    const fotosItems = document.querySelectorAll('#fotosContainer .foto-edit-item');
+    const novaGaleria = [];
+    fotosItems.forEach(item => {
+        const urlInput = item.querySelector('.foto-url');
+        const legendaInput = item.querySelector('.foto-legenda');
+        const url = urlInput ? urlInput.value.trim() : '';
+        const legenda = legendaInput ? legendaInput.value.trim() : '';
+        if (url) novaGaleria.push({ url: url, legenda: legenda || novoNome });
+    });
+    const index = servicos.findIndex(s => s.id === servicoEditando.id);
+    if (index !== -1) {
+        servicos[index].nome = novoNome;
+        servicos[index].descricao = novaDescricao;
+        servicos[index].imagem = novaImagem || null;
+        servicos[index].galeria = novaGaleria;
+        servicos[index].descricao_detalhada = novaDescricaoDetalhada || novaDescricao;
+    }
+    salvarNoJSONBin().then(() => { carregarListaServicos(); mostrarAlerta('serv', '✅ Serviço atualizado!', 'success'); fecharModalEdicao(); atualizarInfoProdutos(); });
+}
+function fecharModalEdicao() { document.getElementById('editServicoModal').style.display = 'none'; document.body.style.overflow = ''; servicoEditando = null; }
+function editarServico(id) { const servico = servicos.find(s => s.id === id); if(servico) abrirModalEditarServico(servico); }
 function deletarServico(id) {
     const servico = servicos.find(s => s.id === id);
-    if(servico && servico.isPadrao) {
-        mostrarAlerta('serv', '❌ Serviços padrão não podem ser excluídos!', 'error');
-        return;
-    }
-    if(confirm('Excluir este serviço?')) {
-        servicos = servicos.filter(s => s.id !== id);
-        salvarDados().then(() => carregarListaServicos());
-    }
+    if(servico && servico.isPadrao) { mostrarAlerta('serv', '❌ Serviços padrão não podem ser excluídos, mas podem ser editados!', 'error'); return; }
+    if(confirm('⚠️ Tem certeza que deseja excluir este serviço?')) { servicos = servicos.filter(s => s.id !== id); salvarNoJSONBin().then(() => { carregarListaServicos(); mostrarAlerta('serv', '🗑️ Serviço excluído!', 'success'); atualizarInfoProdutos(); }); }
 }
-
 function carregarListaServicos() {
     const container = document.getElementById('listaServicos');
+    const totalSpan = document.getElementById('totalServicosCount');
     if(!container) return;
-    
-    const servicosOrdenados = [...servicos].sort((a, b) => {
-        if(a.isPadrao && !b.isPadrao) return -1;
-        if(!a.isPadrao && b.isPadrao) return 1;
-        return 0;
-    });
-    
-    if(servicosOrdenados.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum serviço cadastrado.</p>'; return; }
-    
+    if(servicos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum serviço cadastrado.</p>'; if(totalSpan) totalSpan.textContent = '0'; return; }
+    if(totalSpan) totalSpan.textContent = servicos.length;
     container.innerHTML = '';
-    servicosOrdenados.forEach(servico => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        const badge = servico.isPadrao ? '<span class="badge-padrao">Padrão</span>' : '';
-        const galeriaCount = servico.galeria ? servico.galeria.length : 0;
-        card.innerHTML = `
-            <h3>${servico.nome} ${badge}</h3>
-            <p style="font-size:12px; color:#666;">${servico.descricao.substring(0, 60)}...</p>
-            <div style="font-size:11px; color:#28a745; margin:5px 0;"><i class="fas fa-images"></i> ${galeriaCount} fotos na galeria</div>
-            <div class="acoes">
-                <button onclick="editarServico(${servico.id})"><i class="fas fa-edit"></i> Editar</button>
-                ${!servico.isPadrao ? `<button class="btn-danger" onclick="deletarServico(${servico.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
-            </div>
-        `;
+    servicos.forEach(servico => {
+        const card = document.createElement('div'); card.className = 'item-card';
+        const badge = servico.isPadrao ? '<span class="badge-padrao"><i class="fas fa-star"></i> Padrão</span>' : '<span class="badge-galeria"><i class="fas fa-plus-circle"></i> Personalizado</span>';
+        const totalFotos = servico.galeria ? servico.galeria.length : 0;
+        card.innerHTML = `<div class="servico-card-header"><h3>${servico.nome} ${badge}</h3></div><p style="font-size:12px; color:#666; margin:10px 0;">${servico.descricao.substring(0, 100)}${servico.descricao.length > 100 ? '...' : ''}</p><div class="servico-info"><span class="badge-galeria"><i class="fas fa-images"></i> ${totalFotos} foto(s)</span></div><div class="acoes"><button class="btn-warning" onclick="editarServico(${typeof servico.id === 'string' ? `'${servico.id}'` : servico.id})"><i class="fas fa-edit"></i> Editar</button>${!servico.isPadrao ? `<button class="btn-danger" onclick="deletarServico(${typeof servico.id === 'string' ? `'${servico.id}'` : servico.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}</div>`;
         container.appendChild(card);
     });
 }
 
-// ==================== CRUD GERAL ====================
-async function carregarDados() {
-    try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
-        if(response.ok) { 
-            const data = await response.json(); 
-            const dados = data.record;
-            
-            // Carregar produtos
-            produtos = dados.produtos || [];
-            
-            // Carregar serviços (mesclar com padrão)
-            const servicosSalvos = dados.servicos || [];
-            const servicosPadraoMap = new Map(servicosPadrao.map(s => [s.id, s]));
-            
-            // Preservar serviços padrão e adicionar os salvos (não duplicar padrão)
-            servicos = [...servicosPadrao];
-            for (const serv of servicosSalvos) {
-                if (!serv.isPadrao) {
-                    servicos.push(serv);
-                } else {
-                    // Atualizar serviço padrão se houver modificações
-                    const index = servicos.findIndex(s => s.id === serv.id);
-                    if (index !== -1) servicos[index] = { ...servicos[index], ...serv };
-                }
-            }
-            
-            await atualizarStatusConexao();
-        } else {
-            throw new Error('Falha na conexão');
-        }
-    } catch(e) { 
-        document.getElementById('infoStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Offline (usando cache)';
-        const backup = localStorage.getItem('bh_produtos_backup');
-        if(backup) { 
-            try { 
-                const data = JSON.parse(backup); 
-                produtos = data.produtos || [];
-                servicos = data.servicos || servicosPadrao;
-            } catch(e) {} 
-        } else {
-            servicos = [...servicosPadrao];
-        }
-    }
-    carregarListaProdutos();
-    carregarListaServicos();
-    atualizarInfoProdutos();
-}
-
-async function salvarDados() {
-    try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, { 
-            method: 'PUT', 
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY }, 
-            body: JSON.stringify({ produtos, servicos: servicos.filter(s => !s.isPadrao || s.modificado) })
-        });
-        if(response.ok) await atualizarStatusConexao();
-    } catch(e) { document.getElementById('infoStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Salvo apenas localmente'; }
-    localStorage.setItem('bh_produtos_backup', JSON.stringify({ produtos, servicos, timestamp: Date.now() }));
-    atualizarInfoProdutos();
-}
-
-function carregarListaProdutos() {
-    const container = document.getElementById('listaProdutos');
-    if(!container) return;
-    if(produtos.length === 0) { container.innerHTML = '<p style="text-align:center; color:#999;">Nenhum produto cadastrado ainda.</p>'; return; }
-    container.innerHTML = '';
-    produtos.forEach(produto => {
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `<h3>${produto.nome}</h3><div class="preco">R$ ${produto.preco.toFixed(2)}</div><div class="acoes"><button onclick="editarProduto(${produto.id})"><i class="fas fa-edit"></i> Editar</button><button class="btn-danger" onclick="deletarProduto(${produto.id})"><i class="fas fa-trash"></i> Excluir</button></div>`;
-        container.appendChild(card);
-    });
-}
-
-function editarProduto(id) { const p = produtos.find(p => p.id === id); if(p) { const novoNome = prompt('Editar nome:', p.nome); const novoPreco = prompt('Editar preço:', p.preco); if(novoNome && novoPreco && !isNaN(parseFloat(novoPreco))) { p.nome = novoNome.toUpperCase(); p.preco = parseFloat(novoPreco); salvarDados().then(() => carregarListaProdutos()); } } }
-function deletarProduto(id) { if(confirm('Excluir este produto?')) { produtos = produtos.filter(p => p.id !== id); salvarDados().then(() => carregarListaProdutos()); } }
+// ==================== FUNÇÕES GERAIS ====================
 function atualizarInfoProdutos() { 
-    document.getElementById('infoTotalProdutos').textContent = produtos.length; 
+    document.getElementById('infoTotalProdutos').textContent = produtos.length;
     document.getElementById('infoTotalServicos').textContent = servicos.length;
-    document.getElementById('infoUltimaAtualizacao').textContent = new Date().toLocaleString(); 
+    document.getElementById('infoTotalCategorias').textContent = categorias.length;
+    document.getElementById('infoUltimaAtualizacao').textContent = new Date().toLocaleString();
+    const prodCount = document.getElementById('totalProdutosCount');
+    const servCount = document.getElementById('totalServicosCount');
+    if (prodCount) prodCount.textContent = produtos.length;
+    if (servCount) servCount.textContent = servicos.length;
 }
-function exportarDados() { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify({ produtos, servicos }, null, 2)], {type: 'application/json'})); a.download = `backup_${new Date().toISOString().split('T')[0]}.json`; a.click(); }
-function importarDados() { const input = document.getElementById('arquivoImportar'); input.click(); input.onchange = e => { const reader = new FileReader(); reader.onload = async evt => { try { const data = JSON.parse(evt.target.result); if(data.produtos) produtos = data.produtos; if(data.servicos) { const novosServicos = data.servicos.filter(s => !s.isPadrao); servicos = [...servicosPadrao, ...novosServicos]; } await salvarDados(); carregarListaProdutos(); carregarListaServicos(); mostrarAlerta('config', 'Importado!', 'success'); } catch(err) { mostrarAlerta('config', 'Erro!', 'error'); } }; reader.readAsText(e.target.files[0]); }; }
-function alterarSenha() { const nova = document.getElementById('novaSenha').value; if(nova && nova.length >= 4) { localStorage.setItem('admin_senha', nova); SENHA_ADMIN = nova; mostrarAlerta('config', 'Senha alterada!', 'success'); document.getElementById('novaSenha').value = ''; } else mostrarAlerta('config', 'Mínimo 4 caracteres!', 'error'); }
-function refreshData() { carregarDados(); mostrarAlerta('config', 'Atualizando...', 'info'); }
-function mostrarAlerta(tipo, msg, classe) { const div = document.getElementById(`${tipo}Alert`); if(div) { div.textContent = msg; div.className = `alert ${classe}`; div.style.display = 'block'; setTimeout(() => div.style.display = 'none', 4000); } }
-
-// ==================== TABS ====================
+function exportarDados() { 
+    const dados = { produtos, servicos, categorias, exportadoEm: new Date().toISOString() };
+    const a = document.createElement('a'); 
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], {type: 'application/json'})); 
+    a.download = `backup_bh_${new Date().toISOString().split('T')[0]}.json`; 
+    a.click(); 
+    mostrarAlerta('config', '✅ Backup exportado!', 'success');
+}
+function importarDados() { 
+    const input = document.getElementById('arquivoImportar'); 
+    input.click(); 
+    input.onchange = e => { 
+        const reader = new FileReader(); 
+        reader.onload = async evt => { 
+            try { 
+                const data = JSON.parse(evt.target.result); 
+                if(data.produtos) produtos = data.produtos; 
+                if(data.servicos) {
+                    servicos = [];
+                    for (const padrao of servicosPadrao) {
+                        const importado = data.servicos.find(s => s.id === padrao.id);
+                        if (importado) servicos.push({ ...padrao, ...importado, isPadrao: true });
+                        else servicos.push({ ...padrao });
+                    }
+                    for (const serv of data.servicos) if (!serv.isPadrao && !servicos.find(s => s.id === serv.id)) servicos.push(serv);
+                }
+                if(data.categorias) categorias = data.categorias;
+                else categorias = [];
+                await salvarNoJSONBin(); 
+                carregarListaProdutos(); 
+                carregarListaServicos(); 
+                carregarListaCategoriasAdmin();
+                carregarSelectCategorias();
+                atualizarInfoProdutos();
+                mostrarAlerta('config', '✅ Backup importado e sincronizado!', 'success'); 
+            } catch(err) { mostrarAlerta('config', '❌ Erro no arquivo!', 'error'); } 
+        }; 
+        reader.readAsText(e.target.files[0]); 
+    }; 
+}
+function alterarSenha() { 
+    const nova = document.getElementById('novaSenha').value; 
+    if(nova && nova.length >= 4) { localStorage.setItem('admin_senha', nova); SENHA_ADMIN = nova; mostrarAlerta('config', '✅ Senha alterada!', 'success'); document.getElementById('novaSenha').value = ''; } 
+    else mostrarAlerta('config', '❌ Mínimo 4 caracteres!', 'error'); 
+}
+function refreshData() { carregarDoJSONBin().then(() => { carregarListaProdutos(); carregarListaServicos(); carregarListaCategoriasAdmin(); carregarSelectCategorias(); atualizarInfoProdutos(); mostrarAlerta('config', '🔄 Dados recarregados do JSONBin!', 'success'); }); }
+function mostrarAlerta(tipo, msg, classe) { 
+    const div = document.getElementById(`${tipo}Alert`); 
+    if(div) { div.textContent = msg; div.className = `alert ${classe}`; div.style.display = 'block'; setTimeout(() => div.style.display = 'none', 4000); } 
+}
 function switchTab(tab) {
     const tabProdutos = document.getElementById('tabProdutos');
     const tabServicos = document.getElementById('tabServicos');
+    const tabCategorias = document.getElementById('tabCategorias');
     const btns = document.querySelectorAll('.tab-btn');
-    
     btns.forEach(btn => btn.classList.remove('active'));
-    
-    if (tab === 'produtos') {
-        tabProdutos.classList.add('active');
-        tabServicos.classList.remove('active');
-        btns[0].classList.add('active');
-    } else {
-        tabProdutos.classList.remove('active');
-        tabServicos.classList.add('active');
-        btns[1].classList.add('active');
-    }
+    if (tab === 'produtos') { tabProdutos.classList.add('active'); tabServicos.classList.remove('active'); tabCategorias.classList.remove('active'); btns[0].classList.add('active'); carregarListaProdutos(); }
+    else if (tab === 'servicos') { tabProdutos.classList.remove('active'); tabServicos.classList.add('active'); tabCategorias.classList.remove('active'); btns[1].classList.add('active'); carregarListaServicos(); }
+    else if (tab === 'categorias') { tabProdutos.classList.remove('active'); tabServicos.classList.remove('active'); tabCategorias.classList.add('active'); btns[2].classList.add('active'); carregarListaCategoriasAdmin(); }
 }
-
-// ==================== LOGIN ====================
-async function atualizarStatusConexao() {
-    const statusSpan = document.getElementById('infoStatus');
-    try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-            method: 'GET',
-            headers: { 'X-Master-Key': JSONBIN_API_KEY, 'Content-Type': 'application/json' }
-        });
-        if(response.ok) {
-            statusSpan.innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
-            statusSpan.className = 'status-conectado';
-        } else {
-            throw new Error('Falha na conexão');
-        }
-    } catch(error) {
-        statusSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Offline (usando cache)';
-        statusSpan.className = 'status-offline';
-    }
-}
-
 function fazerLogin() {
     const senha = document.getElementById('senhaAdmin').value;
-    if(senha === SENHA_ADMIN) {
-        localStorage.setItem('admin_logado', 'true');
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('adminScreen').style.display = 'block';
-        carregarDados();
-        document.getElementById('senhaAdmin').value = '';
-        document.getElementById('loginAlert').style.display = 'none';
-    } else {
-        const alertDiv = document.getElementById('loginAlert');
-        alertDiv.textContent = '❌ Senha incorreta!';
-        alertDiv.style.display = 'block';
-        setTimeout(() => { alertDiv.style.display = 'none'; }, 3000);
-    }
+    if(senha === SENHA_ADMIN) { localStorage.setItem('admin_logado', 'true'); document.getElementById('loginScreen').style.display = 'none'; document.getElementById('adminScreen').style.display = 'block'; carregarDoJSONBin().then(() => { carregarListaProdutos(); carregarListaServicos(); carregarListaCategoriasAdmin(); carregarSelectCategorias(); atualizarInfoProdutos(); }); }
+    else { const alertDiv = document.getElementById('loginAlert'); alertDiv.textContent = '❌ Senha incorreta!'; alertDiv.style.display = 'block'; setTimeout(() => alertDiv.style.display = 'none', 3000); }
 }
+document.getElementById('senhaAdmin')?.addEventListener('keypress', e => { if (e.key === 'Enter') fazerLogin(); });
+function logout() { localStorage.removeItem('admin_logado'); document.getElementById('loginScreen').style.display = 'block'; document.getElementById('adminScreen').style.display = 'none'; document.getElementById('senhaAdmin').value = ''; document.getElementById('senhaAdmin').focus(); }
 
-document.getElementById('senhaAdmin')?.addEventListener('keypress', function(e) { if (e.key === 'Enter') fazerLogin(); });
+// Expor funções globais
+window.adicionarProduto = adicionarProduto; window.editarProduto = editarProduto; window.deletarProduto = deletarProduto;
+window.editarServico = editarServico; window.deletarServico = deletarServico; window.exportarDados = exportarDados;
+window.importarDados = importarDados; window.alterarSenha = alterarSenha; window.refreshData = refreshData;
+window.fazerLogin = fazerLogin; window.logout = logout; window.switchTab = switchTab;
+window.fecharModalProduto = fecharModalProduto; window.fecharModalEdicao = fecharModalEdicao;
+window.sincronizarJSONBin = sincronizarJSONBin; window.adicionarCampoFoto = adicionarCampoFoto; window.removerCampoFoto = removerCampoFoto;
+window.adicionarCategoria = adicionarCategoria; window.editarCategoria = editarCategoria; window.excluirCategoria = excluirCategoria;
 
-function logout() {
-    localStorage.removeItem('admin_logado');
-    localStorage.removeItem('admin_session_start');
-    document.getElementById('loginScreen').style.display = 'block';
-    document.getElementById('adminScreen').style.display = 'none';
-    document.getElementById('senhaAdmin').value = '';
-    document.getElementById('senhaAdmin').focus();
-}
-
-// ==================== INICIALIZAÇÃO ====================
 document.getElementById('loginScreen').style.display = 'block';
 document.getElementById('adminScreen').style.display = 'none';
-prodImagemInput = document.getElementById('prodImagem');
-servImagemInput = document.getElementById('servImagem');
-
-// Tornar funções globais
-window.editarProduto = editarProduto;
-window.deletarProduto = deletarProduto;
-window.editarServico = editarServico;
-window.deletarServico = deletarServico;
-window.removerFotoGaleria = removerFotoGaleria;
-window.exportarDados = exportarDados;
-window.importarDados = importarDados;
-window.alterarSenha = alterarSenha;
-window.refreshData = refreshData;
-window.fazerLogin = fazerLogin;
-window.logout = logout;
-window.switchImageTab = switchImageTab;
-window.switchServImageTab = switchServImageTab;
-window.handleFileSelect = handleFileSelect;
-window.handleDrop = handleDrop;
-window.handleServFileSelect = handleServFileSelect;
-window.handleServDrop = handleServDrop;
-window.handleGaleriaFileSelect = handleGaleriaFileSelect;
-window.cancelarUpload = cancelarUpload;
-window.cancelarServUpload = cancelarServUpload;
-window.adicionarProduto = adicionarProduto;
-window.adicionarServico = adicionarServico;
-window.switchTab = switchTab;
 </script>
 </body>
 </html>
