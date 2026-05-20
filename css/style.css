@@ -1361,3 +1361,172 @@ body {
     text-align: center;
     padding: 50px;
 }
+
+/* Melhorias visuais para serviços editáveis */
+.servico-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.servico-card-header h3 {
+    font-size: 1.1rem;
+    word-break: break-word;
+    flex: 1;
+}
+
+.btn-edit-galeria {
+    background: #ffc107;
+    color: #0b2b3b;
+    padding: 6px 12px;
+    font-size: 12px;
+    margin: 0;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.btn-edit-galeria:hover {
+    background: #e0a800;
+    transform: translateY(-2px);
+}
+
+.badge-galeria {
+    background: #17a2b8;
+    color: white;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge-padrao {
+    background: #28a745;
+    color: white;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Estilo para o modal de edição */
+#editServicoModal .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#editServicoModal .form-group {
+    margin-bottom: 20px;
+}
+
+#editServicoModal label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #0b2b3b;
+}
+/* ========== FILTROS DE CATEGORIA (horizontal com scroll) ========== */
+.filtros-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .filtros-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Container dos botões de categoria com rolagem horizontal */
+.categorias-scroll {
+    flex: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+}
+
+.categorias-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.categorias-scroll::-webkit-scrollbar-track {
+    background: #e0e8ef;
+    border-radius: 10px;
+}
+
+.categorias-scroll::-webkit-scrollbar-thumb {
+    background: #0b2b3b;
+    border-radius: 10px;
+}
+
+.filtros-categorias {
+    display: inline-flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+/* Botões de categoria (mesmo estilo dos filtros de preço) */
+.btn-filtro-cat {
+    background: #f4f7fc;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #1e2a3e;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn-filtro-cat:hover {
+    background: #e0e8ef;
+    transform: translateY(-2px);
+}
+
+.btn-filtro-cat.active {
+    background: #0b2b3b;
+    color: white;
+}
+
+.btn-filtro-cat.active i {
+    color: #f9b81b;
+}
+
+/* Ajuste no container original para não quebrar o layout antigo */
+.filtros-container {
+    display: block;
+    padding: 15px 20px;
+}
+
+.filtros-botoes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+/* Responsivo: empilha em telas pequenas */
+@media (max-width: 768px) {
+    .categorias-scroll {
+        width: 100%;
+    }
+}
