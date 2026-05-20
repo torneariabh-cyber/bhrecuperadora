@@ -57,8 +57,13 @@
         .edit-modal-content { background: white; max-width: 700px; margin: 50px auto; border-radius: 20px; padding: 30px; }
         .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #f9b81b; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .foto-edit-item { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
-        .foto-edit-item input { flex: 1; }
+        .foto-edit-item { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; }
+        .foto-edit-item .url-wrapper { flex: 2; display: flex; gap: 8px; align-items: center; }
+        .foto-edit-item .url-wrapper input { flex: 1; margin: 0; }
+        .foto-edit-item .legenda-input { flex: 1; }
+        .foto-edit-item button.remove-foto { background: #dc3545; padding: 6px 12px; margin: 0; }
+        .foto-edit-item button.upload-foto { background: #17a2b8; padding: 6px 12px; margin: 0; white-space: nowrap; }
+        .foto-preview { max-width: 60px; max-height: 60px; border-radius: 6px; margin-left: 5px; }
         .categoria-item { display: flex; justify-content: space-between; align-items: center; background: #f1f3f5; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; }
         .image-preview { max-width: 100px; max-height: 80px; margin-top: 8px; border-radius: 8px; border: 1px solid #ddd; display: inline-block; }
         .upload-wrapper { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
@@ -326,6 +331,47 @@ async function uploadToImgBB(file) {
     }
 }
 
+// Função para fazer upload e preencher um input específico (usado nos campos de URL)
+async function uploadAndFillUrlInput(inputElement) {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const btn = inputElement.parentNode.querySelector('.upload-foto');
+        const originalText = btn ? btn.innerHTML : 'Enviar';
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+        }
+        try {
+            const resizedBlob = await resizeImage(file, 800, 600);
+            const url = await uploadToImgBB(resizedBlob);
+            inputElement.value = url;
+            // Mostrar prévia
+            let previewImg = inputElement.parentNode.parentNode.querySelector('.foto-preview');
+            if (!previewImg) {
+                previewImg = document.createElement('img');
+                previewImg.className = 'foto-preview';
+                inputElement.parentNode.parentNode.appendChild(previewImg);
+            }
+            previewImg.src = url;
+            mostrarAlerta('config', '✅ Imagem enviada e redimensionada!', 'success');
+        } catch (err) {
+            console.error(err);
+            mostrarAlerta('config', '❌ Erro no upload.', 'error');
+        } finally {
+            if (btn) {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    };
+    fileInput.click();
+}
+
+// Função para upload em campos com ID (produtos e imagem principal do serviço)
 async function uploadImageToField(fieldId) {
     const input = document.createElement('input');
     input.type = 'file';
@@ -359,6 +405,7 @@ async function uploadImageToField(fieldId) {
     input.click();
 }
 
+// Upload múltiplo para galeria (no cadastro de serviço)
 async function uploadMultipleImagesToGaleria() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -392,7 +439,7 @@ async function uploadMultipleImagesToGaleria() {
     input.click();
 }
 
-// ==================== FUNÇÕES JSONBIN ====================
+// ==================== FUNÇÕES JSONBIN (mantidas iguais) ====================
 async function carregarDoJSONBin() {
     try {
         document.getElementById('infoStatus').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
@@ -675,7 +722,7 @@ function carregarListaProdutos() {
     });
 }
 
-// ==================== SERVIÇOS ====================
+// ==================== SERVIÇOS (COM UPLOAD NAS FOTOS DA GALERIA) ====================
 function adicionarServico() {
     const nome = document.getElementById('servNome').value.trim();
     const descricao = document.getElementById('servDescricao').value.trim();
@@ -708,6 +755,7 @@ function abrirModalEditarServico(servico) {
     const content = document.getElementById('modalEditContent');
     const badge = servico.isPadrao ? '<span class="badge-padrao">Padrão (Editável)</span>' : '<span class="badge-galeria">Personalizado</span>';
     modalTitulo.innerHTML = `<i class="fas fa-edit"></i> Editando: ${servico.nome} ${badge}`;
+    
     let fotosArray = [];
     if (servico.galeria && Array.isArray(servico.galeria)) {
         fotosArray = servico.galeria.map(item => {
@@ -716,16 +764,39 @@ function abrirModalEditarServico(servico) {
             return null;
         }).filter(f => f && f.url);
     }
+    
     let fotosHtml = '';
     fotosArray.forEach((foto, idx) => {
-        fotosHtml += `<div class="foto-edit-item"><input type="text" class="foto-url" value="${foto.url.replace(/"/g, '&quot;')}" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" value="${foto.legenda.replace(/"/g, '&quot;')}" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button></div>`;
+        fotosHtml += `
+            <div class="foto-edit-item">
+                <div class="url-wrapper">
+                    <input type="text" class="foto-url" value="${foto.url.replace(/"/g, '&quot;')}" placeholder="URL da foto">
+                    <button type="button" class="upload-foto btn-upload" onclick="uploadAndFillUrlInput(this.parentNode.querySelector('.foto-url'))"><i class="fas fa-cloud-upload-alt"></i> Enviar</button>
+                </div>
+                <input type="text" class="legenda-input" value="${foto.legenda.replace(/"/g, '&quot;')}" placeholder="Legenda">
+                <button type="button" class="remove-foto btn-danger" onclick="removerCampoFoto(this)"><i class="fas fa-trash"></i></button>
+                ${foto.url ? `<img src="${foto.url}" class="foto-preview">` : ''}
+            </div>
+        `;
     });
-    if (fotosArray.length === 0) fotosHtml = `<div class="foto-edit-item"><input type="text" class="foto-url" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button></div>`;
+    if (fotosArray.length === 0) {
+        fotosHtml = `
+            <div class="foto-edit-item">
+                <div class="url-wrapper">
+                    <input type="text" class="foto-url" placeholder="URL da foto">
+                    <button type="button" class="upload-foto btn-upload" onclick="uploadAndFillUrlInput(this.parentNode.querySelector('.foto-url'))"><i class="fas fa-cloud-upload-alt"></i> Enviar</button>
+                </div>
+                <input type="text" class="legenda-input" placeholder="Legenda">
+                <button type="button" class="remove-foto btn-danger" onclick="removerCampoFoto(this)"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+    }
+    
     content.innerHTML = `
         <div class="form-group"><label>Nome do Serviço *</label><input type="text" id="editServNome" value="${servico.nome.replace(/"/g, '&quot;')}"></div>
         <div class="form-group"><label>Descrição Curta *</label><textarea id="editServDescricao" rows="3">${servico.descricao.replace(/"/g, '&quot;')}</textarea></div>
         <div class="form-group"><label>URL da Imagem Principal</label><div class="upload-wrapper"><input type="text" id="editServImagem" value="${servico.imagem || ''}" style="flex:1;"><button type="button" class="btn-upload" onclick="uploadImageToField('editServImagem')"><i class="fas fa-cloud-upload-alt"></i> Enviar</button></div>${servico.imagem ? `<div style="margin-top:10px;"><img src="${servico.imagem}" style="max-width:100px; max-height:100px; border-radius:8px;"></div>` : ''}<div id="editServImagemPreview"></div></div>
-        <div class="form-group"><label>📸 Fotos e Legendas</label><div id="fotosContainer" style="margin-bottom:10px;">${fotosHtml}</div><button type="button" onclick="adicionarCampoFoto()" class="btn-info" style="background:#17a2b8; margin-top:5px;">+ Adicionar outra foto</button><small>Cole a URL direta da imagem e defina uma legenda personalizada.</small></div>
+        <div class="form-group"><label>📸 Fotos e Legendas</label><div id="fotosContainer" style="margin-bottom:10px;">${fotosHtml}</div><button type="button" onclick="adicionarCampoFoto()" class="btn-info" style="background:#17a2b8; margin-top:5px;">+ Adicionar outra foto</button><small>Cole a URL direta da imagem ou use o botão "Enviar" para fazer upload.</small></div>
         <div class="form-group"><label>Descrição Detalhada</label><textarea id="editServDescricaoDetalhada" rows="4">${(servico.descricao_detalhada || servico.descricao).replace(/"/g, '&quot;')}</textarea></div>
         ${servico.isPadrao ? `<div class="info-item" style="background:#fff3cd; margin:15px 0;"><i class="fas fa-info-circle"></i> Este é um serviço padrão. Você pode editar todas as informações livremente.</div>` : ''}
         <hr><div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;"><button onclick="fecharModalEdicao()" class="btn-danger">Cancelar</button><button onclick="salvarEdicaoServico()" class="btn-success">Salvar</button></div>
@@ -737,12 +808,23 @@ function abrirModalEditarServico(servico) {
 function adicionarCampoFoto() {
     const container = document.getElementById('fotosContainer');
     if (!container) return;
-    const div = document.createElement('div'); div.className = 'foto-edit-item';
-    div.innerHTML = `<input type="text" class="foto-url" placeholder="URL da foto" style="flex:2;"><input type="text" class="foto-legenda" placeholder="Legenda" style="flex:1;"><button type="button" onclick="removerCampoFoto(this)" style="background:#dc3545; padding:6px 12px;">✖</button>`;
+    const div = document.createElement('div');
+    div.className = 'foto-edit-item';
+    div.innerHTML = `
+        <div class="url-wrapper">
+            <input type="text" class="foto-url" placeholder="URL da foto">
+            <button type="button" class="upload-foto btn-upload" onclick="uploadAndFillUrlInput(this.parentNode.querySelector('.foto-url'))"><i class="fas fa-cloud-upload-alt"></i> Enviar</button>
+        </div>
+        <input type="text" class="legenda-input" placeholder="Legenda">
+        <button type="button" class="remove-foto btn-danger" onclick="removerCampoFoto(this)"><i class="fas fa-trash"></i></button>
+    `;
     container.appendChild(div);
 }
 
-function removerCampoFoto(btn) { const div = btn.closest('.foto-edit-item'); if(div) div.remove(); }
+function removerCampoFoto(btn) {
+    const div = btn.closest('.foto-edit-item');
+    if (div) div.remove();
+}
 
 function salvarEdicaoServico() {
     if (!servicoEditando) return;
@@ -755,7 +837,7 @@ function salvarEdicaoServico() {
     const novaGaleria = [];
     fotosItems.forEach(item => {
         const urlInput = item.querySelector('.foto-url');
-        const legendaInput = item.querySelector('.foto-legenda');
+        const legendaInput = item.querySelector('.legenda-input');
         const url = urlInput ? urlInput.value.trim() : '';
         const legenda = legendaInput ? legendaInput.value.trim() : '';
         if (url) novaGaleria.push({ url: url, legenda: legenda || novoNome });
@@ -916,6 +998,7 @@ window.sincronizarJSONBin = sincronizarJSONBin; window.adicionarCampoFoto = adic
 window.adicionarCategoria = adicionarCategoria; window.editarCategoria = editarCategoria; window.excluirCategoria = excluirCategoria;
 window.uploadImageToField = uploadImageToField; window.uploadMultipleImagesToGaleria = uploadMultipleImagesToGaleria;
 window.toggleProdutosList = toggleProdutosList; window.toggleServicosList = toggleServicosList;
+window.uploadAndFillUrlInput = uploadAndFillUrlInput;
 
 document.getElementById('loginScreen').style.display = 'block';
 document.getElementById('adminScreen').style.display = 'none';
