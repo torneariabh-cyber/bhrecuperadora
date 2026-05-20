@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa História - BH Recuperadora</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b2b3b;
+            color: #1e2a3e;
+        }
+
+        /* Hero com imagem de fundo FIXA/ESTÁTICA */
+        .historia-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        /* Imagem de fundo FIXA - não se move ao scroll - MOSTRA O TOPO */
+        .historia-hero-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            z-index: -1;
+        }
+
+        .historia-hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 100px 24px;
+            background: transparent;
+            max-width: 800px;
+        }
+
+        .historia-hero-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1px;
+        }
+
+        .historia-hero-content h1 i {
+            color: #f9b81b;
+            margin-right: 15px;
+        }
+
+        .historia-hero-content p {
+            color: #f9b81b;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0;
+        }
+
+        /* Container principal */
+        .historia-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Card da história - OPACIDADE 65% NO FUNDO, TEXTO 100% */
+        .historia-card {
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        /* TODOS OS TEXTOS E ÍCONES COM OPACIDADE 100% */
+        .historia-card * {
+            opacity: 1 !important;
+        }
+
+        /* Citação inicial */
+        .citacao-inicial {
+            background: rgba(11, 43, 59, 0.8);
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .citacao-inicial i {
+            font-size: 3rem;
+            color: #f9b81b;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .citacao-inicial p {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+            color: white;
+        }
+
+        /* Conteúdo da história */
+        .historia-conteudo {
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0 0 30px 30px;
+        }
+
+        .historia-bloco {
+            margin-bottom: 40px;
+            border-left: 4px solid #f9b81b;
+            padding-left: 25px;
+        }
+
+        .historia-bloco h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: #0b2b3b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .historia-bloco h3 i {
+            color: #f9b81b;
+            font-size: 1.8rem;
+        }
+
+        .historia-bloco p {
+            color: #1e2a3e;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Grid de informações (linha do tempo) */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            background: rgba(248, 249, 250, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            border-color: #f9b81b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline-ano {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #f9b81b;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            color: #0b2b3b;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            font-size: 0.9rem;
+            color: #4a627a;
+        }
+
+        /* Equipe */
+        .equipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .membro-card {
+            text-align: center;
+            padding: 25px;
+            background: rgba(248, 249, 250, 0.9);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .membro-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .membro-icone {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .membro-icone i {
+            font-size: 2.5rem;
+            color: #f9b81b;
+        }
+
+        .membro-card h4 {
+            font-size: 1.1rem;
+            color: #0b2b3b;
+            margin-bottom: 5px;
+        }
+
+        .membro-card p {
+            font-size: 0.85rem;
+            color: #4a627a;
+        }
+
+        /* Conclusão */
+        .conclusao {
+            background: rgba(249, 184, 27, 0.9);
+            padding: 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .conclusao h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: #0b2b3b;
+            margin-bottom: 15px;
+        }
+
+        .conclusao p {
+            font-size: 1.1rem;
+            color: #0b2b3b;
+            font-weight: 500;
+        }
+
+        .conclusao i {
+            font-size: 2rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        /* Botão Voltar */
+        .btn-voltar-bottom {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0b2b3b;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .btn-voltar-bottom:hover {
+            background: #f9b81b;
+            color: #0b2b3b;
+            transform: translateX(-5px);
+        }
+
+        /* Rodapé */
+        .footer-historia {
+            background: #0a1f28;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Botão flutuante de voltar */
+        .btn-flutuante-voltar {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #0b2b3b;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-flutuante-voltar:hover {
+            background: #f9b81b;
+            color: #0b2b3b;
+            transform: scale(1.1);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .historia-hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .historia-conteudo {
+                padding: 30px 20px;
+            }
+            
+            .citacao-inicial p {
+                font-size: 1rem;
+            }
+            
+            .historia-bloco h3 {
+                font-size: 1.2rem;
+            }
+            
+            .timeline-ano {
+                font-size: 1.5rem;
+            }
+            
+            .conclusao h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .historia-hero-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .historia-bloco {
+                padding-left: 15px;
+            }
+            
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero com imagem de fundo ESTÁTICA/FIXA - SEM OVERLAY -->
+<section class="historia-hero">
+    <!-- Imagem fixa no fundo -->
+    <img src="imagens/fundohistoria.png" alt="BH Recuperadora" class="historia-hero-img">
+    
+    <div class="historia-hero-content" data-aos="fade-right" data-aos-duration="1000">
+        <h1>Nossa História</h1>
+        <p>Uma trajetória de superação, dedicação e excelência</p>
+    </div>
+</section>
+
+<!-- Botão flutuante para voltar à home -->
+<a href="index.html" class="btn-flutuante-voltar" title="Voltar para Home">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<!-- Conteúdo principal -->
+<main class="historia-main">
+    <div class="historia-card">
+        
+        <!-- Citação inicial -->
+        <div class="citacao-inicial" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            <i class="fas fa-quote-right"></i>
+            <p>"A história da BH Recuperadora começou muito antes da empresa existir oficialmente. Ela nasceu da dedicação, da experiência e da vontade de vencer de seu fundador, Rubino Ernst."</p>
+        </div>
+        
+        <div class="historia-conteudo">
+            
+            <!-- Bloco 1 - Origem -->
+            <div class="historia-bloco" data-aos="fade-right" data-aos-duration="800" data-aos-delay="150">
+                <h3><i class="fas fa-seedling"></i> A Origem</h3>
+                <p>Natural da cidade de Tucunduva, no interior do Rio Grande do Sul, Rubino iniciou sua trajetória ainda jovem trabalhando na roça ao lado de seu pai, aprendendo desde cedo o valor do trabalho duro, da honestidade e da persistência.</p>
+                <p>Com o passar dos anos, decidiu buscar novas oportunidades na cidade de Novo Hamburgo, onde trabalhou em fábricas de calçados, adquirindo experiência e amadurecendo seus sonhos. Após se casar, mudou-se para Amambai em busca de uma nova fase para sua família.</p>
+            </div>
+            
+            <!-- Bloco 2 - Chegada ao MT -->
+            <div class="historia-bloco" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                <h3><i class="fas fa-map-marker-alt"></i> Chegada ao Mato Grosso</h3>
+                <p>Pouco tempo depois, recebeu um convite que mudaria sua vida: vir para o Mato Grosso em 1983. Foi nesse período que nasceu sua verdadeira paixão pela mecânica industrial, recuperação de peças, torno e solda.</p>
+                <p>Durante 10 anos trabalhou na tradicional Mecânica Catarinense, onde desenvolveu grande experiência no conserto e recuperação de máquinas pesadas. Em 1993, foi chamado para trabalhar em Sinop, cidade que se tornaria sua casa e onde construiu sua história profissional.</p>
+            </div>
+            
+            <!-- Linha do tempo -->
+            <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">
+                <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 20px; color: #0b2b3b;"><i class="fas fa-timeline"></i> Trajetória Profissional</h3>
+                <div class="timeline-grid">
+                    <div class="timeline-item">
+                        <div class="timeline-ano">1983-2026</div>
+                        <h4>Experiência Acumulada</h4>
+                        <p>Passagem por empresas como Sinop Diesel, Tornearia São Miguel, Amortec, Michelin, Posto de Molas Nortão e Posto de Molas Catarinense</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-ano">40+</div>
+                        <h4>Anos de Experiência</h4>
+                        <p>Como torneiro mecânico industrial e soldador</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-ano">2017</div>
+                        <h4>Fundação</h4>
+                        <p>Nasce a antiga Tornearia BH, hoje BH Recuperadora</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bloco 3 - Superação -->
+            <div class="historia-bloco" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
+                <h3><i class="fas fa-heartbeat"></i> Superação e Luta</h3>
+                <p>Em meio à sua trajetória, enfrentou um dos maiores desafios de sua vida: o diagnóstico de hanseníase. Foram cinco anos de tratamento, superação e muita luta. Mesmo diante das dificuldades, nunca desistiu de trabalhar e sustentar sua família. Nesse período, também atuou como motorista em uma seguradora, mostrando mais uma vez sua determinação em seguir em frente.</p>
+            </div>
+            
+            <!-- Bloco 4 - Fundação -->
+            <div class="historia-bloco" data-aos="fade-right" data-aos-duration="800" data-aos-delay="350">
+                <h3><i class="fas fa-building"></i> A Fundação da BH Recuperadora</h3>
+                <p>Com toda a experiência adquirida ao longo da vida e o sonho de construir algo próprio, em 2017 nasceu a antiga Tornearia BH, hoje conhecida como BH Recuperadora.</p>
+                <p>A empresa surgiu com o propósito de oferecer serviços de qualidade em torno, solda, embuchamento, recuperação de cubos, eixos, mangas de eixo, recuperação de carcaças, revisão e conserto de motores elétricos e bombas d'água, sempre atendendo máquinas pesadas, caminhões e equipamentos industriais com compromisso e responsabilidade.</p>
+            </div>
+            
+            <!-- Equipe -->
+            <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 20px; color: #0b2b3b;"><i class="fas fa-users"></i> Nossa Família e Equipe</h3>
+                <div class="equipe-grid">
+                    <div class="membro-card">
+                        <div class="membro-icone"><i class="fas fa-user-tie"></i></div>
+                        <h4>Rubino Ernst</h4>
+                        <p>Fundador</p>
+                    </div>
+                    <div class="membro-card">
+                        <div class="membro-icone"><i class="fas fa-user"></i></div>
+                        <h4>Jhonatan</h4>
+                        <p>Sócio</p>
+                    </div>
+                    <div class="membro-card">
+                        <div class="membro-icone"><i class="fas fa-user"></i></div>
+                        <h4>João Miguel</h4>
+                        <p>Sócio</p>
+                    </div>
+                    <div class="membro-card">
+                        <div class="membro-icone"><i class="fas fa-user"></i></div>
+                        <h4>Déborah</h4>
+                        <p>Financeiro</p>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 20px; color: #1e2a3e;">Atualmente, a empresa também conta com a dedicação de seus sócios e familiares, que fazem parte dessa trajetória e ajudam diariamente no crescimento da empresa. Além disso, conta com uma equipe de colaboradores prestativos e profissionais, que trabalham lado a lado com Rubino, contribuindo diariamente para oferecer serviços de qualidade, agilidade e confiança aos clientes.</p>
+            </div>
+            
+            <!-- Conclusão -->
+            <div class="conclusao" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="450">
+                <h3><i class="fas fa-trophy"></i> BH RECUPERADORA</h3>
+                <p>A MAIOR RECUPERADORA DE PEÇAS DO NORTÃO</p>
+                <p style="margin-top: 15px;">Continuamos aqui, sempre para atender com excelência, qualidade e compromisso, levando confiança aos nossos clientes e parceiros.</p>
+                <i class="fas fa-infinity"></i>
+                <p style="margin-top: 15px; font-style: italic;">E a nossa história continua contando...</p>
+            </div>
+            
+            <!-- Botão Voltar -->
+            <div style="text-align: center;">
+                <a href="index.html" class="btn-voltar-bottom">
+                    <i class="fas fa-arrow-left"></i> Voltar para Home
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Rodapé -->
+<footer class="footer-historia">
+    <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
+    <p style="margin-top: 10px; opacity: 0.7;">Sinop - Mato Grosso</p>
+</footer>
+
+<!-- AOS Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+</body>
+</html>
