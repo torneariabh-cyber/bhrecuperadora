@@ -27,7 +27,7 @@
             color: #1e2a3e;
         }
 
-        /* Hero com imagem de fundo FIXA/ESTÁTICA */
+        /* Hero com imagem de fundo (agora via CSS) */
         .historia-hero {
             position: relative;
             min-height: 60vh;
@@ -38,16 +38,25 @@
             overflow: hidden;
         }
 
-        /* Imagem de fundo FIXA - não se move ao scroll - MOSTRA O TOPO */
-        .historia-hero-img {
+        /* Camada de fundo fixa (substitui a tag img) */
+        .historia-hero-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: top;
+            background-image: url('imagens/fundohistoria.png');
+            background-size: cover;
+            background-position: top;
+            background-repeat: no-repeat;
             z-index: -1;
+        }
+
+        /* No mobile, troca a imagem de fundo */
+        @media (max-width: 768px) {
+            .historia-hero-bg {
+                background-image: url('imagens/fundohistoria-mobile.png');
+            }
         }
 
         .historia-hero-content {
@@ -379,10 +388,10 @@
 </head>
 <body>
 
-<!-- Hero com imagem de fundo ESTÁTICA/FIXA - SEM OVERLAY -->
+<!-- Hero com imagem de fundo agora via CSS -->
 <section class="historia-hero">
-    <!-- Imagem fixa no fundo -->
-    <img src="imagens/fundohistoria.png" alt="BH Recuperadora" class="historia-hero-img">
+    <!-- Camada de fundo fixa (substitui a tag img) -->
+    <div class="historia-hero-bg"></div>
     
     <div class="historia-hero-content" data-aos="fade-right" data-aos-duration="1000">
         <h1>Nossa História</h1>
