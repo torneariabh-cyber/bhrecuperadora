@@ -716,8 +716,8 @@ function carregarListaProdutos() {
     container.innerHTML = '';
     produtos.forEach(produto => {
         const card = document.createElement('div'); card.className = 'item-card';
-        const catBadge = produto.categoria ? `<span style="background:#17a2b8; color:white; font-size:10px; padding:2px 6px; border-radius:20px; margin-left:8px;">${produto.categoria}</span>` : '';
-        card.innerHTML = `<h3>${produto.nome} ${catBadge}</h3><div class="preco">R$ ${produto.preco.toFixed(2)}</div>${produto.imagem ? `<img src="${produto.imagem}" style="max-width:80px; max-height:80px; border-radius:8px; margin:10px 0;">` : ''}<div class="acoes"><button onclick="editarProduto(${produto.id})"><i class="fas fa-edit"></i> Editar</button><button class="btn-danger" onclick="deletarProduto(${produto.id})"><i class="fas fa-trash"></i> Excluir</button></div>`;
+        // badge removido
+        card.innerHTML = `<h3>${produto.nome}</h3><div class="preco">R$ ${produto.preco.toFixed(2)}</div>${produto.imagem ? `<img src="${produto.imagem}" style="max-width:80px; max-height:80px; border-radius:8px; margin:10px 0;">` : ''}<div class="acoes"><button onclick="editarProduto(${produto.id})"><i class="fas fa-edit"></i> Editar</button><button class="btn-danger" onclick="deletarProduto(${produto.id})"><i class="fas fa-trash"></i> Excluir</button></div>`;
         container.appendChild(card);
     });
 }
