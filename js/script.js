@@ -202,7 +202,8 @@ function renderAllProducts(produtosList = null) {
         const card = document.createElement('div');
         card.className = 'product-card';
 
-        const catBadge = prod.categoria ? `<span class="produto-categoria-badge">${prod.categoria}</span>` : '';
+        // Remove o badge da categoria
+        // const catBadge = prod.categoria ? `<span class="produto-categoria-badge">${prod.categoria}</span>` : '';
 
         card.innerHTML = `
             <div class="product-img">
@@ -210,7 +211,7 @@ function renderAllProducts(produtosList = null) {
                      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23e8edf2%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%230b2b3b%27 font-size=%2712%27%3E🔩%3C/text%3E%3C/svg%3E'">
             </div>
             <div class="product-info">
-                <h3>${prod.nome} ${catBadge}</h3>
+                <h3>${prod.nome}</h3>
                 <p style="font-size:0.7rem; color:#666;">${prod.descricao || 'ROSCA GROSSA'}</p>
                 <div class="product-price">${formatPrice(prod.preco)}</div>
                 <button class="btn-add-cart" onclick="addToCart('${prod.nome.replace(/'/g, "\\'")}', ${prod.preco})">
