@@ -14,7 +14,7 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
-    <!-- Meu CSS -->
+    <!-- Meu CSS -->3
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -48,33 +48,32 @@
         <h2 class="section-title">Produtos com Frete Grátis para Sinop-MT</h2>
         <p class="section-sub">Escolha a quantidade e adicione ao carrinho</p>
         
-<div class="filtros-container">
-    <!-- Linha com todos os filtros (preço + categorias lado a lado) -->
-    <div class="filtros-wrapper">
-        <!-- Botões de ordenação de preço -->
-        <div class="filtros-botoes">
-            <button class="btn-filtro btn-filtro-ativo" id="filtrarTodos" onclick="resetarFiltro()">
-                <i class="fas fa-list"></i> Todos
-            </button>
-            <button class="btn-filtro" id="filtrarMenorPreco" onclick="ordenarMenorPreco()">
-                <i class="fas fa-arrow-up"></i> Menor Preço
-            </button>
-            <button class="btn-filtro" id="filtrarMaiorPreco" onclick="ordenarMaiorPreco()">
-                <i class="fas fa-arrow-down"></i> Maior Preço
-            </button>
-        </div>
-
-        <!-- Categorias com rolagem horizontal -->
-        <div class="categorias-scroll">
-            <div class="filtros-categorias" id="categoriasFiltros"></div>
-        </div>
+<!-- Filtros de Preço -->
+<div class="filtros-preco-container">
+    <div class="filtros-botoes">
+        <button class="btn-filtro btn-filtro-ativo" id="filtrarTodos" onclick="resetarFiltro()">
+            <i class="fas fa-list"></i> Todos
+        </button>
+        <button class="btn-filtro" id="filtrarMenorPreco" onclick="ordenarMenorPreco()">
+            <i class="fas fa-arrow-up"></i> Menor Preço
+        </button>
+        <button class="btn-filtro" id="filtrarMaiorPreco" onclick="ordenarMaiorPreco()">
+            <i class="fas fa-arrow-down"></i> Maior Preço
+        </button>
     </div>
-
-    <!-- Contador de produtos (mantido) -->
     <div class="filtros-info">
         <span id="totalProdutos">0</span> produtos encontrados
     </div>
 </div>
+
+<!-- Filtros de Categoria (com rolagem horizontal) -->
+<div class="filtros-categoria-container">
+    <div class="categorias-scroll">
+        <div class="filtros-categorias" id="categoriasFiltros"></div>
+    </div>
+</div>
+
+
         
         <div class="products-grid" id="productsContainer">
             <div style="text-align:center; padding:50px;">
