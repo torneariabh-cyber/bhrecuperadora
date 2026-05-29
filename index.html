@@ -840,6 +840,37 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+
+        /* CORREÇÃO PARA EVITAR ROLAGEM HORIZONTAL */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Ajuste do carrossel em telas muito pequenas */
+@media (max-width: 480px) {
+    .hero-services-carousel {
+        min-width: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    .hero-services-card {
+        padding: 8px;
+    }
+    .hero-nav-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        gap: 6px;
+    }
+    .hero-modern-content {
+        gap: 20px;
+        padding: 30px 0;
+    }
+    .container {
+        padding: 0 16px;
+    }
+}
     </style>
 </head>
 <body>
