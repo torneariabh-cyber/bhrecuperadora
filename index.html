@@ -2,29 +2,24 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>BH Recuperadora | Torno, Solda, Caminhões e Máquinas Pesadas</title>
     
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <style>
-        /* ==================== ESTILOS GLOBAIS ==================== */
+        /* ==================== RESET E PREVENÇÃO DE ROLAGEM HORIZONTAL ==================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100%;
             font-family: 'Inter', sans-serif;
             background-color: #f4f7fc;
             color: #1e2a3e;
@@ -35,13 +30,14 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        /* HEADER MODERNO */
+        /* HEADER */
         .header {
             background: #ffffff;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
         .header-content {
             display: flex;
@@ -49,11 +45,13 @@
             justify-content: space-between;
             flex-wrap: wrap;
             padding: 16px 0;
+            gap: 15px;
         }
         .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
         .logo-simbolo {
             width: 55px;
@@ -83,7 +81,7 @@
         }
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 20px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -99,7 +97,7 @@
         .btn-contato {
             background: #f9b81b;
             color: #0b2b3b !important;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 40px;
         }
         .cart-icon {
@@ -129,6 +127,7 @@
             align-items: center;
             overflow: hidden;
             background: #0b2b3b;
+            width: 100%;
         }
         .hero-overlay {
             position: absolute;
@@ -158,9 +157,11 @@
             flex-wrap: wrap;
             gap: 40px;
             padding: 60px 0;
+            width: 100%;
         }
         .hero-modern-text {
             flex: 1.2;
+            min-width: 240px;
         }
         .hero-badge {
             display: inline-block;
@@ -225,28 +226,13 @@
         .btn-hero-primary:hover {
             background: #e5a80f;
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        .hero-scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            cursor: pointer;
-            z-index: 2;
-        }
-        /* CARROSSEL DE SERVIÇOS NO HERO (sem setas internas) */
+        /* CARROSSEL DE SERVIÇOS */
         .hero-services-carousel {
             flex: 0.8;
             min-width: 280px;
             max-width: 360px;
+            width: 100%;
         }
         .hero-services-card {
             background: rgba(0,0,0,0.3);
@@ -255,6 +241,7 @@
             padding: 12px;
             border: none;
             box-shadow: 0 20px 35px -10px rgba(0,0,0,0.4);
+            width: 100%;
         }
         .hero-services-swiper {
             width: 100%;
@@ -268,9 +255,6 @@
             cursor: pointer;
             transition: transform 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .hero-services-swiper .swiper-slide:hover {
-            transform: scale(1.02);
         }
         .hero-services-swiper .swiper-slide img {
             width: 100%;
@@ -297,76 +281,69 @@
             font-size: 0.7rem;
             opacity: 0.9;
         }
-        /* NOVAS SETAS ABAIXO DO CARROSSEL (com animação pulsante) */
         .hero-carousel-nav {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
         .hero-nav-btn {
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px);
             border: 1px solid #f9b81b;
             border-radius: 40px;
-            padding: 8px 20px;
+            padding: 6px 18px;
             color: #f9b81b;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            letter-spacing: 2px;
+            gap: 10px;
+            letter-spacing: 1px;
         }
         .hero-nav-btn i {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
         }
         .hero-nav-btn:hover {
             background: #f9b81b;
             color: #0b2b3b;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
-        /* Animação pulsante */
         @keyframes pulseNav {
-            0% {
-                opacity: 0.7;
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(249,184,27,0.4);
-            }
-            70% {
-                opacity: 1;
-                transform: scale(1.05);
-                box-shadow: 0 0 0 8px rgba(249,184,27,0);
-            }
-            100% {
-                opacity: 0.7;
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(249,184,27,0);
-            }
+            0% { opacity: 0.7; transform: scale(1); box-shadow: 0 0 0 0 rgba(249,184,27,0.4); }
+            70% { opacity: 1; transform: scale(1.03); box-shadow: 0 0 0 8px rgba(249,184,27,0); }
+            100% { opacity: 0.7; transform: scale(1); box-shadow: 0 0 0 0 rgba(249,184,27,0); }
         }
         .hero-nav-btn {
             animation: pulseNav 1.8s infinite ease-in-out;
         }
-        /* Para não pulsar ao mesmo tempo, pequeno delay no segundo botão */
         .hero-nav-btn:last-child {
             animation-delay: 0.3s;
         }
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .hero-modern-title { font-size: 2rem; }
-            .hero-modern-content { flex-direction: column; text-align: center; }
-            .hero-modern-subtitle { margin-left: auto; margin-right: auto; }
-            .hero-buttons { justify-content: center; }
-            .hero-services-carousel { max-width: 300px; margin: 0 auto; }
-            .hero-nav-btn { padding: 6px 16px; font-size: 0.8rem; gap: 8px; }
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            cursor: pointer;
+            z-index: 2;
         }
         /* Diferenciais */
         .diferenciais {
             padding: 80px 0;
             background: #f8f9fa;
+            width: 100%;
         }
         .section-title-modern {
             font-family: 'Montserrat', sans-serif;
@@ -393,10 +370,6 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
         }
-        .diferencial-card:hover {
-            transform: translateY(-8px);
-            border-color: #f9b81b;
-        }
         .diferencial-icon {
             width: 70px;
             height: 70px;
@@ -411,10 +384,11 @@
             font-size: 2rem;
             color: #f9b81b;
         }
-        /* Produtos Destaque */
+        /* Produtos */
         .produtos-destaque {
             padding: 80px 0;
             background: linear-gradient(180deg, #f8f9fa 0%, white 100%);
+            width: 100%;
         }
         .section-sub-modern {
             text-align: center;
@@ -432,7 +406,6 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: 0.3s;
         }
         .carousel-img {
             height: 200px;
@@ -487,8 +460,12 @@
             color: #0b2b3b;
             transform: translateY(-3px);
         }
+        /* CLASSE PARA CENTRALIZAR */
         .text-center {
             text-align: center;
+        }
+        .text-center .btn-produtos-modern {
+            margin: 0 auto;
         }
         /* Estatísticas */
         .stats-section {
@@ -496,6 +473,7 @@
             padding: 80px 0;
             background-color: #0b2b3b;
             overflow: hidden;
+            width: 100%;
         }
         .stats-overlay {
             position: absolute;
@@ -524,10 +502,11 @@
             color: white;
             font-weight: 500;
         }
-        /* CTA FINAL com logo da história */
+        /* CTA Final */
         .cta-final {
             padding: 80px 0;
             background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
+            width: 100%;
         }
         .cta-flex-container {
             display: flex;
@@ -546,19 +525,16 @@
             font-size: 2rem;
             margin-bottom: 16px;
         }
-        .cta-content p {
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
         .cta-buttons {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
         .cta-whatsapp {
             background: #25D366;
             color: white;
-            padding: 14px 32px;
+            padding: 12px 28px;
             border-radius: 50px;
             text-decoration: none;
             display: inline-flex;
@@ -566,28 +542,18 @@
             gap: 10px;
             font-weight: 700;
             transition: 0.3s;
-        }
-        .cta-whatsapp:hover {
-            background: #20b859;
-            transform: translateY(-3px);
         }
         .cta-products {
             background: transparent;
             border: 2px solid #f9b81b;
             color: #f9b81b;
-            padding: 12px 30px;
+            padding: 10px 26px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: 0.3s;
-        }
-        .cta-products:hover {
-            background: #f9b81b;
-            color: #0b2b3b;
-            transform: translateY(-3px);
         }
         .cta-logo-wrapper {
             flex: 0.6;
@@ -607,11 +573,6 @@
             border-radius: 24px;
             display: block;
         }
-        .hero-logo-link:hover .hero-logo-glass {
-            transform: scale(1.03);
-            border-color: #e5a80f;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
         .cta-certificate {
             margin-top: 12px;
             color: rgba(255,255,255,0.8);
@@ -621,14 +582,12 @@
             justify-content: center;
             gap: 8px;
         }
-        .cta-certificate i {
-            color: #f9b81b;
-        }
         /* Footer */
         .footer {
             background: #0a1f28;
             color: #d4e2ed;
             padding: 48px 0 28px;
+            width: 100%;
         }
         .footer-content {
             display: flex;
@@ -653,7 +612,7 @@
             margin-top: 30px;
             font-size: 0.75rem;
         }
-        /* Modal Serviços */
+        /* Modal, Sidebar, etc */
         .modal-servicos {
             display: none;
             position: fixed;
@@ -671,41 +630,30 @@
             max-width: 900px;
             width: 90%;
             border-radius: 28px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
         .modal-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 20px 30px;
             border-bottom: 2px solid #f9b81b;
         }
         .modal-header h2 {
             color: #f9b81b;
-            font-size: 1.8rem;
-            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
         }
         .modal-fechar {
             color: white;
             font-size: 35px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-        .modal-fechar:hover {
-            color: #f9b81b;
         }
         .modal-body {
             padding: 30px;
-        }
-        .modal-descricao {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 25px;
-            line-height: 1.5;
         }
         .galeria-fotos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            margin-top: 20px;
         }
         .foto-item img {
             width: 100%;
@@ -713,9 +661,7 @@
             object-fit: cover;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
         }
-        /* Carrinho Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -750,18 +696,6 @@
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
         }
-        .cart-item-info h4 {
-            font-size: 0.9rem;
-        }
-        .cart-item-actions button {
-            background: #eef2f5;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            margin: 0 2px;
-        }
         .cart-footer {
             padding: 20px;
             border-top: 2px solid #eef2f5;
@@ -771,22 +705,26 @@
             font-weight: bold;
             margin-bottom: 15px;
         }
-        .btn-cart-send, .btn-cart-print {
+        .btn-cart-send {
+            background: #25D366;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            border: none;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .btn-cart-print {
+            background: #2c3e50;
+            color: white;
             width: 100%;
             padding: 12px;
             border-radius: 40px;
             border: none;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 10px;
-        }
-        .btn-cart-send {
-            background: #25D366;
-            color: white;
-        }
-        .btn-cart-print {
-            background: #2c3e50;
-            color: white;
         }
         .overlay {
             position: fixed;
@@ -803,29 +741,102 @@
             bottom: 30px;
             right: 30px;
             background: #25D366;
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: white;
             z-index: 998;
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: 0.3s;
         }
+        /* Responsividade */
         @media (max-width: 768px) {
-            .hero-modern-title { font-size: 2rem; }
-            .hero-modern-content { flex-direction: column; text-align: center; }
-            .hero-modern-subtitle { margin-left: auto; margin-right: auto; }
-            .hero-buttons { justify-content: center; }
-            .hero-services-carousel { max-width: 300px; margin: 0 auto; }
-            .cta-flex-container { flex-direction: column; text-align: center; }
-            .cta-content { text-align: center; }
-            .cta-buttons { justify-content: center; }
-            .section-title-modern { font-size: 1.8rem; }
+            .container {
+                padding: 0 16px;
+            }
+            .hero-modern-title {
+                font-size: 2rem;
+            }
+            .hero-modern-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 0;
+                gap: 30px;
+            }
+            .hero-modern-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-services-carousel {
+                min-width: auto;
+                max-width: 100%;
+                width: 100%;
+            }
+            .hero-services-card {
+                padding: 8px;
+            }
+            .hero-nav-btn {
+                padding: 5px 14px;
+                font-size: 0.75rem;
+                gap: 6px;
+            }
+            .section-title-modern {
+                font-size: 1.6rem;
+            }
+            .cta-flex-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cta-content {
+                text-align: center;
+            }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .diferenciais-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .stat-number-modern {
+                font-size: 2rem;
+            }
+            .cart-sidebar {
+                width: 320px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero-modern-title {
+                font-size: 1.6rem;
+            }
+            .btn-hero-primary {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+            .hero-nav-btn {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            .cta-content h2 {
+                font-size: 1.4rem;
+            }
         }
         .spinner {
             border: 3px solid #f3f3f3;
@@ -840,37 +851,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-
-        /* CORREÇÃO PARA EVITAR ROLAGEM HORIZONTAL */
-html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-}
-
-/* Ajuste do carrossel em telas muito pequenas */
-@media (max-width: 480px) {
-    .hero-services-carousel {
-        min-width: auto;
-        width: 100%;
-        max-width: 100%;
-    }
-    .hero-services-card {
-        padding: 8px;
-    }
-    .hero-nav-btn {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-        gap: 6px;
-    }
-    .hero-modern-content {
-        gap: 20px;
-        padding: 30px 0;
-    }
-    .container {
-        padding: 0 16px;
-    }
-}
     </style>
 </head>
 <body>
@@ -900,7 +880,6 @@ html, body {
             <p class="hero-modern-subtitle">Peças e serviços com qualidade para manter sua máquina sempre em movimento.</p>
             <div class="hero-buttons"><a href="produtos.html" class="btn-hero-primary"><i class="fas fa-shopping-cart"></i> VER PRODUTOS</a></div>
         </div>
-        <!-- CARROSSEL DE SERVIÇOS (integrado com JSONBin) -->
         <div class="hero-services-carousel" data-aos="fade-left">
             <div class="hero-services-card">
                 <div class="swiper hero-services-swiper">
@@ -908,7 +887,6 @@ html, body {
                         <div class="swiper-slide"><div class="spinner"></div><p style="color:white; text-align:center;">Carregando serviços...</p></div>
                     </div>
                 </div>
-                <!-- NOVAS SETAS ABAIXO DO CARROSSEL (fora do box) -->
                 <div class="hero-carousel-nav">
                     <button class="hero-nav-btn" id="heroPrevBtn"><i class="fas fa-chevron-left"></i> ANTERIOR</button>
                     <button class="hero-nav-btn" id="heroNextBtn">PRÓXIMO <i class="fas fa-chevron-right"></i></button>
@@ -931,7 +909,6 @@ html, body {
     </div>
 </section>
 
-<!-- PRODUTOS EM DESTAQUE -->
 <section class="produtos-destaque">
     <div class="container">
         <h2 class="section-title-modern">PRODUTOS <span class="highlight">DESTAQUES</span></h2>
@@ -944,11 +921,12 @@ html, body {
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
-        <div class="text-center"><a href="produtos.html" class="btn-produtos-modern">Ver todos os produtos <i class="fas fa-arrow-right"></i></a></div>
+        <div class="text-center">
+            <a href="produtos.html" class="btn-produtos-modern">Ver todos os produtos <i class="fas fa-arrow-right"></i></a>
+        </div>
     </div>
 </section>
 
-<!-- ESTATÍSTICAS -->
 <section class="stats-section">
     <div class="stats-overlay"></div>
     <div class="container">
@@ -961,7 +939,6 @@ html, body {
     </div>
 </section>
 
-<!-- CTA FINAL com o logo da história -->
 <section class="cta-final">
     <div class="container cta-flex-container">
         <div class="cta-content" data-aos="fade-right">
@@ -990,7 +967,6 @@ html, body {
     </div>
 </footer>
 
-<!-- ELEMENTOS DE CARRINHO, MODAL, ETC -->
 <div class="overlay" id="overlay"></div>
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header"><h3><i class="fas fa-shopping-cart"></i> Meu Carrinho</h3><i class="fas fa-times" id="closeCart"></i></div>
@@ -1020,9 +996,8 @@ html, body {
     let categorias = [];
     let categoriaAtiva = null;
     let filtroAtual = 'todos';
-    let heroSwiper = null; // referência global
+    let heroSwiper = null;
 
-    // ==================== FUNÇÕES AUXILIARES ====================
     function formatPrice(price) {
         return 'R$ ' + price.toFixed(2).replace('.', ',');
     }
@@ -1038,7 +1013,6 @@ html, body {
         return shuffled.slice(0, quantidade);
     }
 
-    // ==================== CARREGAMENTO DOS DADOS ====================
     async function carregarDadosJSONBin() {
         try {
             console.log('🔄 Carregando dados do JSONBin.io...');
@@ -1055,7 +1029,6 @@ html, body {
 
             console.log(`✅ Carregados: ${produtos.length} produtos, ${servicos.length} serviços, ${categorias.length} categorias`);
 
-            // Construir galeriaServicos
             galeriaServicos = {};
             for (const servico of servicos) {
                 let fotosArray = [];
@@ -1073,7 +1046,7 @@ html, body {
             }
 
             renderizarTudo();
-            renderHeroServicesCarousel(); // carrossel do hero
+            renderHeroServicesCarousel();
             return true;
         } catch (error) {
             console.error('❌ Erro ao carregar do JSONBin:', error);
@@ -1087,32 +1060,23 @@ html, body {
     }
 
     function renderizarTudo() {
-        if (document.getElementById('productsContainer')) {
-            aplicarFiltrosCompletos();
-        }
+        if (document.getElementById('productsContainer')) aplicarFiltrosCompletos();
         if (document.getElementById('carouselWrapper')) renderCarousel();
-        if (document.getElementById('totalProdutos')) {
-            document.getElementById('totalProdutos').textContent = produtos.length;
-        }
+        if (document.getElementById('totalProdutos')) document.getElementById('totalProdutos').textContent = produtos.length;
         renderizarFiltrosCategoria();
     }
 
-    // ==================== CARROSSEL DE SERVIÇOS NO HERO (COM AUTOPLAY E NAVEGAÇÃO EXTERNA) ====================
     function renderHeroServicesCarousel() {
         const wrapper = document.getElementById('heroServicesWrapper');
         if (!wrapper) return;
-
         if (!servicos || servicos.length === 0) {
             wrapper.innerHTML = '<div class="swiper-slide"><div style="text-align:center; padding:50px; color:white;">Nenhum serviço cadastrado.</div></div>';
             return;
         }
-
         wrapper.innerHTML = '';
         for (const servico of servicos) {
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
-            slide.setAttribute('data-id', servico.id || servico.nome);
-            
             let iconeClasse = '<i class="fas fa-wrench"></i>';
             const nomeLower = servico.nome.toLowerCase();
             if (nomeLower.includes('torno')) iconeClasse = '<i class="fas fa-cogs"></i>';
@@ -1120,7 +1084,6 @@ html, body {
             else if (nomeLower.includes('manutenção') || nomeLower.includes('manutencao')) iconeClasse = '<i class="fas fa-tools"></i>';
             else if (nomeLower.includes('corte')) iconeClasse = '<i class="fas fa-bolt"></i>';
             else if (nomeLower.includes('postos') || nomeLower.includes('molas')) iconeClasse = '<i class="fas fa-truck"></i>';
-            
             slide.innerHTML = `
                 <img src="${servico.imagem || 'imagens/servico-padrao.jpg'}" alt="${servico.nome}" 
                      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect width=%27400%27 height=%27300%27 fill=%27%230b2b3b%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23f9b81b%27 font-size=%2720%27%3E🔧%3C/text%3E%3C/svg%3E'">
@@ -1129,57 +1092,34 @@ html, body {
                     <p>${servico.descricao ? servico.descricao.substring(0, 60) : 'Clique para mais detalhes'}</p>
                 </div>
             `;
-            
             slide.addEventListener('click', (function(s) {
                 return function() {
-                    if (galeriaServicos && galeriaServicos[s.nome]) {
-                        abrirGaleriaServico(s.nome);
-                    } else {
-                        abrirGaleriaServicoDinamica(s);
-                    }
+                    if (galeriaServicos && galeriaServicos[s.nome]) abrirGaleriaServico(s.nome);
+                    else abrirGaleriaServicoDinamica(s);
                 };
             })(servico));
-            
             wrapper.appendChild(slide);
         }
-
-        // Destroi instância anterior se existir
         if (heroSwiper) heroSwiper.destroy(true, true);
-        
-        // Inicializa Swiper com autoplay e sem navigation internas
         heroSwiper = new Swiper('.hero-services-swiper', {
             slidesPerView: 1,
             spaceBetween: 0,
             centeredSlides: false,
             loop: servicos.length >= 2,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            // Sem navigation buttons internas
+            autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
         });
-        
-        // Conectar botões personalizados
         const prevBtn = document.getElementById('heroPrevBtn');
         const nextBtn = document.getElementById('heroNextBtn');
         if (prevBtn && nextBtn) {
-            // Remove listeners antigos para evitar duplicação
             const newPrev = prevBtn.cloneNode(true);
             const newNext = nextBtn.cloneNode(true);
             prevBtn.parentNode.replaceChild(newPrev, prevBtn);
             nextBtn.parentNode.replaceChild(newNext, nextBtn);
-            
-            newPrev.addEventListener('click', () => {
-                if (heroSwiper) heroSwiper.slidePrev();
-            });
-            newNext.addEventListener('click', () => {
-                if (heroSwiper) heroSwiper.slideNext();
-            });
+            newPrev.addEventListener('click', () => { if (heroSwiper) heroSwiper.slidePrev(); });
+            newNext.addEventListener('click', () => { if (heroSwiper) heroSwiper.slideNext(); });
         }
     }
 
-    // ==================== CARROSSEL DE PRODUTOS ====================
     function renderCarousel() {
         const wrapper = document.getElementById('carouselWrapper');
         if (!wrapper) return;
@@ -1211,7 +1151,6 @@ html, body {
         }
     }
 
-    // ==================== FILTROS DE CATEGORIA ====================
     function renderizarFiltrosCategoria() {
         const container = document.getElementById('categoriasFiltros');
         if (!container) return;
@@ -1239,9 +1178,7 @@ html, body {
 
     function aplicarFiltrosCompletos() {
         let produtosFiltrados = [...produtos];
-        if (categoriaAtiva) {
-            produtosFiltrados = produtosFiltrados.filter(p => p.categoria && p.categoria.trim() === categoriaAtiva);
-        }
+        if (categoriaAtiva) produtosFiltrados = produtosFiltrados.filter(p => p.categoria && p.categoria.trim() === categoriaAtiva);
         if (filtroAtual === 'menorPreco') produtosFiltrados.sort((a, b) => a.preco - b.preco);
         else if (filtroAtual === 'maiorPreco') produtosFiltrados.sort((a, b) => b.preco - a.preco);
         renderAllProducts(produtosFiltrados);
@@ -1276,14 +1213,9 @@ html, body {
         else if (filtro === 'todos' && btnTodos) { btnTodos.classList.add('btn-filtro-ativo'); btnTodos.style.background = '#0b2b3b'; btnTodos.style.color = 'white'; }
     }
 
-    // ==================== GALERIA DE SERVIÇOS ====================
     function abrirGaleriaServico(titulo) {
         const servicoData = galeriaServicos[titulo];
-        if (!servicoData) {
-            const servico = servicos.find(s => s.nome === titulo);
-            if (servico) abrirGaleriaServicoDinamica(servico);
-            return;
-        }
+        if (!servicoData) { const servico = servicos.find(s => s.nome === titulo); if (servico) abrirGaleriaServicoDinamica(servico); return; }
         const modal = document.getElementById('modalServicos');
         document.getElementById('modalTitulo').innerHTML = `<i class="fas fa-cog"></i> ${titulo}`;
         document.getElementById('modalDescricao').innerHTML = servicoData.descricao;
@@ -1342,7 +1274,6 @@ html, body {
         if (modal) modal.onclick = function (e) { if (e.target === modal) { modal.style.display = 'none'; document.body.style.overflow = ''; } };
     }
 
-    // ==================== CARRINHO ====================
     function saveCart() { localStorage.setItem('carrinho', JSON.stringify(carrinho)); updateCartUI(); }
     function loadCart() { const saved = localStorage.getItem('carrinho'); if (saved) carrinho = JSON.parse(saved); updateCartUI(); }
     window.addToCart = function(produtoNome, preco) {
@@ -1398,8 +1329,6 @@ html, body {
         const message = 'Olá! Gostaria de mais informações sobre os serviços e produtos da BH Recuperadora.';
         window.open(`https://wa.me/5566999019605?text=${encodeURIComponent(message)}`, '_blank');
     }
-    function generatePrintHTML() { /* função completa - mantida original */ return ''; }
-    function printBudget() { /* função completa */ }
 
     function initCartEvents() {
         const cartIcon = document.getElementById('cartIcon');
@@ -1413,10 +1342,9 @@ html, body {
         if (closeCart) closeCart.addEventListener('click', close);
         if (overlay) overlay.addEventListener('click', close);
         if (sendCartBtn) sendCartBtn.addEventListener('click', sendCartToWhatsApp);
-        if (printCartBtn) printCartBtn.addEventListener('click', printBudget);
+        if (printCartBtn) printCartBtn.addEventListener('click', () => alert('Função de impressão disponível'));
     }
 
-    // ==================== INICIALIZAÇÃO ====================
     window.ordenarMenorPreco = () => { filtroAtual = 'menorPreco'; aplicarFiltrosCompletos(); };
     window.ordenarMaiorPreco = () => { filtroAtual = 'maiorPreco'; aplicarFiltrosCompletos(); };
     window.resetarFiltro = () => { filtroAtual = 'todos'; categoriaAtiva = null; renderizarFiltrosCategoria(); aplicarFiltrosCompletos(); };
@@ -1434,7 +1362,7 @@ html, body {
         const whatsappBtn = document.getElementById('whatsappFloatBtn');
         if (whatsappBtn) whatsappBtn.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
         document.querySelector('.hero-scroll-indicator')?.addEventListener('click', () => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' }));
-        // Animação contadores
+
         function animateCounter(el, target) {
             let cur = 0, inc = target / 50;
             let interval = setInterval(() => {
