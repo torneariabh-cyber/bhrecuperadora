@@ -460,7 +460,6 @@
             color: #0b2b3b;
             transform: translateY(-3px);
         }
-        /* CLASSE PARA CENTRALIZAR */
         .text-center {
             text-align: center;
         }
@@ -753,7 +752,7 @@
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        /* Responsividade */
+        /* ========== RESPONSIVIDADE COM BOX DE SERVIÇOS REDUZIDO ========== */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -781,6 +780,19 @@
             }
             .hero-services-card {
                 padding: 8px;
+            }
+            /* REDUÇÃO DO BOX DOS SERVIÇOS NO CELULAR */
+            .hero-services-swiper .swiper-slide img {
+                aspect-ratio: 3/2; /* imagem mais baixa */
+            }
+            .slide-info {
+                padding: 8px;
+            }
+            .slide-info h3 {
+                font-size: 0.85rem;
+            }
+            .slide-info p {
+                font-size: 0.65rem;
             }
             .hero-nav-btn {
                 padding: 5px 14px;
@@ -830,9 +842,25 @@
                 padding: 10px 20px;
                 font-size: 0.85rem;
             }
+            .hero-services-card {
+                padding: 6px;
+            }
             .hero-nav-btn {
-                padding: 4px 12px;
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 5px;
+            }
+            .hero-nav-btn i {
                 font-size: 0.7rem;
+            }
+            .slide-info {
+                padding: 6px;
+            }
+            .slide-info h3 {
+                font-size: 0.75rem;
+            }
+            .slide-info p {
+                font-size: 0.6rem;
             }
             .cta-content h2 {
                 font-size: 1.4rem;
