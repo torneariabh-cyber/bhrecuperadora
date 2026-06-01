@@ -82,6 +82,7 @@
             gap: 20px;
             align-items: center;
             flex-wrap: wrap;
+            justify-content: flex-end;
         }
         .nav-links a {
             text-decoration: none;
@@ -299,7 +300,6 @@
         .hero-services-swiper .swiper-pagination {
             display: none !important;
         }
-        /* Hero scroll indicator - agora com animação de clique e pulsante */
         .hero-scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -545,23 +545,6 @@
         .cta-whatsapp:hover {
             transform: scale(1.05);
         }
-        .cta-products {
-            background: transparent;
-            border: 2px solid #f9b81b;
-            color: #f9b81b;
-            padding: 10px 26px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-        }
-        .cta-products:hover {
-            background: #f9b81b;
-            color: #0b2b3b;
-        }
         .cta-logo-wrapper {
             flex: 0.6;
             text-align: center;
@@ -768,6 +751,20 @@
         }
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
+            .header-content { 
+                flex-direction: column; 
+                text-align: center; 
+                gap: 12px;
+            }
+            .logo-area { 
+                justify-content: center; 
+                width: 100%;
+            }
+            .nav-links { 
+                justify-content: center; 
+                width: 100%;
+                gap: 8px;
+            }
             .hero-modern-content { flex-direction: column; text-align: center; gap: 30px; }
             .hero-modern-title { font-size: 2rem; text-align: center; }
             .hero-services-carousel { width: 100%; max-width: 360px; margin: 0 auto; }
@@ -777,7 +774,6 @@
                 font-size: 0.9rem;
                 margin: 0 auto;
             }
-            /* Botões do topo menores no celular */
             .nav-links a {
                 padding: 5px 12px;
                 font-size: 0.85rem;
@@ -801,8 +797,15 @@
         }
         @media (max-width: 480px) {
             .hero-modern-title { font-size: 1.6rem; }
-            .header-content { flex-direction: column; text-align: center; }
-            .nav-links { justify-content: center; }
+            .header-content { 
+                flex-direction: column; 
+                text-align: center; 
+            }
+            .nav-links { 
+                justify-content: center; 
+                flex-wrap: wrap;
+                gap: 6px;
+            }
             .nav-links a {
                 padding: 4px 10px;
                 font-size: 0.75rem;
@@ -916,7 +919,7 @@
             <p>Entre em contato conosco e receba um atendimento personalizado</p>
             <div class="cta-buttons">
                 <a href="#" class="cta-whatsapp" id="ctaWhatsappBtn"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
-                <a href="produtos.html" class="cta-products">Ver produtos <i class="fas fa-arrow-right"></i></a>
+                <!-- Botão "Ver produtos" REMOVIDO conforme solicitado -->
             </div>
         </div>
         <div class="cta-logo-wrapper" data-aos="fade-left">
@@ -996,7 +999,6 @@
     function openWhatsApp(){ window.open('https://wa.me/5566999019605?text=Olá! Gostaria de mais informações.','_blank'); }
     function animateCounter(el, target){ let cur=0, inc=target/50; let interval=setInterval(()=>{ cur+=inc; if(cur>=target){ el.textContent=(target===1200?'+1.200':(target===24?'24h':(target===100?'100%':'+'+target))); clearInterval(interval); } else { if(target===1200) el.textContent='+'+Math.floor(cur); else if(target===24) el.textContent=Math.floor(cur)+'h'; else if(target===100) el.textContent=Math.floor(cur)+'%'; else el.textContent='+'+Math.floor(cur); } },30); }
     document.addEventListener('DOMContentLoaded',()=>{ AOS.init({duration:800}); carregarDadosJSONBin(); const saved=localStorage.getItem('carrinho'); if(saved) carrinho=JSON.parse(saved); updateCartUI(); document.getElementById('cartIcon')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.add('open'); document.getElementById('overlay').classList.add('active');}); document.getElementById('closeCart')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('overlay')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('sendCartBtn')?.addEventListener('click',sendCartToWhatsApp); document.getElementById('orcamentoNavBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); if(carrinho.length) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho'); }); document.getElementById('ctaWhatsappBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); document.getElementById('whatsappFloatBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); 
-        // "Role para explorar" com efeito de clique igual ao botão flutuante
         const scrollIndicator = document.getElementById('heroScrollIndicator');
         if(scrollIndicator) {
             scrollIndicator.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
