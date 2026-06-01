@@ -25,7 +25,6 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        /* Header */
         .header {
             background: #ffffff;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -91,10 +90,9 @@
             background: #f9b81b;
             color: #0b2b3b;
         }
-        /* Hero da página de serviços */
         .services-hero {
             background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
-            padding: 60px 0 80px;
+            padding: 60px 0 60px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -126,9 +124,9 @@
             position: relative;
             z-index: 1;
         }
-        /* Filtros/Categorias - APENAS CATEGORIAS ESPECÍFICAS (sem "Todos") */
+        /* Categorias - espaçamento reduzido */
         .categorias-section {
-            padding: 40px 0 0;
+            padding: 30px 0 0;
             background: white;
         }
         .categorias-wrapper {
@@ -136,12 +134,13 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            min-height: auto;
         }
         .btn-categoria {
             background: transparent;
             border: 2px solid #e0e6ed;
-            padding: 10px 28px;
+            padding: 8px 24px;
             border-radius: 50px;
             font-weight: 600;
             color: #5a6e7c;
@@ -159,9 +158,8 @@
             border-color: #f9b81b;
             color: #0b2b3b;
         }
-        /* Grid de serviços */
         .servicos-grid-section {
-            padding: 40px 0 80px;
+            padding: 30px 0 80px;
         }
         .servicos-grid {
             display: grid;
@@ -178,21 +176,9 @@
             animation: fadeInUp 0.6s ease forwards;
             opacity: 0;
         }
-        .servico-card:nth-child(1) { animation-delay: 0.1s; }
-        .servico-card:nth-child(2) { animation-delay: 0.2s; }
-        .servico-card:nth-child(3) { animation-delay: 0.3s; }
-        .servico-card:nth-child(4) { animation-delay: 0.4s; }
-        .servico-card:nth-child(5) { animation-delay: 0.5s; }
-        .servico-card:nth-child(6) { animation-delay: 0.6s; }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .servico-card:hover {
             transform: translateY(-10px);
@@ -266,7 +252,6 @@
             color: white;
             border-color: #0b2b3b;
         }
-        /* Modal de galeria */
         .modal-servicos {
             display: none;
             position: fixed;
@@ -287,14 +272,8 @@
             animation: modalFadeIn 0.3s ease;
         }
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         .modal-header {
             display: flex;
@@ -358,7 +337,6 @@
             color: #f9b81b;
             background: rgba(0,0,0,0.5);
         }
-        /* Nenhum resultado */
         .nenhum-resultado {
             text-align: center;
             padding: 60px;
@@ -371,7 +349,6 @@
             margin-bottom: 16px;
             color: #f9b81b;
         }
-        /* Footer */
         .footer {
             background: #0a1f28;
             color: #d4e2ed;
@@ -400,7 +377,6 @@
             margin-top: 30px;
             font-size: 0.75rem;
         }
-        /* Loading */
         .loading-spinner {
             text-align: center;
             padding: 60px;
@@ -415,26 +391,6 @@
             margin: 0 auto 20px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Scroll suave para as categorias */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .services-hero h1 { font-size: 2rem; }
-            .servicos-grid { grid-template-columns: 1fr; gap: 25px; }
-            .btn-categoria { padding: 8px 20px; font-size: 0.85rem; }
-            .header-content { flex-direction: column; text-align: center; }
-            .nav-links { justify-content: center; }
-            .modal-header h2 { font-size: 1.2rem; }
-            .modal-body { padding: 20px; }
-            .galeria-fotos { grid-template-columns: 1fr; gap: 15px; }
-        }
-        @media (max-width: 480px) {
-            .services-hero h1 { font-size: 1.6rem; }
-            .btn-categoria { padding: 6px 14px; font-size: 0.75rem; }
-            .servico-info h3 { font-size: 1.1rem; }
-        }
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -455,6 +411,42 @@
         }
         .whatsapp-float:hover {
             transform: scale(1.1);
+        }
+        /* Responsivo - igual ao index */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .services-hero { padding: 40px 0 40px; }
+            .services-hero h1 { font-size: 2rem; }
+            .services-hero p { font-size: 0.9rem; }
+            .servicos-grid { grid-template-columns: 1fr; gap: 25px; }
+            .categorias-section { padding: 20px 0 0; }
+            .categorias-wrapper { gap: 10px; margin-bottom: 15px; }
+            .btn-categoria { 
+                padding: 6px 16px; 
+                font-size: 0.8rem; 
+            }
+            .servicos-grid-section { padding: 20px 0 60px; }
+            .header-content { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; }
+            .nav-links a { padding: 5px 12px; font-size: 0.85rem; }
+            .servico-info h3 { font-size: 1.2rem; }
+            .servico-info p { font-size: 0.85rem; }
+            .modal-header h2 { font-size: 1.2rem; }
+            .modal-header { padding: 16px 20px; }
+            .modal-body { padding: 20px; }
+            .galeria-fotos { grid-template-columns: 1fr; gap: 15px; }
+        }
+        @media (max-width: 480px) {
+            .services-hero h1 { font-size: 1.6rem; }
+            .services-hero { padding: 30px 0 30px; }
+            .btn-categoria { 
+                padding: 4px 12px; 
+                font-size: 0.7rem; 
+            }
+            .categorias-wrapper { gap: 8px; }
+            .servico-info { padding: 18px; }
+            .servico-info h3 { font-size: 1rem; }
+            .btn-detalhe { padding: 6px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -485,7 +477,7 @@
 <section class="categorias-section">
     <div class="container">
         <div class="categorias-wrapper" id="categoriasWrapper">
-            <!-- As categorias serão carregadas dinamicamente (sem o botão "Todos os Serviços") -->
+            <!-- As categorias serão carregadas dinamicamente -->
         </div>
     </div>
 </section>
@@ -550,7 +542,7 @@
     let servicos = [];
     let galeriaServicos = {};
     let categorias = [];
-    let categoriaAtiva = null; // Inicia sem categoria ativa (mostra todos)
+    let categoriaAtiva = null;
 
     async function carregarServicos() {
         try {
@@ -561,7 +553,6 @@
             const data = await response.json();
             servicos = data.record.servicos || [];
             
-            // Extrair categorias únicas dos serviços
             const catsSet = new Set();
             servicos.forEach(servico => {
                 if (servico.categoria && servico.categoria.trim()) {
@@ -570,7 +561,6 @@
             });
             categorias = Array.from(catsSet);
             
-            // Preparar galeria
             servicos.forEach(servico => {
                 galeriaServicos[servico.nome] = {
                     descricao: servico.descricao_detalhada || servico.descricao || 'Serviço especializado com qualidade e agilidade.',
@@ -586,6 +576,7 @@
         } catch (error) {
             console.error('Erro:', error);
             document.getElementById('servicosGrid').innerHTML = '<div class="nenhum-resultado"><i class="fas fa-exclamation-triangle"></i><p>Erro ao carregar serviços. Tente novamente mais tarde.</p></div>';
+            document.getElementById('categoriasWrapper').innerHTML = '';
         }
     }
 
@@ -593,21 +584,24 @@
         const wrapper = document.getElementById('categoriasWrapper');
         if (!wrapper) return;
         
-        // SEM o botão "Todos os Serviços" - apenas as categorias específicas
+        if (categorias.length === 0) {
+            wrapper.innerHTML = '';
+            return;
+        }
+        
         let html = '';
         categorias.forEach(cat => {
             html += `<button class="btn-categoria" data-categoria="${cat.replace(/"/g, '&quot;')}">${cat}</button>`;
         });
         wrapper.innerHTML = html;
         
-        // Ativar a primeira categoria por padrão (se houver)
         const botoes = document.querySelectorAll('.btn-categoria');
         if (botoes.length > 0) {
             categoriaAtiva = botoes[0].getAttribute('data-categoria');
             botoes[0].classList.add('active');
+            renderizarServicos();
         }
         
-        // Adicionar eventos
         botoes.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.btn-categoria').forEach(b => b.classList.remove('active'));
@@ -616,11 +610,6 @@
                 renderizarServicos();
             });
         });
-        
-        // Se não houver categorias, mostrar mensagem
-        if (categorias.length === 0) {
-            wrapper.innerHTML = '<p style="text-align:center; color:#999;">Carregando categorias...</p>';
-        }
     }
 
     function getIconePorNome(nome) {
@@ -638,7 +627,6 @@
         const grid = document.getElementById('servicosGrid');
         if (!grid) return;
         
-        // Filtrar pela categoria ativa
         let servicosFiltrados = [...servicos];
         if (categoriaAtiva) {
             servicosFiltrados = servicosFiltrados.filter(s => s.categoria === categoriaAtiva);
