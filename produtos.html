@@ -281,7 +281,6 @@
             color: #0b2b3b;
             margin: 10px 0;
         }
-        /* Container de quantidade e botão */
         .product-actions {
             display: flex;
             gap: 12px;
@@ -479,6 +478,40 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
+        /* Estilos para impressão */
+        @media print {
+            .header, .footer, .filtros-preco-container, .filtros-categoria-container, 
+            .cart-icon, .whatsapp-float, .overlay, .cart-sidebar, .btn-cart-print,
+            .nav-links, .btn-filtro, .btn-filtro-cat, .section-sub, .btn-add-cart,
+            .product-actions, .quantidade-container {
+                display: none !important;
+            }
+            .products-grid {
+                display: block !important;
+            }
+            .product-card {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .product-price {
+                color: #000 !important;
+            }
+            body {
+                background: white;
+                padding: 20px;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            .section-title {
+                color: #000;
+                font-size: 24px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .header-content { 
@@ -664,7 +697,6 @@
     let categorias = [];
     let categoriaAtiva = null;
     let filtroAtual = 'todos';
-    // Armazena as quantidades temporárias de cada produto
     let quantidadesTemp = {};
 
     function formatPrice(p) { return 'R$ ' + p.toFixed(2).replace('.', ','); }
@@ -678,7 +710,6 @@
             const data = await response.json();
             produtos = data.record.produtos || [];
             
-            // Inicializar quantidades temporárias
             produtos.forEach(p => {
                 quantidadesTemp[p.nome] = 1;
             });
@@ -741,7 +772,6 @@
         if (novaQuantidade < 1) novaQuantidade = 1;
         quantidadesTemp[nome] = novaQuantidade;
         
-        // Atualizar o display
         const span = document.getElementById(`qtd-${nome.replace(/[^a-zA-Z0-9]/g, '-')}`);
         if (span) span.textContent = novaQuantidade;
     }
@@ -761,7 +791,6 @@
         }
         saveCart();
         
-        // Resetar quantidade para 1 após adicionar
         quantidadesTemp[nome] = 1;
         const span = document.getElementById(`qtd-${nome.replace(/[^a-zA-Z0-9]/g, '-')}`);
         if (span) span.textContent = 1;
@@ -827,6 +856,140 @@
     window.resetarFiltro = () => { filtroAtual = 'todos'; categoriaAtiva = null; renderizarFiltrosCategoria(); aplicarFiltros(); };
     window.atualizarQuantidade = atualizarQuantidade;
     window.adicionarAoCarrinho = adicionarAoCarrinho;
+
+    function imprimirOrcamento() {
+        if (carrinho.length === 0) {
+            alert('Carrinho vazio! Adicione produtos antes de imprimir.');
+            return;
+        }
+        
+        // Criar conteúdo para impressão
+        let conteudo = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Orçamento BH Recuperadora</title>
+                <style>
+                    body {
+                        font-family: 'Inter', sans-serif;
+                        padding: 40px;
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+                    .header-print {
+                        text-align: center;
+                        margin-bottom: 30px;
+                        padding-bottom: 20px;
+                        border-bottom: 2px solid #f9b81b;
+                    }
+                    .header-print h1 {
+                        color: #0b2b3b;
+                        font-size: 28px;
+                        margin-bottom: 5px;
+                    }
+                    .header-print p {
+                        color: #666;
+                        font-size: 14px;
+                    }
+                    .header-print .data {
+                        margin-top: 10px;
+                        font-size: 12px;
+                        color: #999;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                    }
+                    th, td {
+                        padding: 12px;
+                        text-align: left;
+                        border-bottom: 1px solid #ddd;
+                    }
+                    th {
+                        background: #0b2b3b;
+                        color: white;
+                    }
+                    .total {
+                        text-align: right;
+                        font-size: 18px;
+                        font-weight: bold;
+                        margin-top: 20px;
+                        padding-top: 10px;
+                        border-top: 2px solid #f9b81b;
+                    }
+                    .footer-print {
+                        margin-top: 40px;
+                        text-align: center;
+                        font-size: 12px;
+                        color: #999;
+                        padding-top: 20px;
+                        border-top: 1px solid #ddd;
+                    }
+                    .obs {
+                        margin-top: 20px;
+                        font-size: 12px;
+                        color: #666;
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header-print">
+                    <h1>BH RECUPERADORA</h1>
+                    <p>Soluções rápidas em peças e serviços</p>
+                    <p>Rua Dirson José Martini, 827, Sinop - MT</p>
+                    <p>Tel: (66) 99901-9605 | Email: bhrecuperadora@hotmail.com</p>
+                    <div class="data">Data: ${new Date().toLocaleDateString('pt-BR')} - ${new Date().toLocaleTimeString('pt-BR')}</div>
+                </div>
+                
+                <h3>Orçamento de Produtos</h3>
+                <table>
+                    <thead>
+                        <tr><th>Produto</th><th>Quantidade</th><th>Valor Unitário</th><th>Subtotal</th></tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        let total = 0;
+        for (const item of carrinho) {
+            const subtotal = item.preco * item.quantidade;
+            total += subtotal;
+            conteudo += `
+                <tr>
+                    <td>${item.nome}</td>
+                    <td>${item.quantidade}</td>
+                    <td>${formatPrice(item.preco)}</td>
+                    <td>${formatPrice(subtotal)}</td>
+                </tr>
+            `;
+        }
+        
+        conteudo += `
+                    </tbody>
+                </table>
+                <div class="total">
+                    TOTAL DO ORÇAMENTO: ${formatPrice(total)}
+                </div>
+                <div class="obs">
+                    * Frete grátis para Sinop-MT<br>
+                    * Este orçamento é válido por 7 dias<br>
+                    * Para mais informações, entre em contato pelo WhatsApp (66) 99901-9605
+                </div>
+                <div class="footer-print">
+                    BH Recuperadora - Qualidade e confiança que movem seu negócio!
+                </div>
+            </body>
+            </html>
+        `;
+        
+        // Abrir janela de impressão
+        const win = window.open('', '_blank');
+        win.document.write(conteudo);
+        win.document.close();
+        win.print();
+    }
 
     function saveCart() { localStorage.setItem('carrinho', JSON.stringify(carrinho)); updateCartUI(); }
     function loadCart() { const saved = localStorage.getItem('carrinho'); if (saved) carrinho = JSON.parse(saved); updateCartUI(); }
@@ -905,6 +1068,7 @@
             document.getElementById('overlay').classList.remove('active');
         });
         document.getElementById('sendCartBtn')?.addEventListener('click', sendCartToWhatsApp);
+        document.getElementById('printCartBtn')?.addEventListener('click', imprimirOrcamento);
         document.getElementById('orcamentoNavBtn')?.addEventListener('click', (e) => {
             e.preventDefault();
             if (carrinho.length) sendCartToWhatsApp();
