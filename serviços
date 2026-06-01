@@ -1,1 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Nossos Serviços | BH Recuperadora</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+            color: #1e2a3e;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* Header */
+        .header {
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 16px 0;
+            gap: 15px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-simbolo {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .logo-simbolo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .logo-texto h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0b2b3b;
+        }
+        .logo-texto p {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #f9b81b;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1e2a3e;
+            transition: all 0.3s ease;
+            padding: 8px 18px;
+            border-radius: 40px;
+        }
+        .nav-links a:hover {
+            background: #f9b81b;
+            color: #0b2b3b;
+        }
+        .nav-links a.active {
+            background: #f9b81b;
+            color: #0b2b3b;
+        }
+        /* Hero da página de serviços */
+        .services-hero {
+            background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
+            padding: 60px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="white" d="M20,20 L80,20 L80,80 L20,80 Z"/><circle cx="50" cy="50" r="15"/></svg>') repeat;
+            opacity: 0.1;
+        }
+        .services-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .services-hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        /* Filtros/Categorias - APENAS CATEGORIAS ESPECÍFICAS (sem "Todos") */
+        .categorias-section {
+            padding: 40px 0 0;
+            background: white;
+        }
+        .categorias-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .btn-categoria {
+            background: transparent;
+            border: 2px solid #e0e6ed;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #5a6e7c;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .btn-categoria:hover {
+            border-color: #f9b81b;
+            color: #f9b81b;
+            transform: translateY(-2px);
+        }
+        .btn-categoria.active {
+            background: #f9b81b;
+            border-color: #f9b81b;
+            color: #0b2b3b;
+        }
+        /* Grid de serviços */
+        .servicos-grid-section {
+            padding: 40px 0 80px;
+        }
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+        }
+        .servico-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        .servico-card:nth-child(1) { animation-delay: 0.1s; }
+        .servico-card:nth-child(2) { animation-delay: 0.2s; }
+        .servico-card:nth-child(3) { animation-delay: 0.3s; }
+        .servico-card:nth-child(4) { animation-delay: 0.4s; }
+        .servico-card:nth-child(5) { animation-delay: 0.5s; }
+        .servico-card:nth-child(6) { animation-delay: 0.6s; }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .servico-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+        }
+        .servico-img {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+        .servico-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .servico-card:hover .servico-img img {
+            transform: scale(1.08);
+        }
+        .servico-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 20px;
+        }
+        .servico-categoria-badge {
+            background: #f9b81b;
+            color: #0b2b3b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .servico-info {
+            padding: 24px;
+        }
+        .servico-info h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0b2b3b;
+            margin-bottom: 12px;
+        }
+        .servico-info h3 i {
+            color: #f9b81b;
+            margin-right: 8px;
+        }
+        .servico-info p {
+            color: #6c7a8a;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .btn-detalhe {
+            background: transparent;
+            border: 2px solid #0b2b3b;
+            color: #0b2b3b;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-detalhe:hover {
+            background: #0b2b3b;
+            color: white;
+            border-color: #0b2b3b;
+        }
+        /* Modal de galeria */
+        .modal-servicos {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
+            margin: 40px auto;
+            max-width: 1000px;
+            width: 90%;
+            border-radius: 32px;
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 30px;
+            border-bottom: 2px solid #f9b81b;
+        }
+        .modal-header h2 {
+            color: #f9b81b;
+            font-size: 1.6rem;
+        }
+        .modal-header h2 i {
+            margin-right: 10px;
+        }
+        .modal-fechar {
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .modal-fechar:hover {
+            color: #f9b81b;
+            transform: scale(1.1);
+        }
+        .modal-body {
+            padding: 30px;
+        }
+        .modal-descricao {
+            color: #e0e6ed;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .foto-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .foto-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .foto-item img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+        }
+        .foto-legenda {
+            padding: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #f9b81b;
+            background: rgba(0,0,0,0.5);
+        }
+        /* Nenhum resultado */
+        .nenhum-resultado {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 28px;
+            color: #999;
+        }
+        .nenhum-resultado i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: #f9b81b;
+        }
+        /* Footer */
+        .footer {
+            background: #0a1f28;
+            color: #d4e2ed;
+            padding: 48px 0 28px;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin: 8px 0;
+        }
+        .footer-col ul li i {
+            width: 25px;
+            color: #f9b81b;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #2b4b5a;
+            margin-top: 30px;
+            font-size: 0.75rem;
+        }
+        /* Loading */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #f9b81b;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Scroll suave para as categorias */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .services-hero h1 { font-size: 2rem; }
+            .servicos-grid { grid-template-columns: 1fr; gap: 25px; }
+            .btn-categoria { padding: 8px 20px; font-size: 0.85rem; }
+            .header-content { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; }
+            .modal-header h2 { font-size: 1.2rem; }
+            .modal-body { padding: 20px; }
+            .galeria-fotos { grid-template-columns: 1fr; gap: 15px; }
+        }
+        @media (max-width: 480px) {
+            .services-hero h1 { font-size: 1.6rem; }
+            .btn-categoria { padding: 6px 14px; font-size: 0.75rem; }
+            .servico-info h3 { font-size: 1.1rem; }
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            z-index: 998;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
 
+<header class="header">
+    <div class="container header-content">
+        <div class="logo-area">
+            <div class="logo-simbolo"><img src="imagens/icones-bh-05.png" alt="Logo BH"></div>
+            <div class="logo-texto"><h1>BH RECUPERADORA</h1><p>SOLUÇÕES RÁPIDAS EM PEÇAS E SERVIÇOS</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="servicos.html" class="active">Serviços</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="#" id="orcamentoBtn">Orçamento</a>
+        </div>
+    </div>
+</header>
+
+<section class="services-hero">
+    <div class="container">
+        <h1 data-aos="fade-up">Nossos <span style="color: #f9b81b;">Serviços</span></h1>
+        <p data-aos="fade-up" data-aos-delay="100">Soluções especializadas em torno, solda, manutenção de caminhões e máquinas pesadas. Qualidade e agilidade que você pode confiar.</p>
+    </div>
+</section>
+
+<section class="categorias-section">
+    <div class="container">
+        <div class="categorias-wrapper" id="categoriasWrapper">
+            <!-- As categorias serão carregadas dinamicamente (sem o botão "Todos os Serviços") -->
+        </div>
+    </div>
+</section>
+
+<section class="servicos-grid-section">
+    <div class="container">
+        <div class="servicos-grid" id="servicosGrid">
+            <div class="loading-spinner"><div class="spinner"></div><p>Carregando serviços...</p></div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <strong>BH RECUPERADORA</strong>
+                <p>Soluções rápidas em peças e serviços.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul>
+                    <li><i class="fas fa-phone-alt"></i> (66) 99901-9605</li>
+                    <li><i class="fas fa-envelope"></i> bhrecuperadora@hotmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Rua Dirson José Martini, 827, Sinop - MT</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Horário</h4>
+                <ul>
+                    <li><i class="far fa-clock"></i> Seg-Sex: 7h-11:30 / 13h-17:30</li>
+                    <li><i class="far fa-clock"></i> Sábado: 7h-11:30</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BH Recuperadora - Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<a class="whatsapp-float" id="whatsappFloatBtn" href="#"><i class="fab fa-whatsapp"></i></a>
+
+<div class="modal-servicos" id="modalServicos">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitulo"><i class="fas fa-cog"></i> Serviço</h2>
+            <span class="modal-fechar">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-descricao" id="modalDescricao"></div>
+            <div class="galeria-fotos" id="galeriaFotos"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    const JSONBIN_BIN_ID = "6a073187adc21f119aa52743";
+    const JSONBIN_API_KEY = "$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky";
+    
+    let servicos = [];
+    let galeriaServicos = {};
+    let categorias = [];
+    let categoriaAtiva = null; // Inicia sem categoria ativa (mostra todos)
+
+    async function carregarServicos() {
+        try {
+            const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                headers: { 'X-Master-Key': JSONBIN_API_KEY }
+            });
+            if (!response.ok) throw new Error('Erro ao carregar');
+            const data = await response.json();
+            servicos = data.record.servicos || [];
+            
+            // Extrair categorias únicas dos serviços
+            const catsSet = new Set();
+            servicos.forEach(servico => {
+                if (servico.categoria && servico.categoria.trim()) {
+                    catsSet.add(servico.categoria.trim());
+                }
+            });
+            categorias = Array.from(catsSet);
+            
+            // Preparar galeria
+            servicos.forEach(servico => {
+                galeriaServicos[servico.nome] = {
+                    descricao: servico.descricao_detalhada || servico.descricao || 'Serviço especializado com qualidade e agilidade.',
+                    fotos: (servico.galeria || []).map(f => typeof f === 'string' ? { url: f, legenda: servico.nome } : { url: f.url, legenda: f.legenda || servico.nome })
+                };
+                if ((!servico.galeria || servico.galeria.length === 0) && servico.imagem) {
+                    galeriaServicos[servico.nome].fotos = [{ url: servico.imagem, legenda: servico.nome }];
+                }
+            });
+            
+            renderizarCategorias();
+            renderizarServicos();
+        } catch (error) {
+            console.error('Erro:', error);
+            document.getElementById('servicosGrid').innerHTML = '<div class="nenhum-resultado"><i class="fas fa-exclamation-triangle"></i><p>Erro ao carregar serviços. Tente novamente mais tarde.</p></div>';
+        }
+    }
+
+    function renderizarCategorias() {
+        const wrapper = document.getElementById('categoriasWrapper');
+        if (!wrapper) return;
+        
+        // SEM o botão "Todos os Serviços" - apenas as categorias específicas
+        let html = '';
+        categorias.forEach(cat => {
+            html += `<button class="btn-categoria" data-categoria="${cat.replace(/"/g, '&quot;')}">${cat}</button>`;
+        });
+        wrapper.innerHTML = html;
+        
+        // Ativar a primeira categoria por padrão (se houver)
+        const botoes = document.querySelectorAll('.btn-categoria');
+        if (botoes.length > 0) {
+            categoriaAtiva = botoes[0].getAttribute('data-categoria');
+            botoes[0].classList.add('active');
+        }
+        
+        // Adicionar eventos
+        botoes.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-categoria').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                categoriaAtiva = btn.getAttribute('data-categoria');
+                renderizarServicos();
+            });
+        });
+        
+        // Se não houver categorias, mostrar mensagem
+        if (categorias.length === 0) {
+            wrapper.innerHTML = '<p style="text-align:center; color:#999;">Carregando categorias...</p>';
+        }
+    }
+
+    function getIconePorNome(nome) {
+        const lower = nome.toLowerCase();
+        if (lower.includes('torno')) return 'fa-cogs';
+        if (lower.includes('solda')) return 'fa-fire';
+        if (lower.includes('manutenção') || lower.includes('manutencao')) return 'fa-tools';
+        if (lower.includes('corte')) return 'fa-bolt';
+        if (lower.includes('caminhão') || lower.includes('caminhao')) return 'fa-truck';
+        if (lower.includes('máquina') || lower.includes('maquina')) return 'fa-industry';
+        return 'fa-wrench';
+    }
+
+    function renderizarServicos() {
+        const grid = document.getElementById('servicosGrid');
+        if (!grid) return;
+        
+        // Filtrar pela categoria ativa
+        let servicosFiltrados = [...servicos];
+        if (categoriaAtiva) {
+            servicosFiltrados = servicosFiltrados.filter(s => s.categoria === categoriaAtiva);
+        }
+        
+        if (servicosFiltrados.length === 0) {
+            grid.innerHTML = `<div class="nenhum-resultado"><i class="fas fa-folder-open"></i><p>Nenhum serviço encontrado nesta categoria.</p></div>`;
+            return;
+        }
+        
+        grid.innerHTML = '';
+        servicosFiltrados.forEach(servico => {
+            const icone = getIconePorNome(servico.nome);
+            const imagem = servico.imagem || 'imagens/servico-padrao.jpg';
+            const descricao = servico.descricao ? (servico.descricao.length > 100 ? servico.descricao.substring(0, 100) + '...' : servico.descricao) : 'Serviço especializado com qualidade e agilidade.';
+            
+            const card = document.createElement('div');
+            card.className = 'servico-card';
+            card.setAttribute('data-aos', 'fade-up');
+            card.innerHTML = `
+                <div class="servico-img">
+                    <img src="${imagem}" alt="${servico.nome}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect width=%27400%27 height=%27300%27 fill=%27%230b2b3b%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23f9b81b%27 font-size=%2720%27%3E🔧%3C/text%3E%3C/svg%3E'">
+                    <div class="servico-overlay">
+                        <span class="servico-categoria-badge">${servico.categoria || 'Serviço'}</span>
+                    </div>
+                </div>
+                <div class="servico-info">
+                    <h3><i class="fas ${icone}"></i> ${servico.nome}</h3>
+                    <p>${descricao}</p>
+                    <button class="btn-detalhe" data-servico="${servico.nome.replace(/"/g, '&quot;')}">
+                        <i class="fas fa-images"></i> Ver Galeria
+                    </button>
+                </div>
+            `;
+            
+            const btn = card.querySelector('.btn-detalhe');
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                abrirGaleria(servico.nome);
+            });
+            
+            grid.appendChild(card);
+        });
+        
+        AOS.refresh();
+    }
+
+    function abrirGaleria(titulo) {
+        const servicoData = galeriaServicos[titulo];
+        const servicoOriginal = servicos.find(s => s.nome === titulo);
+        
+        if (!servicoData && servicoOriginal) {
+            const dadosBasicos = {
+                descricao: servicoOriginal.descricao_detalhada || servicoOriginal.descricao || 'Serviço especializado.',
+                fotos: []
+            };
+            if (servicoOriginal.imagem) {
+                dadosBasicos.fotos.push({ url: servicoOriginal.imagem, legenda: servicoOriginal.nome });
+            }
+            abrirModal(titulo, dadosBasicos);
+        } else if (servicoData) {
+            abrirModal(titulo, servicoData);
+        } else {
+            abrirModal(titulo, { descricao: 'Detalhes do serviço em breve.', fotos: [] });
+        }
+    }
+
+    function abrirModal(titulo, data) {
+        const modal = document.getElementById('modalServicos');
+        const icone = getIconePorNome(titulo);
+        document.getElementById('modalTitulo').innerHTML = `<i class="fas ${icone}"></i> ${titulo}`;
+        document.getElementById('modalDescricao').innerHTML = data.descricao || 'Serviço especializado com qualidade e agilidade.';
+        
+        const galeria = document.getElementById('galeriaFotos');
+        galeria.innerHTML = '';
+        
+        if (data.fotos && data.fotos.length > 0) {
+            data.fotos.forEach(foto => {
+                const div = document.createElement('div');
+                div.className = 'foto-item';
+                div.innerHTML = `
+                    <img src="${foto.url}" alt="${foto.legenda}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect width=%27400%27 height=%27300%27 fill=%27%23333%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23f9b81b%27 font-size=%2720%27%3E📷%3C/text%3E%3C/svg%3E'">
+                    <div class="foto-legenda">${foto.legenda || titulo}</div>
+                `;
+                div.addEventListener('click', () => abrirFotoAmpliada(foto.url, foto.legenda || titulo));
+                galeria.appendChild(div);
+            });
+        } else {
+            galeria.innerHTML = '<p style="text-align:center; color:#ccc; padding:40px;">Nenhuma foto disponível para este serviço no momento.</p>';
+        }
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function abrirFotoAmpliada(url, legenda) {
+        const div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.width = '100%';
+        div.style.height = '100%';
+        div.style.background = 'rgba(0,0,0,0.95)';
+        div.style.zIndex = '3000';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+        div.style.cursor = 'pointer';
+        div.innerHTML = `
+            <span style="position:absolute;top:20px;right:30px;font-size:45px;color:white;cursor:pointer;z-index:3001;">&times;</span>
+            <img src="${url}" alt="${legenda}" style="max-width:90%;max-height:90%;object-fit:contain;border-radius:12px;">
+            <div style="position:absolute;bottom:30px;left:0;right:0;text-align:center;color:white;background:rgba(0,0,0,0.6);padding:10px;">${legenda}</div>
+        `;
+        document.body.appendChild(div);
+        div.querySelector('span').onclick = () => div.remove();
+        div.onclick = (e) => { if (e.target === div) div.remove(); };
+    }
+
+    function openWhatsApp() {
+        window.open('https://wa.me/5566999019605?text=Olá! Gostaria de mais informações sobre os serviços da BH Recuperadora.', '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({ duration: 800, once: true });
+        carregarServicos();
+        
+        const modal = document.getElementById('modalServicos');
+        document.querySelector('.modal-fechar')?.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+        window.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        };
+        
+        document.getElementById('orcamentoBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            openWhatsApp();
+        });
+        
+        document.getElementById('whatsappFloatBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            openWhatsApp();
+        });
+    });
+</script>
+</body>
+</html>
