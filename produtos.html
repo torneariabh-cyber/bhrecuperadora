@@ -454,9 +454,12 @@
             margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Responsivo */
+        
+        /* ========== RESPONSIVIDADE PARA CELULAR ========== */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
+            
+            /* Header centralizado no celular */
             .header-content { 
                 flex-direction: column; 
                 text-align: center; 
@@ -481,23 +484,59 @@
             .cart-icon i {
                 font-size: 1rem;
             }
+            
+            /* Títulos menores */
             .section-title { font-size: 1.6rem; }
+            .section-sub { font-size: 0.9rem; }
+            
+            /* Filtros empilhados */
             .filtros-preco-container {
                 flex-direction: column;
                 align-items: center;
             }
-            .filtros-botoes { justify-content: center; }
-            .products-grid { gap: 20px; }
+            .filtros-botoes { 
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .btn-filtro { 
+                padding: 6px 14px; 
+                font-size: 0.75rem; 
+            }
+            .btn-filtro-cat { 
+                padding: 6px 16px; 
+                font-size: 0.75rem; 
+            }
+            
+            /* Grid de produtos */
+            .products-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px; 
+            }
+            .product-img { height: 180px; }
+            .product-info { padding: 16px; }
+            .product-info h3 { font-size: 1rem; }
+            .product-price { font-size: 1.1rem; }
+            
+            /* Carrinho */
             .cart-sidebar { width: 320px; }
+            
+            /* Footer */
+            .footer-content { flex-direction: column; text-align: center; gap: 25px; }
+            .footer-col ul li { text-align: center; }
         }
+        
         @media (max-width: 480px) {
             .section-title { font-size: 1.4rem; }
             .nav-links { gap: 6px; }
-            .nav-links a { padding: 4px 10px; font-size: 0.75rem; }
-            .btn-filtro { padding: 6px 14px; font-size: 0.75rem; }
-            .btn-filtro-cat { padding: 6px 16px; font-size: 0.75rem; }
-            .product-info h3 { font-size: 1rem; }
-            .product-price { font-size: 1.1rem; }
+            .nav-links a { 
+                padding: 4px 10px; 
+                font-size: 0.75rem; 
+            }
+            .btn-filtro { padding: 5px 12px; font-size: 0.7rem; }
+            .btn-filtro-cat { padding: 5px 12px; font-size: 0.7rem; }
+            .products-grid { grid-template-columns: 1fr; gap: 16px; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 1.5rem; bottom: 20px; right: 20px; }
+            .whatsapp-tooltip { right: 60px; font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -568,7 +607,7 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-col">
-                <div style="display:flex; gap:8px; align-items:center;">
+                <div style="display:flex; gap:8px; align-items:center; justify-content:center;">
                     <div style="background:white; width:42px; height:42px; border-radius:10px; padding:4px;">
                         <img src="imagens/logo_Bh_Recuperadora_slogan.png" alt="BH" style="width:100%; height:100%; object-fit:contain;">
                     </div>
@@ -826,7 +865,6 @@
             if (carrinho.length) sendCartToWhatsApp();
             else alert('Adicione produtos ao carrinho primeiro!');
         });
-        document.getElementById('ctaWhatsappBtn')?.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
         document.getElementById('whatsappFloatBtn')?.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
     });
 </script>
