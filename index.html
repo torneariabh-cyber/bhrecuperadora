@@ -83,7 +83,6 @@
             align-items: center;
             flex-wrap: wrap;
         }
-        /* ESTILO PADRÃO PARA TODOS OS BOTÕES DO MENU */
         .nav-links a {
             text-decoration: none;
             font-weight: 600;
@@ -93,17 +92,14 @@
             border-radius: 40px;
             background: transparent;
         }
-        /* Efeito hover igual para todos - fundo amarelo com texto escuro */
         .nav-links a:hover {
             background: #f9b81b;
             color: #0b2b3b !important;
         }
-        /* Botão ativo/current page mantém destaque */
         .nav-links a.active {
             background: #f9b81b;
             color: #0b2b3b !important;
         }
-        /* Carrinho - estilo especial sem fundo amarelo no hover padrão */
         .cart-icon {
             position: relative;
             cursor: pointer;
@@ -118,9 +114,6 @@
             background: #f9b81b;
             color: #0b2b3b;
             transform: scale(1.02);
-        }
-        .cart-icon i {
-            transition: 0.2s;
         }
         .cart-count {
             position: absolute;
@@ -306,60 +299,7 @@
         .hero-services-swiper .swiper-pagination {
             display: none !important;
         }
-        /* Botão flutuante de rolagem - PISCANDO */
-        .floating-scroll-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
-            background: #f9b81b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            animation: pulseGlow 1.5s infinite ease-in-out;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        .floating-scroll-btn i {
-            font-size: 1.5rem;
-            color: #0b2b3b;
-            animation: bounceUp 1.5s infinite ease-in-out;
-        }
-        .floating-scroll-btn:hover {
-            transform: scale(1.1);
-            background: #e5a80f;
-            animation: none;
-        }
-        .floating-scroll-btn:hover i {
-            animation: none;
-        }
-        @keyframes pulseGlow {
-            0% {
-                box-shadow: 0 0 0 0 rgba(249, 184, 27, 0.7);
-                transform: scale(1);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(249, 184, 27, 0);
-                transform: scale(1.05);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(249, 184, 27, 0);
-                transform: scale(1);
-            }
-        }
-        @keyframes bounceUp {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
+        /* Hero scroll indicator - agora com animação de clique e pulsante */
         .hero-scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -370,14 +310,29 @@
             align-items: center;
             gap: 8px;
             color: white;
-            font-size: 0.8rem;
-            opacity: 0.6;
+            font-size: 0.85rem;
+            opacity: 0.8;
             cursor: pointer;
             z-index: 2;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            animation: pulseText 1.8s infinite ease-in-out;
+        }
+        .hero-scroll-indicator i {
+            font-size: 1.2rem;
+            animation: bounceScroll 1.5s infinite ease-in-out;
         }
         .hero-scroll-indicator:hover {
             opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+        }
+        @keyframes pulseText {
+            0% { opacity: 0.5; text-shadow: 0 0 0 rgba(255,255,255,0); }
+            70% { opacity: 1; text-shadow: 0 0 10px rgba(249,184,27,0.5); }
+            100% { opacity: 0.5; text-shadow: 0 0 0 rgba(255,255,255,0); }
+        }
+        @keyframes bounceScroll {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
         }
         .diferenciais {
             padding: 80px 0;
@@ -822,38 +777,43 @@
                 font-size: 0.9rem;
                 margin: 0 auto;
             }
+            /* Botões do topo menores no celular */
+            .nav-links a {
+                padding: 5px 12px;
+                font-size: 0.85rem;
+            }
+            .cart-icon {
+                padding: 5px 8px;
+            }
+            .cart-icon i {
+                font-size: 1rem;
+            }
             .section-title-modern { font-size: 1.6rem; }
             .cta-flex-container { flex-direction: column; text-align: center; }
             .cta-content { text-align: center; }
             .cta-buttons { justify-content: center; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
             .cart-sidebar { width: 320px; }
-            .floating-scroll-btn {
-                width: 45px;
-                height: 45px;
+            .hero-scroll-indicator {
+                font-size: 0.7rem;
                 bottom: 20px;
-                left: 20px;
-            }
-            .floating-scroll-btn i {
-                font-size: 1.2rem;
             }
         }
         @media (max-width: 480px) {
             .hero-modern-title { font-size: 1.6rem; }
             .header-content { flex-direction: column; text-align: center; }
             .nav-links { justify-content: center; }
+            .nav-links a {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+            }
             .btn-hero-primary { 
                 padding: 8px 20px; 
                 font-size: 0.85rem;
             }
-            .floating-scroll-btn {
-                width: 40px;
-                height: 40px;
+            .hero-scroll-indicator {
+                font-size: 0.65rem;
                 bottom: 15px;
-                left: 15px;
-            }
-            .floating-scroll-btn i {
-                font-size: 1rem;
             }
         }
         .spinner {
@@ -906,7 +866,9 @@
             </div>
         </div>
     </div>
-    <div class="hero-scroll-indicator"><i class="fas fa-chevron-down"></i> Role para explorar</div>
+    <div class="hero-scroll-indicator" id="heroScrollIndicator">
+        <i class="fas fa-chevron-down"></i> Role para explorar
+    </div>
 </section>
 
 <section class="diferenciais">
@@ -975,11 +937,6 @@
     </div>
 </footer>
 
-<!-- Botão flutuante de rolagem -->
-<div class="floating-scroll-btn" id="floatingScrollBtn">
-    <i class="fas fa-chevron-down"></i>
-</div>
-
 <div class="overlay" id="overlay"></div>
 <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3><i class="fas fa-shopping-cart"></i> Meu Carrinho</h3><i class="fas fa-times" id="closeCart"></i></div><div class="cart-items" id="cartItems"><p>Seu carrinho está vazio</p></div><div class="cart-footer"><div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div><button class="btn-cart-send" id="sendCartBtn"><i class="fab fa-whatsapp"></i> Solicitar Orçamento</button><button class="btn-cart-print" id="printCartBtn"><i class="fas fa-print"></i> Imprimir Orçamento</button></div></div>
 <a class="whatsapp-float" id="whatsappFloatBtn" href="#"><i class="fab fa-whatsapp"></i></a>
@@ -1039,10 +996,11 @@
     function openWhatsApp(){ window.open('https://wa.me/5566999019605?text=Olá! Gostaria de mais informações.','_blank'); }
     function animateCounter(el, target){ let cur=0, inc=target/50; let interval=setInterval(()=>{ cur+=inc; if(cur>=target){ el.textContent=(target===1200?'+1.200':(target===24?'24h':(target===100?'100%':'+'+target))); clearInterval(interval); } else { if(target===1200) el.textContent='+'+Math.floor(cur); else if(target===24) el.textContent=Math.floor(cur)+'h'; else if(target===100) el.textContent=Math.floor(cur)+'%'; else el.textContent='+'+Math.floor(cur); } },30); }
     document.addEventListener('DOMContentLoaded',()=>{ AOS.init({duration:800}); carregarDadosJSONBin(); const saved=localStorage.getItem('carrinho'); if(saved) carrinho=JSON.parse(saved); updateCartUI(); document.getElementById('cartIcon')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.add('open'); document.getElementById('overlay').classList.add('active');}); document.getElementById('closeCart')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('overlay')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('sendCartBtn')?.addEventListener('click',sendCartToWhatsApp); document.getElementById('orcamentoNavBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); if(carrinho.length) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho'); }); document.getElementById('ctaWhatsappBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); document.getElementById('whatsappFloatBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); 
-        const floatingBtn = document.getElementById('floatingScrollBtn');
-        if(floatingBtn) floatingBtn.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
-        const heroIndicator = document.querySelector('.hero-scroll-indicator');
-        if(heroIndicator) heroIndicator.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
+        // "Role para explorar" com efeito de clique igual ao botão flutuante
+        const scrollIndicator = document.getElementById('heroScrollIndicator');
+        if(scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
+        }
         const modal=document.getElementById('modalServicos'); document.querySelector('.modal-fechar')?.addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; }); window.onclick=e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; } }; const observer=new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ document.querySelectorAll('.stat-number-modern').forEach(c=>{ let t=parseInt(c.getAttribute('data-count')); if(c.textContent==='0') animateCounter(c,t); }); observer.unobserve(entry.target); } }); },{threshold:0.3}); const statsSec=document.querySelector('.stats-section'); if(statsSec) observer.observe(statsSec); });
 </script>
 </body>
