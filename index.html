@@ -29,7 +29,6 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        /* HEADER */
         .header {
             background: #ffffff;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -84,32 +83,52 @@
             align-items: center;
             flex-wrap: wrap;
         }
+        /* ESTILO PADRÃO PARA TODOS OS BOTÕES DO MENU */
         .nav-links a {
             text-decoration: none;
             font-weight: 600;
             color: #1e2a3e;
-            transition: 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: #f9b81b;
-        }
-        .btn-contato {
-            background: #f9b81b;
-            color: #0b2b3b !important;
+            transition: all 0.3s ease;
             padding: 8px 18px;
             border-radius: 40px;
+            background: transparent;
         }
+        /* Efeito hover igual para todos - fundo amarelo com texto escuro */
+        .nav-links a:hover {
+            background: #f9b81b;
+            color: #0b2b3b !important;
+        }
+        /* Botão ativo/current page mantém destaque */
+        .nav-links a.active {
+            background: #f9b81b;
+            color: #0b2b3b !important;
+        }
+        /* Carrinho - estilo especial sem fundo amarelo no hover padrão */
         .cart-icon {
             position: relative;
             cursor: pointer;
+            padding: 8px;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-icon:hover {
+            background: #f9b81b;
+            color: #0b2b3b;
+            transform: scale(1.02);
+        }
+        .cart-icon i {
+            transition: 0.2s;
         }
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -12px;
+            top: -5px;
+            right: -8px;
             background: #f9b81b;
             color: #0b2b3b;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             border-radius: 50%;
             width: 18px;
@@ -118,7 +137,6 @@
             align-items: center;
             justify-content: center;
         }
-        /* HERO SECTION */
         .hero-modern {
             position: relative;
             min-height: 90vh;
@@ -226,7 +244,6 @@
             background: #e5a80f;
             transform: translateY(-3px);
         }
-        /* CARROSSEL MODERNO - SEM BOTÕES, SEM PONTOS, SEM SUBTÍTULO */
         .hero-services-carousel {
             flex: 0 0 auto;
             width: 380px;
@@ -286,13 +303,62 @@
             margin-right: 10px;
             font-size: 1rem;
         }
-        /* Removido o parágrafo (subtítulo) completamente */
-        .slide-info p {
-            display: none;
-        }
-        /* Esconder os pontos de paginação */
         .hero-services-swiper .swiper-pagination {
             display: none !important;
+        }
+        /* Botão flutuante de rolagem - PISCANDO */
+        .floating-scroll-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: #f9b81b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: pulseGlow 1.5s infinite ease-in-out;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .floating-scroll-btn i {
+            font-size: 1.5rem;
+            color: #0b2b3b;
+            animation: bounceUp 1.5s infinite ease-in-out;
+        }
+        .floating-scroll-btn:hover {
+            transform: scale(1.1);
+            background: #e5a80f;
+            animation: none;
+        }
+        .floating-scroll-btn:hover i {
+            animation: none;
+        }
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(249, 184, 27, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(249, 184, 27, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(249, 184, 27, 0);
+                transform: scale(1);
+            }
+        }
+        @keyframes bounceUp {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
         }
         .hero-scroll-indicator {
             position: absolute;
@@ -305,11 +371,14 @@
             gap: 8px;
             color: white;
             font-size: 0.8rem;
-            opacity: 0.7;
+            opacity: 0.6;
             cursor: pointer;
             z-index: 2;
+            transition: opacity 0.3s;
         }
-        /* Diferenciais */
+        .hero-scroll-indicator:hover {
+            opacity: 1;
+        }
         .diferenciais {
             padding: 80px 0;
             background: #f8f9fa;
@@ -358,7 +427,6 @@
             font-size: 2rem;
             color: #f9b81b;
         }
-        /* Produtos */
         .produtos-destaque {
             padding: 80px 0;
             background: linear-gradient(180deg, #f8f9fa 0%, white 100%);
@@ -445,7 +513,6 @@
         .text-center {
             text-align: center;
         }
-        /* Estatísticas */
         .stats-section {
             position: relative;
             padding: 80px 0;
@@ -480,7 +547,6 @@
             color: white;
             font-weight: 500;
         }
-        /* CTA Final */
         .cta-final {
             padding: 80px 0;
             background: linear-gradient(135deg, #0b2b3b 0%, #123e52 100%);
@@ -572,7 +638,6 @@
             justify-content: center;
             gap: 8px;
         }
-        /* Footer */
         .footer {
             background: #0a1f28;
             color: #d4e2ed;
@@ -602,7 +667,6 @@
             margin-top: 30px;
             font-size: 0.75rem;
         }
-        /* Modal, Sidebar */
         .modal-servicos {
             display: none;
             position: fixed;
@@ -752,17 +816,45 @@
             .hero-modern-content { flex-direction: column; text-align: center; gap: 30px; }
             .hero-modern-title { font-size: 2rem; text-align: center; }
             .hero-services-carousel { width: 100%; max-width: 360px; margin: 0 auto; }
+            .hero-buttons { justify-content: center; }
+            .btn-hero-primary { 
+                padding: 10px 24px; 
+                font-size: 0.9rem;
+                margin: 0 auto;
+            }
             .section-title-modern { font-size: 1.6rem; }
             .cta-flex-container { flex-direction: column; text-align: center; }
             .cta-content { text-align: center; }
             .cta-buttons { justify-content: center; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
             .cart-sidebar { width: 320px; }
+            .floating-scroll-btn {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                left: 20px;
+            }
+            .floating-scroll-btn i {
+                font-size: 1.2rem;
+            }
         }
         @media (max-width: 480px) {
             .hero-modern-title { font-size: 1.6rem; }
             .header-content { flex-direction: column; text-align: center; }
             .nav-links { justify-content: center; }
+            .btn-hero-primary { 
+                padding: 8px 20px; 
+                font-size: 0.85rem;
+            }
+            .floating-scroll-btn {
+                width: 40px;
+                height: 40px;
+                bottom: 15px;
+                left: 15px;
+            }
+            .floating-scroll-btn i {
+                font-size: 1rem;
+            }
         }
         .spinner {
             border: 3px solid #f3f3f3;
@@ -786,8 +878,9 @@
         </div>
         <div class="nav-links">
             <a href="index.html" class="active">Início</a>
+            <a href="servicos.html">Serviços</a>
             <a href="produtos.html">Produtos</a>
-            <a href="#" class="btn-contato" id="orcamentoNavBtn">Orçamento</a>
+            <a href="#" id="orcamentoNavBtn">Orçamento</a>
             <div class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart fa-lg"></i><span class="cart-count" id="cartCount">0</span></div>
         </div>
     </div>
@@ -813,7 +906,7 @@
             </div>
         </div>
     </div>
-    <div class="hero-scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+    <div class="hero-scroll-indicator"><i class="fas fa-chevron-down"></i> Role para explorar</div>
 </section>
 
 <section class="diferenciais">
@@ -882,13 +975,17 @@
     </div>
 </footer>
 
+<!-- Botão flutuante de rolagem -->
+<div class="floating-scroll-btn" id="floatingScrollBtn">
+    <i class="fas fa-chevron-down"></i>
+</div>
+
 <div class="overlay" id="overlay"></div>
 <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3><i class="fas fa-shopping-cart"></i> Meu Carrinho</h3><i class="fas fa-times" id="closeCart"></i></div><div class="cart-items" id="cartItems"><p>Seu carrinho está vazio</p></div><div class="cart-footer"><div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div><button class="btn-cart-send" id="sendCartBtn"><i class="fab fa-whatsapp"></i> Solicitar Orçamento</button><button class="btn-cart-print" id="printCartBtn"><i class="fas fa-print"></i> Imprimir Orçamento</button></div></div>
 <a class="whatsapp-float" id="whatsappFloatBtn" href="#"><i class="fab fa-whatsapp"></i></a>
 <div class="modal-servicos" id="modalServicos"><div class="modal-content"><div class="modal-header"><h2 id="modalTitulo">Serviço</h2><span class="modal-fechar">&times;</span></div><div class="modal-body"><div class="modal-descricao" id="modalDescricao"></div><div class="galeria-fotos" id="galeriaFotos"></div></div></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.css"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     const JSONBIN_BIN_ID = "6a073187adc21f119aa52743", JSONBIN_API_KEY = "$2a$10$lhJUAJrzaktow5Z6xxRb4umOZnO4IucCBgy.nWbDoB8qrwudrYaky";
@@ -909,7 +1006,7 @@
         const wrapper = document.getElementById('heroServicesWrapper'); if(!wrapper) return;
         if(!servicos.length){ wrapper.innerHTML='<div class="swiper-slide"><div style="padding:40px;color:white;">Carregando serviços...</div></div>'; return; }
         wrapper.innerHTML='';
-        servicos.forEach(servico=>{
+        servicos.slice(0,5).forEach(servico=>{
             const slide=document.createElement('div'); slide.className='swiper-slide';
             let icone='<i class="fas fa-wrench"></i>';
             if(servico.nome.toLowerCase().includes('torno')) icone='<i class="fas fa-cogs"></i>';
@@ -941,7 +1038,12 @@
     function sendCartToWhatsApp(){ if(!carrinho.length) return alert('Carrinho vazio'); let msg='Olá! Orçamento:%0A'; carrinho.forEach(i=>msg+=`*${i.nome}* Qtd:${i.quantidade} Unit:${formatPrice(i.preco)} Sub:${formatPrice(i.preco*i.quantidade)}%0A`); msg+=`%0ATOTAL: ${formatPrice(carrinho.reduce((s,i)=>s+(i.preco*i.quantidade),0))}`; window.open(`https://wa.me/5566999019605?text=${msg}`,'_blank'); }
     function openWhatsApp(){ window.open('https://wa.me/5566999019605?text=Olá! Gostaria de mais informações.','_blank'); }
     function animateCounter(el, target){ let cur=0, inc=target/50; let interval=setInterval(()=>{ cur+=inc; if(cur>=target){ el.textContent=(target===1200?'+1.200':(target===24?'24h':(target===100?'100%':'+'+target))); clearInterval(interval); } else { if(target===1200) el.textContent='+'+Math.floor(cur); else if(target===24) el.textContent=Math.floor(cur)+'h'; else if(target===100) el.textContent=Math.floor(cur)+'%'; else el.textContent='+'+Math.floor(cur); } },30); }
-    document.addEventListener('DOMContentLoaded',()=>{ AOS.init({duration:800}); carregarDadosJSONBin(); const saved=localStorage.getItem('carrinho'); if(saved) carrinho=JSON.parse(saved); updateCartUI(); document.getElementById('cartIcon')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.add('open'); document.getElementById('overlay').classList.add('active');}); document.getElementById('closeCart')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('overlay')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('sendCartBtn')?.addEventListener('click',sendCartToWhatsApp); document.getElementById('orcamentoNavBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); if(carrinho.length) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho'); }); document.getElementById('ctaWhatsappBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); document.getElementById('whatsappFloatBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); document.querySelector('.hero-scroll-indicator')?.addEventListener('click',()=>window.scrollBy({top:window.innerHeight,behavior:'smooth'})); const modal=document.getElementById('modalServicos'); document.querySelector('.modal-fechar')?.addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; }); window.onclick=e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; } }; const observer=new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ document.querySelectorAll('.stat-number-modern').forEach(c=>{ let t=parseInt(c.getAttribute('data-count')); if(c.textContent==='0') animateCounter(c,t); }); observer.unobserve(entry.target); } }); },{threshold:0.3}); const statsSec=document.querySelector('.stats-section'); if(statsSec) observer.observe(statsSec); });
+    document.addEventListener('DOMContentLoaded',()=>{ AOS.init({duration:800}); carregarDadosJSONBin(); const saved=localStorage.getItem('carrinho'); if(saved) carrinho=JSON.parse(saved); updateCartUI(); document.getElementById('cartIcon')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.add('open'); document.getElementById('overlay').classList.add('active');}); document.getElementById('closeCart')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('overlay')?.addEventListener('click',()=>{ document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active');}); document.getElementById('sendCartBtn')?.addEventListener('click',sendCartToWhatsApp); document.getElementById('orcamentoNavBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); if(carrinho.length) sendCartToWhatsApp(); else alert('Adicione produtos ao carrinho'); }); document.getElementById('ctaWhatsappBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); document.getElementById('whatsappFloatBtn')?.addEventListener('click',(e)=>{ e.preventDefault(); openWhatsApp(); }); 
+        const floatingBtn = document.getElementById('floatingScrollBtn');
+        if(floatingBtn) floatingBtn.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
+        const heroIndicator = document.querySelector('.hero-scroll-indicator');
+        if(heroIndicator) heroIndicator.addEventListener('click', () => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }));
+        const modal=document.getElementById('modalServicos'); document.querySelector('.modal-fechar')?.addEventListener('click',()=>{ modal.style.display='none'; document.body.style.overflow=''; }); window.onclick=e=>{ if(e.target===modal){ modal.style.display='none'; document.body.style.overflow=''; } }; const observer=new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ document.querySelectorAll('.stat-number-modern').forEach(c=>{ let t=parseInt(c.getAttribute('data-count')); if(c.textContent==='0') animateCounter(c,t); }); observer.unobserve(entry.target); } }); },{threshold:0.3}); const statsSec=document.querySelector('.stats-section'); if(statsSec) observer.observe(statsSec); });
 </script>
 </body>
 </html>
