@@ -968,7 +968,7 @@
         const wrapper = document.getElementById('heroServicesWrapper'); if(!wrapper) return;
         if(!servicos.length){ wrapper.innerHTML='<div class="swiper-slide"><div style="padding:40px;color:white;">Carregando serviços...</div></div>'; return; }
         wrapper.innerHTML='';
-        servicos.slice(0,5).forEach(servico=>{
+        servicos.forEach(servico=>{
             const slide=document.createElement('div'); slide.className='swiper-slide';
             let icone='<i class="fas fa-wrench"></i>';
             if(servico.nome.toLowerCase().includes('torno')) icone='<i class="fas fa-cogs"></i>';
